@@ -163,8 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1537264ff5a4f5b8953b629114eec57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameServicesCollection: {fileID: 11400000, guid: c8781ee1407ce004ba4d1f1c1092ff7b,
-    type: 2}
+  gameServicesCollection: {fileID: 11400000, guid: c8781ee1407ce004ba4d1f1c1092ff7b, type: 2}
 --- !u!4 &4829020829852108404
 Transform:
   m_ObjectHideFlags: 0
@@ -193,7 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d305b994b13c0f41ac31792531183c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  servicesManager: {fileID: 1085923120}
+  managers:
+  - {fileID: 1085923120}
 --- !u!1 &4829020829852108411
 GameObject:
   m_ObjectHideFlags: 0
