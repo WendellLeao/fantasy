@@ -1,6 +1,6 @@
 namespace Fantasy.Gameplay
 {
-    public interface IWeapon
+    internal interface IWeapon
     {
         public void Trigger();
     }

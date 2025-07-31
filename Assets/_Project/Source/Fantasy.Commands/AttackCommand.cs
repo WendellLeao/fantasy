@@ -1,5 +1,3 @@
-using Fantasy.Gameplay;
-
 namespace Fantasy.Commands
 {
     internal sealed class AttackCommand : ICommand

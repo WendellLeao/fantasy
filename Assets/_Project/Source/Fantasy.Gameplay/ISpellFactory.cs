@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    public interface ISpellFactory
+    internal interface ISpellFactory
     {
         public ISpell CastSpell(SpellData data, Vector3 position, Vector3 direction);
     }

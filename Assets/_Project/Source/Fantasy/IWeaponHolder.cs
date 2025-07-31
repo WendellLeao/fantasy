@@ -1,4 +1,4 @@
-namespace Fantasy.Gameplay
+namespace Fantasy
 {
     public interface IWeaponHolder
     {

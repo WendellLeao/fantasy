@@ -1,6 +1,6 @@
 namespace Fantasy.Gameplay
 {
-    public interface ISpellCaster
+    internal interface ISpellCaster
     {
         public void SetSpellFactory(ISpellFactory spellFactory);
     }

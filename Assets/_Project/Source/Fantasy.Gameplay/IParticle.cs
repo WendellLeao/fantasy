@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    public interface IParticle
+    internal interface IParticle
     {
         public event Action<IParticle> OnCompleted;
         public Transform Transform { get; }

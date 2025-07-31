@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Fantasy.Gameplay;
 using UnityEngine;
 
 namespace Fantasy.Commands

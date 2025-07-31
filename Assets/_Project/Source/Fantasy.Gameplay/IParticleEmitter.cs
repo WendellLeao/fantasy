@@ -1,6 +1,6 @@
 namespace Fantasy.Gameplay
 {
-    public interface IParticleEmitter
+    internal interface IParticleEmitter
     {
         public void SetParticleFactory(IParticleFactory particleFactory);
     }
