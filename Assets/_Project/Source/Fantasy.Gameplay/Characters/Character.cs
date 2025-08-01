@@ -1,8 +1,8 @@
 using Leaosoft;
 
-namespace Fantasy.Gameplay.Wizards
+namespace Fantasy.Gameplay.Characters
 {
-    internal sealed class Wizard : Entity
+    internal sealed class Character : Entity
     {
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;

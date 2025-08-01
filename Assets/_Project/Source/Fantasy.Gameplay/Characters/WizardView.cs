@@ -1,6 +1,6 @@
 using Leaosoft;
 
-namespace Fantasy.Gameplay.Wizards
+namespace Fantasy.Gameplay.Characters
 {
     internal sealed class WizardView : EntityView
     { }
