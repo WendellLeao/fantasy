@@ -42,7 +42,7 @@ namespace Fantasy.Gameplay.Characters
                 damageableView.Initialize(_damageable, _particleFactory);
             }
             
-            characterView.Initialize(weaponHolder);
+            characterView.Initialize(_damageable, weaponHolder);
         }
 
         protected override void OnDispose()

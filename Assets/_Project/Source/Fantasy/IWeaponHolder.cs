@@ -6,6 +6,8 @@ namespace Fantasy
     {
         public event Action OnWeaponExecuted;
         
+        public IWeapon Weapon { get; }
+        
         public void ExecuteWeapon();
     }
 }

@@ -82,7 +82,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityComponents: []
+  capsuleCollider: {fileID: 7616323759490494340}
   bloodParticlesPrefab: {fileID: 3276476055594407164, guid: 351900697f7bbe94a903355584ca40d7, type: 3}
 --- !u!114 &8599764717852952116
 MonoBehaviour:

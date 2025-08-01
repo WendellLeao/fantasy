@@ -6,17 +6,26 @@ namespace Fantasy.Gameplay.Weapons
     internal sealed class Sword : Entity, IWeapon, IParticleEmitter
     {
         [SerializeField]
+        private CapsuleCollider capsuleCollider;
+        [SerializeField]
         private GameObject bloodParticlesPrefab;
         
         private IParticleFactory _particleFactory;
 
         public void Execute()
         {
-            Debug.Log("<color=cyan>Swing the sword!</color>");
+            SetColliderEnabled(false);
         }
 
         protected override void InitializeComponents()
         { }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            SetColliderEnabled(false);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -31,6 +40,11 @@ namespace Fantasy.Gameplay.Weapons
         public void SetParticleFactory(IParticleFactory particleFactory)
         {
             _particleFactory = particleFactory;
+        }
+
+        public void SetColliderEnabled(bool isEnabled)
+        {
+            capsuleCollider.enabled = isEnabled;
         }
     }
 }

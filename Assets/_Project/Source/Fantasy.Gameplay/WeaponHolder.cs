@@ -15,8 +15,10 @@ namespace Fantasy.Gameplay
         private Transform parent;
         
         private IWeaponFactory _weaponFactory;
-        private IWeapon _currentWeapon;
+        private IWeapon _weapon;
 
+        public IWeapon Weapon => _weapon;
+        
         public void Initialize(IWeaponFactory weaponFactory)
         {
             _weaponFactory = weaponFactory;
@@ -27,7 +29,7 @@ namespace Fantasy.Gameplay
         [Button]
         public void ExecuteWeapon()
         {
-            _currentWeapon.Execute();
+            _weapon.Execute();
             
             OnWeaponExecuted?.Invoke();
         }
@@ -36,7 +38,7 @@ namespace Fantasy.Gameplay
         {
             base.OnInitialize();
             
-            _currentWeapon = _weaponFactory.CreateWeapon(data, parent);
+            _weapon = _weaponFactory.CreateWeapon(data, parent);
         }
     }
 }

@@ -31,66 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3776059707376193172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5206951533322047270
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5687009916260484026}
-  - component: {fileID: 5990754407619141125}
-  - component: {fileID: 3309601002139732475}
-  m_Layer: 0
-  m_Name: BasicEnemyView
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5687009916260484026
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5206951533322047270}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1701835702771364851}
-  m_Father: {fileID: 3776059707376193172}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5990754407619141125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5206951533322047270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfd20e11c507466c9ce4f2e30d898a7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  humanoidAnimatorController: {fileID: 3309601002139732475}
---- !u!114 &3309601002139732475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5206951533322047270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f813121cdf403fadab4f17b1d3b497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3060544702677173273}
 --- !u!1 &7621974409273129111
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +98,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5687009916260484026}
+  - {fileID: 1701835702771364851}
   - {fileID: 6722480650125387322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -228,7 +168,7 @@ MonoBehaviour:
   - {fileID: 8909414379109691139}
   - {fileID: 6717185278913323898}
   - {fileID: 7012965951249387332}
-  basicEnemyView: {fileID: 5990754407619141125}
+  basicEnemyView: {fileID: 9218935339792421003}
 --- !u!114 &8909414379109691139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +227,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 5687009916260484026}
+    m_TransformParent: {fileID: 3776059707376193172}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -307,15 +247,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -331,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
       propertyPath: m_Name
-      value: Model
+      value: EnemyView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -343,6 +283,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3060544702677173273}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9218935339792421003}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2999902453297729091}
   m_SourcePrefab: {fileID: 100100000, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}
 --- !u!4 &1701835702771364851 stripped
 Transform:
@@ -376,6 +322,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9218935339792421003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077833033283791177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd20e11c507466c9ce4f2e30d898a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  humanoidAnimatorController: {fileID: 2999902453297729091}
+--- !u!114 &2999902453297729091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077833033283791177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f813121cdf403fadab4f17b1d3b497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3060544702677173273}
 --- !u!4 &9145387256620882742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7997947301047521070, guid: 0b060ea0ddf04b04ca711098bfe3e17e, type: 3}

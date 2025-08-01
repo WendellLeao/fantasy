@@ -7,9 +7,9 @@ namespace Fantasy.Gameplay.Enemies
         [SerializeField]
         private HumanoidAnimatorController humanoidAnimatorController;
 
-        public void Initialize(IWeaponHolder weaponHolder)
+        public void Initialize(IDamageable damageable, IWeaponHolder weaponHolder)
         {
-            humanoidAnimatorController.Initialize(weaponHolder);
+            humanoidAnimatorController.Initialize(damageable, weaponHolder);
         }
         
         public void Dispose()
