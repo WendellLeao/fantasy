@@ -1,8 +1,8 @@
 using Leaosoft;
 
-namespace Fantasy.Gameplay.Goblins
+namespace Fantasy.Gameplay.Enemies
 {
-    internal sealed class Goblin : Entity
+    internal sealed class BasicEnemy : Entity
     {
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;

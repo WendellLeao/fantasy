@@ -1,5 +1,5 @@
 using Fantasy.Gameplay.Cursor.Manager;
-using Fantasy.Gameplay.Goblins.Manager;
+using Fantasy.Gameplay.Enemies.Manager;
 using Fantasy.Gameplay.Particles.Manager;
 using Fantasy.Gameplay.Spells.Manager;
 using Fantasy.Gameplay.Weapons.Manager;
@@ -20,14 +20,14 @@ namespace Fantasy.Gameplay.System
             TryGetManager(out SpellManager spellManager);
             TryGetManager(out WeaponManager weaponManager);
             TryGetManager(out CharacterManager characterManager);
-            // TryGetManager(out GoblinManager goblinManager);
+            TryGetManager(out EnemyManager enemyManager);
                 
             cursorManager.Initialize();
             particleManager.Initialize();
             spellManager.Initialize(particleManager);
             weaponManager.Initialize(particleManager, spellManager);
             characterManager.Initialize(particleManager, weaponManager, eventService);
-            // goblinManager.Initialize(particleManager, weaponManager, eventService);
+            enemyManager.Initialize(particleManager, weaponManager, eventService);
         }
     }
 }

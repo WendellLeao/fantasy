@@ -2,19 +2,18 @@ using Fantasy.Events.Health;
 using Leaosoft.Events;
 using UnityEngine;
 
-namespace Fantasy.Gameplay.Goblins.Manager
+namespace Fantasy.Gameplay.Enemies.Manager
 {
-    internal sealed class GoblinManager : Leaosoft.Manager
+    internal sealed class EnemyManager : Leaosoft.Manager
     {
         [SerializeField]
-        private GameObject goblinPrefab;
+        private GameObject enemyPrefab;
         [SerializeField]
         private Transform spawnPoint;
 
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IEventService _eventService;
-        private Goblin _goblin;
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService)
         {
@@ -29,17 +28,17 @@ namespace Fantasy.Gameplay.Goblins.Manager
         {
             base.OnInitialize();
             
-            _goblin = (Goblin)CreateEntity(goblinPrefab, spawnPoint);
+            BasicEnemy basicEnemy = (BasicEnemy)CreateEntity(enemyPrefab, spawnPoint);
 
-            _goblin.Initialize(_particleFactory, _weaponFactory);
-            _goblin.Begin();
+            basicEnemy.Initialize(_particleFactory, _weaponFactory);
+            basicEnemy.Begin();
             
-            DispatchDamageableSpawnedEvent();
+            DispatchDamageableSpawnedEvent(basicEnemy.Damageable);
         }
 
-        private void DispatchDamageableSpawnedEvent()
+        private void DispatchDamageableSpawnedEvent(IDamageable enemyDamageable)
         {
-            _eventService.DispatchEvent(new DamageableSpawnedEvent(_goblin.Damageable));
+            _eventService.DispatchEvent(new DamageableSpawnedEvent(enemyDamageable));
         }
     }
 }
