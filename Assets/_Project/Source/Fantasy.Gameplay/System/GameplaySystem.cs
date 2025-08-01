@@ -14,20 +14,36 @@ namespace Fantasy.Gameplay.System
         protected override void InitializeManagers()
         {
             IEventService eventService = ServiceLocator.GetService<IEventService>();
-            
-            TryGetManager(out CursorManager cursorManager);
-            TryGetManager(out ParticleManager particleManager);
-            TryGetManager(out SpellManager spellManager);
-            TryGetManager(out WeaponManager weaponManager);
-            TryGetManager(out CharacterManager characterManager);
-            TryGetManager(out EnemyManager enemyManager);
-                
-            cursorManager.Initialize();
-            particleManager.Initialize();
-            spellManager.Initialize(particleManager);
-            weaponManager.Initialize(particleManager, spellManager);
-            characterManager.Initialize(particleManager, weaponManager, eventService);
-            enemyManager.Initialize(particleManager, weaponManager, eventService);
+
+            if (TryGetManager(out CursorManager cursorManager))
+            {
+                cursorManager.Initialize();
+            }
+
+            if (TryGetManager(out ParticleManager particleManager))
+            {
+                particleManager.Initialize();
+            }
+
+            if (TryGetManager(out SpellManager spellManager))
+            {
+                spellManager.Initialize(particleManager);
+            }
+
+            if (TryGetManager(out WeaponManager weaponManager))
+            {
+                weaponManager.Initialize(particleManager, spellManager);
+            }
+
+            if (TryGetManager(out CharacterManager characterManager))
+            {
+                characterManager.Initialize(particleManager, weaponManager, eventService);
+            }
+
+            if (TryGetManager(out EnemyManager enemyManager))
+            {
+                enemyManager.Initialize(particleManager, weaponManager, eventService);
+            }
         }
     }
 }
