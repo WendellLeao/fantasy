@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7313510436926220120}
   - component: {fileID: 233877573631049504}
   m_Layer: 0
-  m_Name: FrostbiteExplosion
+  m_Name: IceExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4839,7 +4839,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0fbb0a785bfa5446935b995315f757d, type: 2}
+  - {fileID: 2100000, guid: 180d429494316a441a7e8c1067dd2aed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4904,4 +4904,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49327dadc2db49daa555aca48145953f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityComponents: []
   particle: {fileID: 1747326006458869805}

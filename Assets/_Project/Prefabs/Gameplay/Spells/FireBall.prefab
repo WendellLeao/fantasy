@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 641abc2aa0bdf9247ab53c5e513a4a7e, type: 2}
+  - {fileID: 2100000, guid: 6740552832ce54740b4251226f21cc01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -185,8 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityComponents:
   - {fileID: 5797961262117325252}
-  collisionParticle: {fileID: 4218367092044171886, guid: 51989b63108a1a444bd297908d943b11,
-    type: 3}
+  collisionParticle: {fileID: 4218367092044171886, guid: 51989b63108a1a444bd297908d943b11, type: 3}
 --- !u!114 &5797961262117325252
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 865d5f8e029a39e4391fcb75263c5e20, type: 2}
+  - {fileID: 2100000, guid: 180d429494316a441a7e8c1067dd2aed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 865d5f8e029a39e4391fcb75263c5e20, type: 2}
+  - {fileID: 2100000, guid: 180d429494316a441a7e8c1067dd2aed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -271,7 +271,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 865d5f8e029a39e4391fcb75263c5e20, type: 2}
+  - {fileID: 2100000, guid: 180d429494316a441a7e8c1067dd2aed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -392,8 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityComponents:
   - {fileID: 1062834722981190462}
-  collisionParticle: {fileID: 4218367092044171886, guid: 642970c245efc5d439418aa3d81b7e68,
-    type: 3}
+  collisionParticle: {fileID: 4218367092044171886, guid: 642970c245efc5d439418aa3d81b7e68, type: 3}
 --- !u!114 &1062834722981190462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +484,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 865d5f8e029a39e4391fcb75263c5e20, type: 2}
+  - {fileID: 2100000, guid: 180d429494316a441a7e8c1067dd2aed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
