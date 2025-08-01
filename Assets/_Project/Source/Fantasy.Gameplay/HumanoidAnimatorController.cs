@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Fantasy.Gameplay.Characters
+namespace Fantasy.Gameplay
 {
-    internal sealed class CharacterAnimatorController : MonoBehaviour
+    internal sealed class HumanoidAnimatorController : MonoBehaviour
     {
         private static readonly int ExecuteWeapon = Animator.StringToHash("ExecuteWeapon");
 

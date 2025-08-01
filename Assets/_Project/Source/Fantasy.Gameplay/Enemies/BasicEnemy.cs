@@ -1,9 +1,14 @@
 using Leaosoft;
+using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
     internal sealed class BasicEnemy : Entity
     {
+        [Header("View")]
+        [SerializeField]
+        private BasicEnemyView basicEnemyView;
+        
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IDamageable _damageable;
@@ -36,6 +41,15 @@ namespace Fantasy.Gameplay.Enemies
             {
                 damageableView.Initialize(_damageable, _particleFactory);
             }
+            
+            basicEnemyView.Initialize(weaponHolder);
+        }
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+            
+            basicEnemyView.Dispose();
         }
     }
 }

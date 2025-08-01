@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Fantasy.Gameplay.Characters
+namespace Fantasy.Gameplay.Enemies
 {
-    internal sealed class CharacterView : MonoBehaviour
+    internal sealed class BasicEnemyView : MonoBehaviour
     {
         [SerializeField]
         private HumanoidAnimatorController humanoidAnimatorController;

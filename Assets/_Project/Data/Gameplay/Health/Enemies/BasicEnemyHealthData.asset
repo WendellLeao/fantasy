@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7b81baa4d084dd5a58286e9c7c01055, type: 3}
-  m_Name: GoblinHealthData
+  m_Name: BasicEnemyHealthData
   m_EditorClassIdentifier: 
-  id: goblin_health
-  maxHealth: 200
+  id: basic_enemy_health
+  maxHealth: 150
