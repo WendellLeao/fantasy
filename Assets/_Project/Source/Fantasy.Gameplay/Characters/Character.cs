@@ -1,9 +1,14 @@
 using Leaosoft;
+using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters
 {
     internal sealed class Character : Entity
     {
+        [Header("View")]
+        [SerializeField]
+        private CharacterView characterView;
+        
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IDamageable _damageable;
@@ -36,6 +41,15 @@ namespace Fantasy.Gameplay.Characters
             {
                 damageableView.Initialize(_damageable, _particleFactory);
             }
+            
+            characterView.Initialize(weaponHolder);
+        }
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+            
+            characterView.Dispose();
         }
     }
 }

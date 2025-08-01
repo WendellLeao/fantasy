@@ -13,7 +13,7 @@ namespace Fantasy.Gameplay.Weapons
 
         private ISpellFactory _spellFactory;
         
-        public void Trigger()
+        public void Execute()
         {
             SpellData randomSpellData = spellData[Random.Range(0, spellData.Length)];
             

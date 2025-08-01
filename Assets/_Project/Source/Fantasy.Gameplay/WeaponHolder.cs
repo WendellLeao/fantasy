@@ -1,3 +1,4 @@
+using System;
 using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace Fantasy.Gameplay
 {
     internal sealed class WeaponHolder : EntityComponent, IWeaponHolder
     {
+        public event Action OnWeaponExecuted;
+        
         [SerializeField]
         private WeaponData data;
         [SerializeField]
@@ -22,9 +25,11 @@ namespace Fantasy.Gameplay
         }
 
         [Button]
-        public void TriggerCurrentWeapon()
+        public void ExecuteWeapon()
         {
-            _currentWeapon.Trigger();
+            _currentWeapon.Execute();
+            
+            OnWeaponExecuted?.Invoke();
         }
         
         protected override void OnInitialize()

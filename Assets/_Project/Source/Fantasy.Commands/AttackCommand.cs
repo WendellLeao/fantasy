@@ -11,7 +11,7 @@ namespace Fantasy.Commands
 
         public void Execute()
         {
-            _weaponHolder.TriggerCurrentWeapon();
+            _weaponHolder.ExecuteWeapon();
         }
     }
 }

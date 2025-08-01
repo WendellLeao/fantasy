@@ -10,7 +10,7 @@ namespace Fantasy.Gameplay.Weapons
         
         private IParticleFactory _particleFactory;
 
-        public void Trigger()
+        public void Execute()
         {
             Debug.Log("<color=cyan>Swing the sword!</color>");
         }

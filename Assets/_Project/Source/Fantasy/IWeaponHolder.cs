@@ -1,7 +1,11 @@
+using System;
+
 namespace Fantasy
 {
     public interface IWeaponHolder
     {
-        public void TriggerCurrentWeapon();
+        public event Action OnWeaponExecuted;
+        
+        public void ExecuteWeapon();
     }
 }
