@@ -4,6 +4,7 @@ namespace Fantasy.Gameplay
 {
     internal sealed class HumanoidAnimatorController : MonoBehaviour
     {
+        private static readonly int MovesetType = Animator.StringToHash("MovesetType");
         private static readonly int ExecuteWeapon = Animator.StringToHash("ExecuteWeapon");
         private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
 
@@ -18,7 +19,7 @@ namespace Fantasy.Gameplay
             _damageable = damageable;
             _weaponHolder = weaponHolder;
 
-            SetRuntimeAnimatorController(_weaponHolder.Weapon);
+            SetMovesetType(_weaponHolder.Weapon);
             
             SubscribeEvents();
         }
@@ -33,7 +34,7 @@ namespace Fantasy.Gameplay
             _damageable.OnDamageTaken += HandleDamageTaken;
             
             _weaponHolder.OnWeaponExecuted += HandleWeaponExecuted;
-            _weaponHolder.OnWeaponChanged += SetRuntimeAnimatorController;
+            _weaponHolder.OnWeaponChanged += SetMovesetType;
         }
 
         private void UnsubscribeEvents()
@@ -41,7 +42,7 @@ namespace Fantasy.Gameplay
             _damageable.OnDamageTaken -= HandleDamageTaken;
             
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
-            _weaponHolder.OnWeaponChanged -= SetRuntimeAnimatorController;
+            _weaponHolder.OnWeaponChanged -= SetMovesetType;
         }
 
         private void HandleDamageTaken(DamageData damageData)
@@ -54,11 +55,11 @@ namespace Fantasy.Gameplay
             animator.SetTrigger(id: ExecuteWeapon);
         }
         
-        private void SetRuntimeAnimatorController(IWeapon weapon)
+        private void SetMovesetType(IWeapon weapon)
         {
             WeaponData weaponData = weapon.Data;
             
-            animator.runtimeAnimatorController = weaponData.OverrideController;
+            animator.SetInteger(id: MovesetType, (int)weaponData.MovesetType);
         }
     }
 }

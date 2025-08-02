@@ -15,9 +15,9 @@ namespace Fantasy
         [SerializeField]
         private GameObject prefab;
         [SerializeField]
-        private AnimatorOverrideController overrideController;
+        private MovesetType movesetType;
         
         public GameObject Prefab => prefab;
-        public AnimatorOverrideController OverrideController => overrideController;
+        public MovesetType MovesetType => movesetType;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.StateMachines
 {
-    public sealed class AttackStateMachine : StateMachineBehaviour
+    public sealed class SwordAttackStateMachine : StateMachineBehaviour
     {
         private IWeapon _cachedWeapon;
 

@@ -16,4 +16,4 @@ MonoBehaviour:
   staminaCost: 0
   range: 0
   prefab: {fileID: 5309791788902657291, guid: 54fd475af6d9542498189a483009652f, type: 3}
-  overrideController: {fileID: 22100000, guid: 0d659cdf7431d0f4a87ece7b09a253b0, type: 2}
+  movesetType: 1
