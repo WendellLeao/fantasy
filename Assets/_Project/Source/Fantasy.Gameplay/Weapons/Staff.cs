@@ -26,6 +26,9 @@ namespace Fantasy.Gameplay.Weapons
         }
         
         public void Execute()
+        { }
+        
+        public void CastSpell()
         {
             SpellData randomSpellData = spellData[Random.Range(0, spellData.Length)];
             

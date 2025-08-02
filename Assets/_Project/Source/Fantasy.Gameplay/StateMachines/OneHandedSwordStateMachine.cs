@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.StateMachines
 {
-    public sealed class SwordAttackStateMachine : StateMachineBehaviour
+    internal sealed class OneHandedSwordStateMachine : StateMachineBehaviour
     {
         [InfoBox("Normalized time range (0 to 1) during which the collider will be enabled.")]
         [MinMaxSlider(0f, 1f)]
@@ -16,6 +16,8 @@ namespace Fantasy.Gameplay.StateMachines
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _cachedWeapon ??= GetEntityWeapon(animator);
+            
+            _cachedWeapon.SetColliderEnabled(false);
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -45,7 +47,7 @@ namespace Fantasy.Gameplay.StateMachines
                 return weaponHolder.Weapon;
             }
 
-            throw new InvalidOperationException($"The parent '{parent.name}' does not implement IWeaponHolder!");
+            throw new InvalidOperationException($"The parent '{parent.name}' doesn't have the WeaponHolder component!");
         }
     }
 }
