@@ -18,6 +18,8 @@ namespace Fantasy.Gameplay
             _damageable = damageable;
             _weaponHolder = weaponHolder;
 
+            SetRuntimeAnimatorController(_weaponHolder.Weapon);
+            
             SubscribeEvents();
         }
 
@@ -25,27 +27,38 @@ namespace Fantasy.Gameplay
         {
             UnsubscribeEvents();
         }
-
+        
         private void SubscribeEvents()
         {
             _damageable.OnDamageTaken += HandleDamageTaken;
+            
             _weaponHolder.OnWeaponExecuted += HandleWeaponExecuted;
+            _weaponHolder.OnWeaponChanged += SetRuntimeAnimatorController;
         }
 
         private void UnsubscribeEvents()
         {
             _damageable.OnDamageTaken -= HandleDamageTaken;
+            
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
+            _weaponHolder.OnWeaponChanged -= SetRuntimeAnimatorController;
         }
 
         private void HandleDamageTaken(DamageData damageData)
         {
             animator.SetTrigger(id: TakeDamage);
         }
-
+        
         private void HandleWeaponExecuted()
         {
             animator.SetTrigger(id: ExecuteWeapon);
+        }
+        
+        private void SetRuntimeAnimatorController(IWeapon weapon)
+        {
+            WeaponData weaponData = weapon.Data;
+            
+            animator.runtimeAnimatorController = weaponData.OverrideController;
         }
     }
 }

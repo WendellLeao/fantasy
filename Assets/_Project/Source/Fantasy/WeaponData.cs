@@ -1,10 +1,10 @@
 using Fantasy.Utilities;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy
 {
     [CreateAssetMenu(menuName = PathUtility.WeaponsMenuPath + "/WeaponData", fileName = "NewWeaponData")]
-    internal sealed class WeaponData : ScriptableObject
+    public sealed class WeaponData : ScriptableObject
     {
         [SerializeField]
         private string id;
@@ -14,7 +14,10 @@ namespace Fantasy.Gameplay
         private float range;
         [SerializeField]
         private GameObject prefab;
+        [SerializeField]
+        private AnimatorOverrideController overrideController;
         
         public GameObject Prefab => prefab;
+        public AnimatorOverrideController OverrideController => overrideController;
     }
 }

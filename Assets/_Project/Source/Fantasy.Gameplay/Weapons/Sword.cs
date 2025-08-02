@@ -11,7 +11,17 @@ namespace Fantasy.Gameplay.Weapons
         private GameObject bloodParticlesPrefab;
         
         private IParticleFactory _particleFactory;
+        private WeaponData _data;
 
+        public WeaponData Data => _data;
+
+        public void Initialize(WeaponData data)
+        {
+            _data = data;
+            
+            base.Initialize();
+        }
+        
         public void Execute()
         {
             SetColliderEnabled(false);

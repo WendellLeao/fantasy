@@ -8,7 +8,8 @@ namespace Fantasy.Gameplay
     internal sealed class WeaponHolder : EntityComponent, IWeaponHolder
     {
         public event Action OnWeaponExecuted;
-        
+        public event Action<IWeapon> OnWeaponChanged;
+
         [SerializeField]
         private WeaponData data;
         [SerializeField]

@@ -12,6 +12,16 @@ namespace Fantasy.Gameplay.Weapons
         private Transform spawnPoint;
 
         private ISpellFactory _spellFactory;
+        private WeaponData _data;
+
+        public WeaponData Data => _data;
+
+        public void Initialize(WeaponData data)
+        {
+            _data = data;
+            
+            base.Initialize();
+        }
         
         public void Execute()
         {
@@ -19,7 +29,7 @@ namespace Fantasy.Gameplay.Weapons
             
             _spellFactory.CastSpell(randomSpellData, spawnPoint.position, direction: transform.forward);
         }
-        
+
         public void SetSpellFactory(ISpellFactory spellFactory)
         {
             _spellFactory = spellFactory;

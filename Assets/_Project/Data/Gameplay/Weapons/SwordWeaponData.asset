@@ -16,3 +16,4 @@ MonoBehaviour:
   staminaCost: 0
   range: 0
   prefab: {fileID: 4819132022086757035, guid: 70009b14618756640830938a5d829aaf, type: 3}
+  overrideController: {fileID: 22100000, guid: 6bda865057129c34a9e51b30aa920d17, type: 2}

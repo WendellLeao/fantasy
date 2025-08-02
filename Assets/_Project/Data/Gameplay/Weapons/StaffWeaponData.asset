@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 547c29c45ebc44a09d2060e600d8a8aa, type: 3}
-  m_Name: StaffFireWeaponData
+  m_Name: StaffWeaponData
   m_EditorClassIdentifier: 
-  id: staff_fire_weapon
+  id: staff_weapon
   staminaCost: 0
   range: 0
   prefab: {fileID: 5309791788902657291, guid: 54fd475af6d9542498189a483009652f, type: 3}
+  overrideController: {fileID: 22100000, guid: 0d659cdf7431d0f4a87ece7b09a253b0, type: 2}

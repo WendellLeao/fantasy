@@ -9,7 +9,7 @@ AnimatorOverrideController:
   m_Name: HumanoidMageOverrideController
   m_Controller: {fileID: 9100000, guid: 994821a1480e28c40bc4bf8248ce3a66, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 19faaead04e381447a02b545ab9798d1, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: ee4119abe3b1c324caafc7904d6f194f, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: bd456f8beb3ad924d937196a6fb29635, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 9b2a15d4b7c5d154a862a6c3352d45c4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 19faaead04e381447a02b545ab9798d1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ee4119abe3b1c324caafc7904d6f194f, type: 2}

@@ -21,13 +21,13 @@ namespace Fantasy.Gameplay.Weapons.Manager
         {
             IEntity entity = CreateEntity(data.Prefab, parent);
 
-            entity.Initialize();
-            entity.Begin();
-            
             if (entity is not IWeapon weapon)
             {
                 throw new InvalidOperationException($"Wasn't possible to cast the '{entity}' to '{nameof(IWeapon)}'");
             }
+            
+            weapon.Initialize(data);
+            weapon.Begin();
             
             if (weapon is IParticleEmitter particleEmitter)
             {
