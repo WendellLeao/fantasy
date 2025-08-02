@@ -28,5 +28,10 @@ namespace Fantasy
         public float AmountPerSecond => hasDamagePerSecond ? amountPerSecond : 0f;
         public float DamagePerSecondDuration => hasDamagePerSecond ? damagePerSecondDuration : 0f;
         public GameObject DpsParticlePrefab => hasDamagePerSecond ? dpsParticlePrefab : null;
+
+        public void SetAmount(float newAmount)
+        {
+            amount = newAmount;
+        }
     }
 }

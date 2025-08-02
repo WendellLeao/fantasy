@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal sealed class HealthController : EntityComponent, IDamageable
+    public sealed class HealthController : EntityComponent, IDamageable
     {
         public event Action<float> OnHealthChanged;
         public event Action<DamageData> OnDamageTaken;
@@ -25,7 +25,7 @@ namespace Fantasy.Gameplay
         public float HealthRatio => _healthModel.HealthRatio;
         public bool IsTakingDamage => _damagePerSecondDuration > 0f;
 
-        public void ApplyDamage(DamageData damageData)
+        public void TakeDamage(DamageData damageData)
         {
             if (_isInvincible || HealthRatio <= 0f)
             {
@@ -91,6 +91,11 @@ namespace Fantasy.Gameplay
         private void DispatchHealthChangedEvent()
         {
             OnHealthChanged?.Invoke(HealthRatio);
+        }
+
+        public void SetHealthData(HealthData healthData)
+        {
+            data = healthData;
         }
         
         public void SetIsInvincible(bool isInvincible)

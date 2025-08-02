@@ -13,7 +13,7 @@ namespace Fantasy
         public float HealthRatio { get; }
         public bool IsTakingDamage { get; }
         
-        public void ApplyDamage(DamageData damageData);
+        public void TakeDamage(DamageData damageData);
         public void SetIsInvincible(bool isInvincible);
     }
 }

@@ -14,7 +14,7 @@ namespace Fantasy.Gameplay
                 return false;
             }
             
-            damageable.ApplyDamage(data);
+            damageable.TakeDamage(data);
             
             return true;
         }
