@@ -9,6 +9,7 @@ namespace Fantasy.Gameplay
     {
         public event Action<float> OnHealthChanged;
         public event Action<DamageData> OnDamageTaken;
+        public event Action OnDied;
         
         [SerializeField]
         private HealthData data;
@@ -26,7 +27,7 @@ namespace Fantasy.Gameplay
 
         public void ApplyDamage(DamageData damageData)
         {
-            if (_isInvincible)
+            if (_isInvincible || HealthRatio <= 0f)
             {
                 return;
             }
@@ -41,7 +42,10 @@ namespace Fantasy.Gameplay
             
             OnDamageTaken?.Invoke(damageData);
 
-            DispatchHealthChangedEvent();
+            if (HealthRatio <= 0f)
+            {
+                OnDied?.Invoke();
+            }
         }
 
         protected override void OnInitialize()

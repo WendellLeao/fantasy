@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 namespace Fantasy.Gameplay
 {
@@ -7,6 +9,8 @@ namespace Fantasy.Gameplay
         private static readonly int MovesetType = Animator.StringToHash("MovesetType");
         private static readonly int ExecuteWeapon = Animator.StringToHash("ExecuteWeapon");
         private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
+        private static readonly int DeathType = Animator.StringToHash("DeathType");
+        private static readonly int Die = Animator.StringToHash("Die");
 
         [SerializeField]
         private Animator animator;
@@ -32,22 +36,32 @@ namespace Fantasy.Gameplay
         private void SubscribeEvents()
         {
             _damageable.OnDamageTaken += HandleDamageTaken;
+            _damageable.OnDied += HandleDamageableDied;
             
             _weaponHolder.OnWeaponChanged += HandleWeaponMovesetType;
-            _weaponHolder.Weapon.OnExecuted += HandleWeaponExecuted;
+            _weaponHolder.OnWeaponExecuted += HandleWeaponExecuted;
         }
 
         private void UnsubscribeEvents()
         {
             _damageable.OnDamageTaken -= HandleDamageTaken;
+            _damageable.OnDied -= HandleDamageableDied;
             
             _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
-            _weaponHolder.Weapon.OnExecuted -= HandleWeaponExecuted;
+            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
         }
 
         private void HandleDamageTaken(DamageData damageData)
         {
             animator.SetTrigger(id: TakeDamage);
+        }
+        
+        private void HandleDamageableDied()
+        {
+            int randomDeathType = Random.Range(0, Enum.GetValues(typeof(DeathType)).Length);
+            
+            animator.SetInteger(id: DeathType, randomDeathType);
+            animator.SetTrigger(id: Die);
         }
         
         private void HandleWeaponMovesetType(IWeapon weapon)
