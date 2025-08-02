@@ -27,6 +27,18 @@ namespace Fantasy.Gameplay
             base.Initialize();
         }
 
+        public void ChangeWeapon(WeaponData weaponData)
+        {
+            if (_weapon != null)
+            {
+                _weaponFactory.DisposeWeapon(_weapon);
+            }
+            
+            _weapon = _weaponFactory.CreateWeapon(weaponData, parent);
+            
+            OnWeaponChanged?.Invoke(_weapon);
+        }
+        
         [Button]
         public void ExecuteWeapon()
         {
@@ -38,8 +50,8 @@ namespace Fantasy.Gameplay
         protected override void OnInitialize()
         {
             base.OnInitialize();
-            
-            _weapon = _weaponFactory.CreateWeapon(data, parent);
+
+            ChangeWeapon(data);
         }
     }
 }

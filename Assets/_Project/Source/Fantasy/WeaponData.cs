@@ -17,6 +17,7 @@ namespace Fantasy
         [SerializeField]
         private MovesetType movesetType;
         
+        public string Id => id;
         public GameObject Prefab => prefab;
         public MovesetType MovesetType => movesetType;
     }

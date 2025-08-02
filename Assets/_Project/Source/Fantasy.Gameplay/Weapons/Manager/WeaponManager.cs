@@ -41,5 +41,15 @@ namespace Fantasy.Gameplay.Weapons.Manager
             
             return weapon;
         }
+
+        public void DisposeWeapon(IWeapon weapon)
+        {
+            if (weapon is IEntity entity)
+            {
+                DisposeEntity(entity);
+                
+                Destroy(entity.GameObject); // TODO: use pooling
+            }
+        }
     }
 }
