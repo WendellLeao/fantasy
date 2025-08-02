@@ -10,6 +10,8 @@ namespace Fantasy.Gameplay.Weapons
         private SpellData[] spellData;
         [SerializeField]
         private Transform spawnPoint;
+        [SerializeField]
+        private BoxCollider boxCollider;
 
         private ISpellFactory _spellFactory;
         private WeaponData _data;
@@ -29,13 +31,25 @@ namespace Fantasy.Gameplay.Weapons
             
             _spellFactory.CastSpell(randomSpellData, spawnPoint.position, direction: transform.forward);
         }
+        
+        protected override void InitializeComponents()
+        { }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            SetColliderEnabled(false);
+        }
 
         public void SetSpellFactory(ISpellFactory spellFactory)
         {
             _spellFactory = spellFactory;
         }
 
-        protected override void InitializeComponents()
-        { }
+        public void SetColliderEnabled(bool isEnabled)
+        {
+            boxCollider.enabled = isEnabled;
+        }
     }
 }

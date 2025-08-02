@@ -72,6 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1663091608415133226}
+  - component: {fileID: 7607965763412421558}
   - component: {fileID: 1438187163597349775}
   m_Layer: 6
   m_Name: StaffBase
@@ -97,6 +98,27 @@ Transform:
   - {fileID: 405016737597234959}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7607965763412421558
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5934798020551848202}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.1004547, y: 2.0324118, z: 0.10343611}
+  m_Center: {x: 0, y: 0.23214877, z: 0.0007308144}
 --- !u!114 &1438187163597349775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +134,7 @@ MonoBehaviour:
   entityComponents: []
   spellData: []
   spawnPoint: {fileID: 405016737597234959}
+  boxCollider: {fileID: 7607965763412421558}
 --- !u!1001 &1632663021097503768
 PrefabInstance:
   m_ObjectHideFlags: 0

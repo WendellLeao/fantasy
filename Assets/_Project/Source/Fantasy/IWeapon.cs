@@ -7,5 +7,6 @@ namespace Fantasy
         public void Initialize(WeaponData data);
         public void Begin();
         public void Execute();
+        public void SetColliderEnabled(bool isEnabled);
     }
 }

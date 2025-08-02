@@ -1,11 +1,16 @@
 using System;
-using Fantasy.Gameplay.Weapons;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.StateMachines
 {
     public sealed class SwordAttackStateMachine : StateMachineBehaviour
     {
+        [InfoBox("Normalized time range (0 to 1) during which the collider will be enabled.")]
+        [MinMaxSlider(0f, 1f)]
+        [SerializeField]
+        private Vector2 colliderEnableRange = new(0.15f, 0.3f);
+        
         private IWeapon _cachedWeapon;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -17,26 +22,20 @@ namespace Fantasy.Gameplay.StateMachines
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            bool mustEnableCollider = stateInfo.normalizedTime is >= 0.15f and < 0.3f;
+            float normalizedTime = stateInfo.normalizedTime;
             
-            SetWeaponColliderEnabled(mustEnableCollider);
+            bool mustEnableCollider = normalizedTime >= colliderEnableRange.x && normalizedTime < colliderEnableRange.y;
+            
+            _cachedWeapon.SetColliderEnabled(mustEnableCollider);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
             
-            SetWeaponColliderEnabled(false);
+            _cachedWeapon.SetColliderEnabled(false);
         }
         
-        private void SetWeaponColliderEnabled(bool isEnabled)
-        {
-            if (_cachedWeapon is Sword sword)
-            {
-                sword.SetColliderEnabled(isEnabled);
-            }
-        }
-
         private IWeapon GetEntityWeapon(Animator animator)
         {
             Transform parent = animator.transform.parent;
