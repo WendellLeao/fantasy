@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SwordWeaponData
   m_EditorClassIdentifier: 
   id: sword_weapon
+  viewName: Sword
   staminaCost: 0
   range: 0
   prefab: {fileID: 4819132022086757035, guid: 70009b14618756640830938a5d829aaf, type: 3}

@@ -55,7 +55,7 @@ namespace Fantasy.Gameplay.StateMachines
             {
                 if (weaponHolder.Weapon is not ISpellCaster spellCaster)
                 {
-                    throw new InvalidOperationException($"The weapon '{nameof(weaponHolder.Weapon)}' doesn't implement {nameof(ISpellCaster)}!");
+                    throw new InvalidOperationException($"The weapon '{weaponHolder.Weapon.Data.ViewName}' doesn't implement {nameof(ISpellCaster)}!");
                 }
                 
                 return spellCaster;

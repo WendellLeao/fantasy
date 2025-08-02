@@ -9,6 +9,8 @@ namespace Fantasy
         [SerializeField]
         private string id;
         [SerializeField]
+        private string viewName;
+        [SerializeField]
         private float staminaCost;
         [SerializeField]
         private float range;
@@ -17,7 +19,7 @@ namespace Fantasy
         [SerializeField]
         private MovesetType movesetType;
         
-        public string Id => id;
+        public string ViewName => viewName;
         public GameObject Prefab => prefab;
         public MovesetType MovesetType => movesetType;
     }

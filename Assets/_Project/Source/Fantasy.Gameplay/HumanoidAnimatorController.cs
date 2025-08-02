@@ -19,7 +19,7 @@ namespace Fantasy.Gameplay
             _damageable = damageable;
             _weaponHolder = weaponHolder;
 
-            SetMovesetType(_weaponHolder.Weapon);
+            HandleWeaponMovesetType(_weaponHolder.Weapon);
             
             SubscribeEvents();
         }
@@ -33,16 +33,16 @@ namespace Fantasy.Gameplay
         {
             _damageable.OnDamageTaken += HandleDamageTaken;
             
-            _weaponHolder.OnWeaponExecuted += HandleWeaponExecuted;
-            _weaponHolder.OnWeaponChanged += SetMovesetType;
+            _weaponHolder.OnWeaponChanged += HandleWeaponMovesetType;
+            _weaponHolder.Weapon.OnExecuted += HandleWeaponExecuted;
         }
 
         private void UnsubscribeEvents()
         {
             _damageable.OnDamageTaken -= HandleDamageTaken;
             
-            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
-            _weaponHolder.OnWeaponChanged -= SetMovesetType;
+            _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
+            _weaponHolder.Weapon.OnExecuted -= HandleWeaponExecuted;
         }
 
         private void HandleDamageTaken(DamageData damageData)
@@ -50,16 +50,16 @@ namespace Fantasy.Gameplay
             animator.SetTrigger(id: TakeDamage);
         }
         
-        private void HandleWeaponExecuted()
-        {
-            animator.SetTrigger(id: ExecuteWeapon);
-        }
-        
-        private void SetMovesetType(IWeapon weapon)
+        private void HandleWeaponMovesetType(IWeapon weapon)
         {
             WeaponData weaponData = weapon.Data;
             
             animator.SetInteger(id: MovesetType, (int)weaponData.MovesetType);
+        }
+        
+        private void HandleWeaponExecuted()
+        {
+            animator.SetTrigger(id: ExecuteWeapon);
         }
     }
 }

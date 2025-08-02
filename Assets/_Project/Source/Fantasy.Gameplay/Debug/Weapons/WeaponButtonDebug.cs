@@ -10,7 +10,7 @@ namespace Fantasy.Gameplay.Debug.Weapons
         [SerializeField]
         private Button button;
         [SerializeField]
-        private TextMeshProUGUI idText;
+        private TextMeshProUGUI weaponNameText;
 
         private WeaponData _weaponData;
 
@@ -18,7 +18,7 @@ namespace Fantasy.Gameplay.Debug.Weapons
         {
             _weaponData = weaponData;
             
-            idText.text = _weaponData.Id;
+            weaponNameText.text = _weaponData.ViewName;
         }
         
         private void OnEnable()

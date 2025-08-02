@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StaffWeaponData
   m_EditorClassIdentifier: 
   id: staff_weapon
+  viewName: Staff
   staminaCost: 0
   range: 0
   prefab: {fileID: 5309791788902657291, guid: 54fd475af6d9542498189a483009652f, type: 3}

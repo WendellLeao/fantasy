@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5710502082886146441}
-  idText: {fileID: 6884498472366331260}
+  weaponNameText: {fileID: 6884498472366331260}
 --- !u!1 &874687983183751171
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 4675593953318718338}
   - component: {fileID: 6884498472366331260}
   m_Layer: 5
-  m_Name: IdText
+  m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

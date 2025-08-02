@@ -1,7 +1,11 @@
+using System;
+
 namespace Fantasy
 {
     public interface IWeapon
     {
+        public event Action OnExecuted;
+        
         public WeaponData Data { get; }
         
         public void Initialize(WeaponData data);
