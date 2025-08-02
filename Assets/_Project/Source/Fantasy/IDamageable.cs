@@ -10,7 +10,9 @@ namespace Fantasy
         
         public Transform HealthBarParent { get; }
         public float HealthRatio { get; }
+        public bool IsTakingDamage { get; }
         
         public void ApplyDamage(DamageData damageData);
+        public void SetIsInvincible(bool isInvincible);
     }
 }

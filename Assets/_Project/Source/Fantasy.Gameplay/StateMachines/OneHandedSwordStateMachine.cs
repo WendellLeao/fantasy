@@ -15,6 +15,8 @@ namespace Fantasy.Gameplay.StateMachines
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            base.OnStateEnter(animator, stateInfo, layerIndex);
+            
             _cachedWeapon ??= GetEntityWeapon(animator);
             
             _cachedWeapon.SetColliderEnabled(false);
@@ -47,7 +49,7 @@ namespace Fantasy.Gameplay.StateMachines
                 return weaponHolder.Weapon;
             }
 
-            throw new InvalidOperationException($"The parent '{parent.name}' doesn't have the WeaponHolder component!");
+            throw new InvalidOperationException($"The parent '{parent.name}' doesn't implement the {nameof(IWeaponHolder)} component!");
         }
     }
 }

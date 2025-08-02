@@ -16,37 +16,30 @@ namespace Fantasy.Gameplay
         private Transform healthBarParent;
 
         private HealthModel _healthModel;
-        private float _damagePerSecondCountdown;
-        private float _damagePerSecond;
+        private float _damagePerSecondDuration;
+        private float _amountDamagePerSecond;
+        private bool _isInvincible;
 
         public Transform HealthBarParent => healthBarParent;
         public float HealthRatio => _healthModel.HealthRatio;
+        public bool IsTakingDamage => _damagePerSecondDuration > 0f;
 
         public void ApplyDamage(DamageData damageData)
         {
+            if (_isInvincible)
+            {
+                return;
+            }
+            
             DecrementHealth(damageData.Amount);
 
             if (damageData.HasDamagePerSecond)
             {
-                _damagePerSecondCountdown += damageData.DamagePerSecondDuration;
-                _damagePerSecond += damageData.AmountPerSecond;
+                _damagePerSecondDuration += damageData.DamagePerSecondDuration;
+                _amountDamagePerSecond += damageData.AmountPerSecond;
             }
             
             OnDamageTaken?.Invoke(damageData);
-
-            DispatchHealthChangedEvent();
-        }
-        
-        public void IncrementHealth(float amount)
-        {
-            _healthModel.IncrementHealth(amount);
-
-            DispatchHealthChangedEvent();
-        }
-        
-        public void DecrementHealth(float amount)
-        {
-            _healthModel.DecrementHealth(amount);
 
             DispatchHealthChangedEvent();
         }
@@ -62,17 +55,31 @@ namespace Fantasy.Gameplay
         {
             base.OnTick(deltaTime);
             
-            if (_damagePerSecondCountdown > 0f)
+            if (IsTakingDamage)
             {
                 ApplyDamagePerSecond(deltaTime);
 
-                _damagePerSecondCountdown -= deltaTime;
+                _damagePerSecondDuration -= deltaTime;
             }
         }
 
+        private void IncrementHealth(float amount)
+        {
+            _healthModel.IncrementHealth(amount);
+
+            DispatchHealthChangedEvent();
+        }
+        
+        private void DecrementHealth(float amount)
+        {
+            _healthModel.DecrementHealth(amount);
+
+            DispatchHealthChangedEvent();
+        }
+        
         private void ApplyDamagePerSecond(float deltaTime)
         {
-            float amount = _damagePerSecond * deltaTime;
+            float amount = _amountDamagePerSecond * deltaTime;
 
             DecrementHealth(amount);
         }
@@ -80,6 +87,11 @@ namespace Fantasy.Gameplay
         private void DispatchHealthChangedEvent()
         {
             OnHealthChanged?.Invoke(HealthRatio);
+        }
+        
+        public void SetIsInvincible(bool isInvincible)
+        {
+            _isInvincible = isInvincible;
         }
 
         #region DEBUG

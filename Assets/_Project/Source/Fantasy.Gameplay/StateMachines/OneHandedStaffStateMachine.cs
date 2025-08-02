@@ -55,13 +55,13 @@ namespace Fantasy.Gameplay.StateMachines
             {
                 if (weaponHolder.Weapon is not ISpellCaster spellCaster)
                 {
-                    throw new InvalidOperationException($"The weapon '{weaponHolder.Weapon.Data.ViewName}' doesn't implement {nameof(ISpellCaster)}!");
+                    throw new InvalidOperationException($"The weapon '{weaponHolder.Weapon.Data.ViewName}' doesn't implement the {nameof(ISpellCaster)}!");
                 }
                 
                 return spellCaster;
             }
 
-            throw new InvalidOperationException($"The parent '{parent.name}' doesn't have the WeaponHolder component!");
+            throw new InvalidOperationException($"The parent '{parent.name}' doesn't implement the {nameof(IWeaponHolder)} component!");
         }
     }
 }
