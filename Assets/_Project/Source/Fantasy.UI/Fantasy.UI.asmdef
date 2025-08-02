@@ -1,0 +1,24 @@
+{
+    "name": "Fantasy.UI",
+    "rootNamespace": "Fantasy.UI",
+    "references": [
+        "GUID:d99d98637fd56ff4c9f258fdedb73af5",
+        "GUID:6cfc7f64e61e1e4429f37484e489b8cf",
+        "GUID:6db9c19b80736f643b859bc09ee968c2",
+        "GUID:18b0f4370b74acf428fb100e5f71e7ca",
+        "GUID:f7ffc5db09633f74c96d4e41fd2e117e",
+        "GUID:35d2dbdd11c89d3468728850f3f463f6",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:7fc305df0619b5d4894d14985db4c9f7",
+        "GUID:776d03a35f1b52c4a9aed9f56d7b4229"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

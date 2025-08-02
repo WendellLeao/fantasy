@@ -12,7 +12,7 @@ namespace HierarchyDesigner
         #region GUI
         private Vector2 notesScroll;
         private const int defaultGUISpace = 2;
-        private const int sectionGUISpace = 5;
+        private const int sectionGUISpace = 10;
         private const int labelFieldWidth = 100;
         private const int minButtonWidth = 25;
         private const int maxButtonWidth = 100;
@@ -163,6 +163,7 @@ namespace HierarchyDesigner
                     displayParentsOnly = newDisplayParentsOnly;
                     RefreshChildrenList();
                 }
+
                 EditorGUILayout.Space(defaultGUISpace);
 
                 if (GUILayout.Button("Refresh Children List", GUILayout.Height(20)))
