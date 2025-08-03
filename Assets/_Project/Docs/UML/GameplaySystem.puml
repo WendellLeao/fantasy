@@ -3,14 +3,14 @@
 
 package Fantasy {
     package Gameplay {
+        interface IParticleEmitter
+        interface IDamageable
+        interface ISpell
+        
         package System {
             Class GameplaySystem
         }
         
-        interface IParticleEmitter
-        interface IDamageable
-        interface ISpell
-
         package Cursor {
             package Manager {
                 Class CursorManager
