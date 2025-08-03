@@ -50,11 +50,13 @@ namespace Fantasy.Gameplay.Tests
 
         private HealthController GetHealthController()
         {
-            GameObject newGameObject = new GameObject(name: "Test_HumbleEntity");
+            GameObject newGameObject = new GameObject(name: $"Humble {nameof(HumbleEntity)}", components: new[]
+            {
+                typeof(HumbleEntity),
+                typeof(HealthController)
+            });
 
-            newGameObject.AddComponent<HumbleEntity>();
-            
-            return newGameObject.AddComponent<HealthController>();
+            return newGameObject.GetComponent<HealthController>();
         }
         
         private DamageData GetMockDamageData()
