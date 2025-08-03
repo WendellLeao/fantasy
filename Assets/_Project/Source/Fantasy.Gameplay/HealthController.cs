@@ -1,6 +1,5 @@
 using System;
 using Leaosoft;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
@@ -93,6 +92,10 @@ namespace Fantasy.Gameplay
             OnHealthChanged?.Invoke(HealthRatio);
         }
 
+        public void SetIsInvincible(bool isInvincible)
+        {
+            _isInvincible = isInvincible;
+        }
 
 #if UNITY_EDITOR
         public void SetHealthDataForTests(HealthData healthData)
@@ -100,26 +103,5 @@ namespace Fantasy.Gameplay
             data = healthData;
         }
 #endif
-
-        public void SetIsInvincible(bool isInvincible)
-        {
-            _isInvincible = isInvincible;
-        }
-
-        #region DEBUG
-        
-        [Button]
-        private void DecrementHealth()
-        {
-            DecrementHealth(amount: 10);
-        }
-        
-        [Button]
-        private void IncrementHealth()
-        {
-            IncrementHealth(amount: 10);
-        }
-
-        #endregion
     }
 }

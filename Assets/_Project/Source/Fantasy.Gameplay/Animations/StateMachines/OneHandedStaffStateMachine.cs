@@ -2,7 +2,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Fantasy.Gameplay.StateMachines
+namespace Fantasy.Gameplay.Animations.StateMachines
 {
     internal sealed class OneHandedStaffStateMachine : StateMachineBehaviour
     {
