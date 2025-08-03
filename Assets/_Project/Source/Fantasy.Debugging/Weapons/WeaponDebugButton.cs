@@ -1,5 +1,4 @@
-﻿using Fantasy.Gameplay.Characters;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +11,12 @@ namespace Fantasy.Debugging.Weapons
         [SerializeField]
         private TextMeshProUGUI weaponNameText;
 
+        private IWeaponHolder _weaponHolder;
         private WeaponData _weaponData;
 
-        public void Setup(WeaponData weaponData)
+        public void Setup(IWeaponHolder weaponHolder, WeaponData weaponData)
         {
+            _weaponHolder = weaponHolder;
             _weaponData = weaponData;
             
             weaponNameText.text = _weaponData.ViewName;
@@ -33,9 +34,7 @@ namespace Fantasy.Debugging.Weapons
 
         private void HandleButtonClick()
         {
-            Character character = FindFirstObjectByType<Character>();
-            
-            character.GetComponent<IWeaponHolder>().ChangeWeapon(_weaponData);
+            _weaponHolder.ChangeWeapon(_weaponData);
         }
     }
 }
