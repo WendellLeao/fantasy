@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5710502082886146441}
   - component: {fileID: -3127753890090328455}
   m_Layer: 5
-  m_Name: WeaponButtonDebug
+  m_Name: WeaponDebugButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

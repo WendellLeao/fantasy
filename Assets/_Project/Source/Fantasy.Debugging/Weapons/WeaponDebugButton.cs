@@ -3,9 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Fantasy.Gameplay.Debug.Weapons
+namespace Fantasy.Debugging.Weapons
 {
-    internal sealed class WeaponButtonDebug : MonoBehaviour
+    internal sealed class WeaponDebugButton : MonoBehaviour
     {
         [SerializeField]
         private Button button;

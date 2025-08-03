@@ -1737,7 +1737,7 @@ GameObject:
   - component: {fileID: 1266740993}
   - component: {fileID: 1266740994}
   m_Layer: 5
-  m_Name: WeaponButtonManager
+  m_Name: WeaponDebugger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1771,13 +1771,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266740991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c04c1047761948d9b0f80b35c5027bf2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fdf8011da4169843bf49ea70c25157e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 11400000, guid: 8059a52c2d1b4b742b6ed8fdacdb19fe, type: 2}
   - {fileID: 11400000, guid: ccd6012c99e78974ca7612afd9406e38, type: 2}
-  buttonPrefab: {fileID: -3127753890090328455, guid: bf4f2910aa11a9e418bc683d6cb33841, type: 3}
+  debugButtonPrefab: {fileID: -3127753890090328455, guid: bf4f2910aa11a9e418bc683d6cb33841, type: 3}
 --- !u!114 &1266740994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2327,7 +2327,7 @@ GameObject:
   - component: {fileID: 1900688022}
   - component: {fileID: 1900688021}
   m_Layer: 5
-  m_Name: CanvasDebug
+  m_Name: DebuggingCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

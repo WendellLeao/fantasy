@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters
 {
-    internal sealed class Character : Entity
+    public sealed class Character : Entity
     {
         [Header("View")]
         [SerializeField]
