@@ -7,19 +7,16 @@ namespace Fantasy.Gameplay.Tests
     {
         private HealthData _mockHealthData;
         private DamageData _mockDamageData;
-        private HealthController _healthController;
+        private HealthController _sut;
 
         [SetUp]
         public void SetUp()
         {
             _mockHealthData = GetMockHealthData();
             _mockDamageData = GetMockDamageData();
+            _sut = GetHealthController();
             
-            _healthController = GetHealthController();
-            
-            _healthController.SetHealthData(_mockHealthData);
-            
-            _healthController.Initialize();
+            _sut.SetHealthDataForTests(_mockHealthData);
         }
 
         [TearDown]
@@ -27,30 +24,33 @@ namespace Fantasy.Gameplay.Tests
         {
             DestroyImmediate(_mockHealthData);
             DestroyImmediate(_mockDamageData);
-            DestroyImmediate(_healthController.gameObject);
+            DestroyImmediate(_sut.gameObject);
         }
 
         [Test]
-        public void TakeDamage_DecrementCurrentHealth()
+        public void TakeDamage_ReducesCurrentHealthByThreePercent()
         {
-            // Takes 30 of damage
-            _healthController.TakeDamage(_mockDamageData);
+            // Arrange
+            _mockDamageData.SetAmountForTests(30);
+            _mockHealthData.SetMaxHealthForTests(100);
             
-            Assert.AreEqual(0.7f, _healthController.HealthRatio);
+            _sut.Initialize();
+            
+            // Act
+            _sut.TakeDamage(_mockDamageData);
+            
+            // Assert
+            Assert.That(_sut.HealthRatio, expression: Is.EqualTo(expected: 0.7f).Within(0.0001f));
         }
         
         private HealthData GetMockHealthData()
         {
-            HealthData healthData = ScriptableObject.CreateInstance<HealthData>();
-            
-            healthData.SetMaxHealth(100);
-
-            return healthData;
+            return ScriptableObject.CreateInstance<HealthData>();
         }
 
         private HealthController GetHealthController()
         {
-            GameObject newGameObject = new GameObject();
+            GameObject newGameObject = new GameObject(name: "Test_HumbleEntity");
 
             newGameObject.AddComponent<HumbleEntity>();
             
@@ -59,11 +59,7 @@ namespace Fantasy.Gameplay.Tests
         
         private DamageData GetMockDamageData()
         {
-            DamageData damageData = ScriptableObject.CreateInstance<DamageData>();
-            
-            damageData.SetAmount(30);
-
-            return damageData;
+            return ScriptableObject.CreateInstance<DamageData>();
         }
     }
 }

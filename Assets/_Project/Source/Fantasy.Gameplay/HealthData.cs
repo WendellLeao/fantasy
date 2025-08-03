@@ -13,9 +13,11 @@ namespace Fantasy.Gameplay
 
         public float MaxHealth => maxHealth;
 
-        public void SetMaxHealth(float newMaxHealth)
+#if UNITY_EDITOR
+        public void SetMaxHealthForTests(float newMaxHealth)
         {
             maxHealth = newMaxHealth;
         }
+#endif
     }
 }

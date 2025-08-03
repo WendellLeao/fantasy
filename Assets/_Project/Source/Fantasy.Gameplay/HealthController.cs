@@ -93,11 +93,14 @@ namespace Fantasy.Gameplay
             OnHealthChanged?.Invoke(HealthRatio);
         }
 
-        public void SetHealthData(HealthData healthData)
+
+#if UNITY_EDITOR
+        public void SetHealthDataForTests(HealthData healthData)
         {
             data = healthData;
         }
-        
+#endif
+
         public void SetIsInvincible(bool isInvincible)
         {
             _isInvincible = isInvincible;
