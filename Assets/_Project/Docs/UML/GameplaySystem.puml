@@ -1,0 +1,83 @@
+﻿@startuml
+'https://plantuml.com/class-diagram
+
+package Fantasy {
+    package Gameplay {
+        package System {
+            Class GameplaySystem
+        }
+        
+        interface IParticleEmitter
+        interface IDamageable
+        interface ISpell
+
+        package Cursor {
+            package Manager {
+                Class CursorManager
+            }
+        }
+        
+        package Particles {
+            package Manager {
+                Class ParticleManager
+            }
+            
+            ParticleManager --> SimpleParticle
+        }
+        
+        package Spells {
+            package Manager {
+                Class SpellManager
+            }
+            
+            Heal ..|> ISpell
+            Heal ..|> IDamageable
+            ElementalBall ..|> ISpell
+            ElementalBall ..|> IParticleEmitter
+            
+            SpellManager --> ElementalBall
+            SpellManager --> Heal
+        }
+        
+        package Weapons {
+            package Manager {
+                Class WeaponManager
+            }
+            
+            Staff --> ISpell
+            Sword ..|> IParticleEmitter
+            
+            WeaponManager --> Staff
+            WeaponManager --> Sword
+        }
+        
+        package Characters {
+            package Manager {
+                Class CharacterManager
+            }
+            
+            Character ..|> IDamageable
+            
+            CharacterManager --> Character
+        }
+        
+        package Enemies {
+            package Manager {
+                Class EnemyManager
+            }
+            
+            BasicEnemy ..|> IDamageable
+            
+            EnemyManager --> BasicEnemy
+        }
+        
+        GameplaySystem --> CursorManager
+        GameplaySystem --> ParticleManager
+        GameplaySystem --> SpellManager
+        GameplaySystem --> WeaponManager
+        GameplaySystem --> CharacterManager
+        GameplaySystem --> EnemyManager
+    }
+}
+
+@enduml
