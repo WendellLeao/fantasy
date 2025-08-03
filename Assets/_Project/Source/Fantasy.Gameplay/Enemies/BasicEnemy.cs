@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
-    internal sealed class BasicEnemy : Entity
+    public sealed class BasicEnemy : Entity
     {
         [Header("View")]
         [SerializeField]

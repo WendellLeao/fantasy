@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons.Manager
 {
-    internal sealed class WeaponManager : Leaosoft.Manager, IWeaponFactory
+    public sealed class WeaponManager : Leaosoft.Manager, IWeaponFactory
     {
         private IParticleFactory _particleFactory;
         private ISpellFactory _spellFactory;

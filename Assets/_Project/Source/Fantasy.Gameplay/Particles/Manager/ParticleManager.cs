@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Particles.Manager
 {
-    internal sealed class ParticleManager : Leaosoft.Manager, IParticleFactory
+    public sealed class ParticleManager : Leaosoft.Manager, IParticleFactory
     {
         public IParticle EmitParticle(GameObject prefab, Transform parent)
         {

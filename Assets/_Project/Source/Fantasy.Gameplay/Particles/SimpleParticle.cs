@@ -53,9 +53,7 @@ namespace Fantasy.Gameplay.Particles
             
             particle.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmittingAndClear);
             
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
-            _cancellationTokenSource = null;
+            DisposeCancellationTokenSource();
         }
 
         private async UniTask WaitForParticleToCompleteAsync(CancellationToken token)
@@ -71,6 +69,13 @@ namespace Fantasy.Gameplay.Particles
             }
 
             OnCompleted?.Invoke(this);
+        }
+        
+        private void DisposeCancellationTokenSource()
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
         }
         
         private bool IsParticleAlive()

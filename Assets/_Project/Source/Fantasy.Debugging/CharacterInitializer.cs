@@ -1,20 +1,21 @@
-﻿using Fantasy.Gameplay.Particles.Manager;
+﻿using Fantasy.Gameplay.Characters;
+using Fantasy.Gameplay.Particles.Manager;
 using Fantasy.Gameplay.Weapons.Manager;
 using UnityEngine;
 
-namespace Fantasy.Gameplay.Enemies
+namespace Fantasy.Debugging
 {
-    internal sealed class EnemyInitializer : MonoBehaviour
+    internal sealed class CharacterInitializer : MonoBehaviour
     {
         [SerializeField]
-        private BasicEnemy basicEnemy;
+        private Character character;
         
         private void Start()
         {
             ParticleManager particleManager = FindAnyObjectByType<ParticleManager>();
             WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
             
-            basicEnemy.Initialize(particleManager, weaponManager);
+            character.Initialize(particleManager, weaponManager);
         }
     }
 }

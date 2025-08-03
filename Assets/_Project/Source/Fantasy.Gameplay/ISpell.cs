@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal interface ISpell
+    public interface ISpell
     {
         public event Action<ISpell> OnHit;
         
