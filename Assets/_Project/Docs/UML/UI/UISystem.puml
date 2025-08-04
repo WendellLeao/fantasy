@@ -1,0 +1,51 @@
+﻿@startuml
+
+together {
+    package Leaosoft.UI #DDDDDD {
+        package Screens {
+            interface IUIScreen {
+                void Open();
+                void Close();
+            }
+            
+            Abstract Class UIScreen
+            
+            UIScreen ..|> IUIScreen
+        }
+        
+        IScreenService --> IUIScreen
+    }
+    
+    package Fantasy.UI {
+        Class Billboard
+        Class ImageFiller
+        
+        package System {
+            Class UISystem
+        }
+        
+        together {
+            package Screens {
+                PlayConfirmationScreen ..|> UIScreen
+                TitleScreen ..|> UIScreen
+                
+                TitleScreen --> IScreenService
+            }
+            
+            package Health {
+                package Manager {
+                    Class HealthViewManager
+                }
+                
+                HealthView *-- Billboard
+                HealthView *-- ImageFiller
+                
+                HealthViewManager --> HealthView
+            }
+        }
+        
+        UISystem --> HealthViewManager
+    }
+}
+
+@enduml
