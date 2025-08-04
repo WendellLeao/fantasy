@@ -1,7 +1,7 @@
 using Fantasy.Utilities;
 using UnityEngine;
 
-namespace Fantasy
+namespace Fantasy.SharedKernel.Weapons
 {
     [CreateAssetMenu(menuName = PathUtility.WeaponsMenuPath + "/WeaponData", fileName = "NewWeaponData")]
     public sealed class WeaponData : ScriptableObject

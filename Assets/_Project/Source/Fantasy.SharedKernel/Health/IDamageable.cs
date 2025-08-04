@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Fantasy
+namespace Fantasy.SharedKernel.Health
 {
     public interface IDamageable
     {

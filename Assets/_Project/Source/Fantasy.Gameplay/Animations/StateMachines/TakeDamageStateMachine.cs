@@ -1,4 +1,5 @@
 ﻿using System;
+using Fantasy.SharedKernel.Health;
 using NaughtyAttributes;
 using UnityEngine;
 

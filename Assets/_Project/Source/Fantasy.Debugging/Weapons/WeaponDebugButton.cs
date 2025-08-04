@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿#if UNITY_EDITOR || DEBUG
+using Fantasy.SharedKernel.Weapons;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,3 +40,4 @@ namespace Fantasy.Debugging.Weapons
         }
     }
 }
+#endif

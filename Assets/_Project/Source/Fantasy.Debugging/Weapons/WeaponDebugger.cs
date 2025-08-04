@@ -1,4 +1,6 @@
-﻿using Fantasy.Gameplay.Characters;
+﻿#if UNITY_EDITOR || DEBUG
+using Fantasy.Gameplay.Characters;
+using Fantasy.SharedKernel.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Debugging.Weapons
@@ -27,3 +29,4 @@ namespace Fantasy.Debugging.Weapons
         }
     }
 }
+#endif

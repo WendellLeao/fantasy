@@ -1,4 +1,5 @@
 using System;
+using Fantasy.SharedKernel.Weapons;
 using Leaosoft;
 using UnityEngine;
 

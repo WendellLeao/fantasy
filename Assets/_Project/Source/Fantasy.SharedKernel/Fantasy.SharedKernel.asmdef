@@ -1,11 +1,7 @@
 {
-    "name": "Fantasy.Commands",
-    "rootNamespace": "Fantasy.Commands",
-    "references": [
-        "GUID:d99d98637fd56ff4c9f258fdedb73af5",
-        "GUID:ca76530d50b497f4eb3b5bf028c1daa4",
-        "GUID:f08435d87fbdfb94b9825740ff07be80"
-    ],
+    "name": "Fantasy.SharedKernel",
+    "rootNamespace": "Fantasy.SharedKernel",
+    "references": ["GUID:f08435d87fbdfb94b9825740ff07be80","GUID:776d03a35f1b52c4a9aed9f56d7b4229"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

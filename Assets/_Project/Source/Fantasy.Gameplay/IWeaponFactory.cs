@@ -1,3 +1,4 @@
+using Fantasy.SharedKernel.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Gameplay

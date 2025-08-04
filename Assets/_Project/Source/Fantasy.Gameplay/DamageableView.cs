@@ -1,3 +1,4 @@
+using Fantasy.SharedKernel.Health;
 using Leaosoft;
 
 namespace Fantasy.Gameplay

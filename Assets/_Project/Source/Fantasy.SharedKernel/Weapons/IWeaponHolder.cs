@@ -1,6 +1,6 @@
 using System;
 
-namespace Fantasy
+namespace Fantasy.SharedKernel.Weapons
 {
     public interface IWeaponHolder
     {

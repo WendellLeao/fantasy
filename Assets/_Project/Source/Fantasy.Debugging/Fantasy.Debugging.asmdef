@@ -3,8 +3,8 @@
     "rootNamespace": "Fantasy.Debugging",
     "references": [
         "GUID:d99d98637fd56ff4c9f258fdedb73af5",
-        "GUID:f7ffc5db09633f74c96d4e41fd2e117e",
         "GUID:d5ff05603486df9448377f01bd51305f",
+        "GUID:ca76530d50b497f4eb3b5bf028c1daa4",
         "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
