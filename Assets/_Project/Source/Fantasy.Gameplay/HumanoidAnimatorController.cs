@@ -8,6 +8,7 @@ namespace Fantasy.Gameplay
 {
     internal sealed class HumanoidAnimatorController : MonoBehaviour
     {
+        private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int MovesetType = Animator.StringToHash("MovesetType");
         private static readonly int ExecuteWeapon = Animator.StringToHash("ExecuteWeapon");
         private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
@@ -16,6 +17,8 @@ namespace Fantasy.Gameplay
 
         [SerializeField]
         private Animator animator;
+
+        public Animator Animator => animator;
 
         private IDamageable _damageable;
         private IWeaponHolder _weaponHolder;
@@ -76,6 +79,11 @@ namespace Fantasy.Gameplay
         private void HandleWeaponExecuted()
         {
             animator.SetTrigger(id: ExecuteWeapon);
+        }
+
+        public void SetVelocity(float velocityMagnitude)
+        {
+            animator.SetFloat(id: Velocity, velocityMagnitude, 0.1f, Time.deltaTime);
         }
     }
 }

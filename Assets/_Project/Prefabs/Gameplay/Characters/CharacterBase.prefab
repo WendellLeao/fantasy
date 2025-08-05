@@ -42,11 +42,13 @@ GameObject:
   - component: {fileID: 6826734515588411388}
   - component: {fileID: 7862513088784645507}
   - component: {fileID: 2685351120744283879}
+  - component: {fileID: 4167538285629242428}
   - component: {fileID: 1696544635232054290}
   - component: {fileID: 840803360296624360}
   - component: {fileID: 2996856006919390465}
   - component: {fileID: 5590217155394660144}
   - component: {fileID: 1422097962266893983}
+  - component: {fileID: 7342446073592018130}
   m_Layer: 0
   m_Name: CharacterBase
   m_TagString: Untagged
@@ -120,6 +122,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!195 &4167538285629242428
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281967818230640125}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 999999
+  avoidancePriority: 50
+  m_AngularSpeed: 999999
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &1696544635232054290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +214,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commandCollectionData: {fileID: 11400000, guid: 4d2a2268379c2d04289f117debfd67b1, type: 2}
+--- !u!114 &7342446073592018130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281967818230640125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8dd7572c844cd289f214ccb11dc007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 4167538285629242428}
+  humanoidAnimatorController: {fileID: 0}
+  lookRotationSpeed: 10
