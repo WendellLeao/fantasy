@@ -1,5 +1,5 @@
 using Fantasy.Events.Health;
-using Fantasy.SharedKernel.Health;
+using Fantasy.Domain.Health;
 using Leaosoft.Events;
 using UnityEngine;
 

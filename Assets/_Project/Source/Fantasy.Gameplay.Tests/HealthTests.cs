@@ -1,4 +1,4 @@
-using Fantasy.SharedKernel.Health;
+using Fantasy.Domain.Health;
 using NUnit.Framework;
 using UnityEngine;
 

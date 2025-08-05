@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
-using Fantasy.SharedKernel.Health;
-using Fantasy.SharedKernel.Weapons;
+using Fantasy.Domain.Health;
+using Fantasy.Domain.Weapons;
 using Random = UnityEngine.Random;
 
 namespace Fantasy.Gameplay

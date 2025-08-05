@@ -2,7 +2,7 @@ using Fantasy.Utilities;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Fantasy.SharedKernel.Health
+namespace Fantasy.Domain.Health
 {
     [CreateAssetMenu(menuName = PathUtility.DamageMenuPath + "/DamageData", fileName = "NewDamageData")]
     public sealed class DamageData : ScriptableObject

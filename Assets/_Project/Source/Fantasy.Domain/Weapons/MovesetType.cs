@@ -1,4 +1,4 @@
-﻿namespace Fantasy.SharedKernel.Weapons
+﻿namespace Fantasy.Domain.Weapons
 {
     public enum MovesetType
     {
