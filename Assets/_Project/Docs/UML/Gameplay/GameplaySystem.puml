@@ -1,0 +1,109 @@
+﻿@startuml
+
+package Leaosoft {
+    package Gameplay {
+        package System {
+            Class GameplaySystem
+        }
+        
+        interface IDamageable {
+            void TakeDamage();
+        }
+        
+        Damager --> IDamageable
+        HealthController --> IDamageable
+        
+        interface IParticle
+        interface IParticleFactory {
+            IParticle EmitParticle();
+        }
+        
+        IParticleFactory --> IParticle
+        
+        interface ISpell
+        interface ISpellFactory {
+            ISpell CastSpell();
+        }
+        
+        ISpellFactory --> ISpell
+        
+        together {
+            package Cursor {
+                package Manager {
+                    Class CursorManager
+                }
+            }
+            
+            package Particles {
+                package Manager {
+                    ParticleManager ..|> IParticleFactory
+                }
+                
+                SimpleParticle ..|> IParticle
+                
+                ParticleManager --> SimpleParticle
+            }
+            
+            package Spells {
+                package Manager {
+                    SpellManager ..|> ISpellFactory
+                }
+            
+                ElementalBall ..|> ISpell
+                Heal ..|> ISpell
+                
+                Heal --> IDamageable
+                
+                ElementalBall --> IParticleFactory
+                
+                ElementalBall *-- Damager
+                
+                SpellManager --> ElementalBall
+                SpellManager --> Heal
+            }
+            
+            package Weapons {
+                package Manager {
+                    Class WeaponManager
+                }
+                
+                Staff --> ISpellFactory
+                Sword --> IParticleFactory
+                
+                Sword *-- Damager
+                
+                WeaponManager --> Staff
+                WeaponManager --> Sword
+            }
+            
+            package Characters {
+                package Manager {
+                    Class CharacterManager
+                }
+                
+                Character *-- HealthController
+                
+                CharacterManager --> Character
+            }
+            
+            package Enemies {
+                package Manager {
+                    Class EnemyManager
+                }
+                
+                BasicEnemy *-- HealthController
+                
+                EnemyManager --> BasicEnemy
+            }
+        }
+        
+        GameplaySystem --> CursorManager
+        GameplaySystem --> ParticleManager
+        GameplaySystem --> EnemyManager
+        GameplaySystem --> CharacterManager
+        GameplaySystem --> WeaponManager
+        GameplaySystem --> SpellManager
+    }
+}
+
+@enduml

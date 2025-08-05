@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Fantasy.Gameplay
 {
     [CreateAssetMenu(menuName = PathUtility.HealthMenuPath + "/HealthData", fileName = "NewHealthData")]
-    internal sealed class HealthData : ScriptableObject
+    public sealed class HealthData : ScriptableObject
     {
         [SerializeField]
         private string id;
@@ -12,5 +12,12 @@ namespace Fantasy.Gameplay
         private float maxHealth;
 
         public float MaxHealth => maxHealth;
+
+#if UNITY_EDITOR
+        public void SetMaxHealthForTests(float newMaxHealth)
+        {
+            maxHealth = newMaxHealth;
+        }
+#endif
     }
 }

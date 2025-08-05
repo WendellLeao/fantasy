@@ -1,3 +1,4 @@
+using Fantasy.SharedKernel.Health;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
@@ -14,7 +15,7 @@ namespace Fantasy.Gameplay
                 return false;
             }
             
-            damageable.ApplyDamage(data);
+            damageable.TakeDamage(data);
             
             return true;
         }

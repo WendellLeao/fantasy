@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Fantasy.Gameplay
 {
     [CreateAssetMenu(menuName = PathUtility.SpellsMenuPath + "/SpellData", fileName = "NewSpellData")]
-    internal sealed class SpellData : ScriptableObject
+    public sealed class SpellData : ScriptableObject
     {
         [SerializeField]
         private string id;

@@ -1,11 +1,11 @@
 using System;
+using Fantasy.SharedKernel.Health;
 using Leaosoft;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal sealed class HealthController : EntityComponent, IDamageable
+    public sealed class HealthController : EntityComponent, IDamageable
     {
         public event Action<float> OnHealthChanged;
         public event Action<DamageData> OnDamageTaken;
@@ -25,7 +25,7 @@ namespace Fantasy.Gameplay
         public float HealthRatio => _healthModel.HealthRatio;
         public bool IsTakingDamage => _damagePerSecondDuration > 0f;
 
-        public void ApplyDamage(DamageData damageData)
+        public void TakeDamage(DamageData damageData)
         {
             if (_isInvincible || HealthRatio <= 0f)
             {
@@ -92,26 +92,17 @@ namespace Fantasy.Gameplay
         {
             OnHealthChanged?.Invoke(HealthRatio);
         }
-        
+
         public void SetIsInvincible(bool isInvincible)
         {
             _isInvincible = isInvincible;
         }
 
-        #region DEBUG
-        
-        [Button]
-        private void DecrementHealth()
+#if UNITY_EDITOR
+        public void SetHealthDataForTests(HealthData healthData)
         {
-            DecrementHealth(amount: 10);
+            data = healthData;
         }
-        
-        [Button]
-        private void IncrementHealth()
-        {
-            IncrementHealth(amount: 10);
-        }
-
-        #endregion
+#endif
     }
 }

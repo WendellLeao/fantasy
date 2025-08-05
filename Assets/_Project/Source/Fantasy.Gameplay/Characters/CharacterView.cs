@@ -1,3 +1,5 @@
+using Fantasy.SharedKernel.Health;
+using Fantasy.SharedKernel.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters

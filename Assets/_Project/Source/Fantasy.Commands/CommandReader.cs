@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Fantasy.SharedKernel.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Commands
@@ -29,7 +30,7 @@ namespace Fantasy.Commands
                     continue;
                 }
                 
-                if (UnityEngine.Input.GetKeyDown(data.KeyCode))
+                if (Input.GetKeyDown(data.KeyCode))
                 {
                     ICommand command = keyValuePair.Value;
                     

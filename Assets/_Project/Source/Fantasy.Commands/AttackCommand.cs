@@ -1,3 +1,5 @@
+using Fantasy.SharedKernel.Weapons;
+
 namespace Fantasy.Commands
 {
     internal sealed class AttackCommand : ICommand

@@ -1,8 +1,9 @@
+using Fantasy.SharedKernel.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal interface IWeaponFactory
+    public interface IWeaponFactory
     {
         public IWeapon CreateWeapon(WeaponData data, Transform parent);
         public void DisposeWeapon(IWeapon weapon);

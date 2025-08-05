@@ -1,4 +1,5 @@
 using System.Collections;
+using Fantasy.SharedKernel.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Commands
