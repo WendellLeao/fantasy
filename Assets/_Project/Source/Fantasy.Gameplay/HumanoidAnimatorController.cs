@@ -18,13 +18,13 @@ namespace Fantasy.Gameplay
         [SerializeField]
         private Animator animator;
 
-        public Animator Animator => animator;
-
+        private IMoveableAgent _moveableAgent;
         private IDamageable _damageable;
         private IWeaponHolder _weaponHolder;
 
-        public void Initialize(IDamageable damageable, IWeaponHolder weaponHolder)
+        public void Initialize(IMoveableAgent moveableAgent, IDamageable damageable, IWeaponHolder weaponHolder)
         {
+            _moveableAgent = moveableAgent;
             _damageable = damageable;
             _weaponHolder = weaponHolder;
 
@@ -56,6 +56,11 @@ namespace Fantasy.Gameplay
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
         }
 
+        private void Update()
+        {
+            SetVelocity(_moveableAgent.Velocity.magnitude);
+        }
+
         private void HandleDamageTaken(DamageData damageData)
         {
             animator.SetTrigger(id: TakeDamage);
@@ -81,9 +86,9 @@ namespace Fantasy.Gameplay
             animator.SetTrigger(id: ExecuteWeapon);
         }
 
-        public void SetVelocity(float velocityMagnitude)
+        private void SetVelocity(float velocityMagnitude)
         {
-            animator.SetFloat(id: Velocity, velocityMagnitude, 0.1f, Time.deltaTime);
+            animator.SetFloat(id: Velocity, velocityMagnitude, dampTime: 0.1f, Time.deltaTime);
         }
     }
 }

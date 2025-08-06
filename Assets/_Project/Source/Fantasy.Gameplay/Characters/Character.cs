@@ -40,9 +40,9 @@ namespace Fantasy.Gameplay.Characters
                 weaponHolder.Initialize(_weaponFactory);
             }
 
-            if (TryGetComponent(out ClickToMove clickToMove))
+            if (TryGetComponent(out NavMeshClickMover navMeshClickMover))
             {
-                clickToMove.Initialize(_cameraProvider);
+                navMeshClickMover.Initialize(_cameraProvider);
             }
             
             if (TryGetComponent(out DamageableView damageableView))
@@ -50,7 +50,7 @@ namespace Fantasy.Gameplay.Characters
                 damageableView.Initialize(_damageable, _particleFactory);
             }
             
-            characterView.Initialize(_damageable, weaponHolder);
+            characterView.Initialize(navMeshClickMover, _damageable, weaponHolder);
         }
 
         protected override void OnDispose()

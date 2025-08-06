@@ -4,17 +4,17 @@ using UnityEngine.AI;
 
 namespace Fantasy.Gameplay
 {
-    internal sealed class ClickToMove : EntityComponent
+    internal sealed class NavMeshClickMover : EntityComponent, IMoveableAgent
     {
         [SerializeField]
         private NavMeshAgent navMeshAgent;
-        [SerializeField]
-        private HumanoidAnimatorController humanoidAnimatorController;
         [SerializeField]
         private float lookRotationSpeed = 3f;
         
         private RaycastHit _cachedHitInfo;
         private ICameraProvider _cameraProvider;
+        
+        public Vector3 Velocity => navMeshAgent.velocity;
 
         public void Initialize(ICameraProvider cameraProvider)
         {
@@ -31,8 +31,6 @@ namespace Fantasy.Gameplay
             {
                 HandleNavMeshAgentDestination();
             }
-            
-            humanoidAnimatorController.SetVelocity(navMeshAgent.velocity.magnitude);
         }
 
         private void HandleNavMeshAgentDestination()
@@ -41,8 +39,13 @@ namespace Fantasy.Gameplay
 
             if (Physics.Raycast(ray.origin, ray.direction, out _cachedHitInfo))
             {
-                navMeshAgent.destination = _cachedHitInfo.point;
+                SetDestination(_cachedHitInfo.point);
             }
+        }
+        
+        public void SetDestination(Vector3 position)
+        {
+            navMeshAgent.destination = position;
         }
     }
 }

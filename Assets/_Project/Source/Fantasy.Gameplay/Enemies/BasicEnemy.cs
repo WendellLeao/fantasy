@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
-    public sealed class BasicEnemy : Entity
+    public sealed class BasicEnemy : Entity, IMoveableAgent
     {
         [Header("View")]
         [SerializeField]
@@ -15,6 +15,7 @@ namespace Fantasy.Gameplay.Enemies
         private IDamageable _damageable;
 
         public IDamageable Damageable => _damageable;
+        public Vector3 Velocity => Vector3.zero;
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
@@ -43,7 +44,8 @@ namespace Fantasy.Gameplay.Enemies
                 damageableView.Initialize(_damageable, _particleFactory);
             }
             
-            basicEnemyView.Initialize(_damageable, weaponHolder);
+            // TODO: implement the enemy's moveable agent component
+            basicEnemyView.Initialize(moveableAgent: this, _damageable, weaponHolder);
         }
 
         protected override void OnDispose()
@@ -52,5 +54,8 @@ namespace Fantasy.Gameplay.Enemies
             
             basicEnemyView.Dispose();
         }
+
+        public void SetDestination(Vector3 position)
+        { }
     }
 }
