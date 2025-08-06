@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Leaosoft;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Fantasy.Gameplay
 {
-    internal sealed class ClickToMove : MonoBehaviour
+    internal sealed class ClickToMove : EntityComponent
     {
         [SerializeField]
         private NavMeshAgent navMeshAgent;
@@ -13,41 +14,35 @@ namespace Fantasy.Gameplay
         private float lookRotationSpeed = 3f;
         
         private RaycastHit _cachedHitInfo;
+        private ICameraProvider _cameraProvider;
 
-        private void Start()
+        public void Initialize(ICameraProvider cameraProvider)
         {
-            // navMeshAgent.updateRotation = false;
+            _cameraProvider = cameraProvider;
+            
+            base.Initialize();
         }
 
-        private void Update()
+        protected override void OnTick(float deltaTime)
         {
-            if (Input.GetMouseButtonDown(0))
+            base.OnTick(deltaTime);
+            
+            if (Input.GetMouseButtonDown(1))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray.origin, ray.direction, out _cachedHitInfo))
-                {
-                    navMeshAgent.destination = _cachedHitInfo.point;
-                }
+                HandleNavMeshAgentDestination();
             }
             
             humanoidAnimatorController.SetVelocity(navMeshAgent.velocity.magnitude);
-
-            // FaceDestination();
         }
 
-        private void FaceDestination()
+        private void HandleNavMeshAgentDestination()
         {
-            Vector3 direction = navMeshAgent.velocity;
+            Ray ray = _cameraProvider.MainCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (direction.sqrMagnitude < 0.01f)
-                return;
-
-            direction.y = 0f;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+            if (Physics.Raycast(ray.origin, ray.direction, out _cachedHitInfo))
+            {
+                navMeshAgent.destination = _cachedHitInfo.point;
+            }
         }
-
-
     }
 }

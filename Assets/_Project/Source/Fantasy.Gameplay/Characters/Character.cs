@@ -13,13 +13,15 @@ namespace Fantasy.Gameplay.Characters
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IDamageable _damageable;
+        private ICameraProvider _cameraProvider;
 
         public IDamageable Damageable => _damageable;
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
+            _cameraProvider = cameraProvider;
             
             base.Initialize();
         }
@@ -38,6 +40,11 @@ namespace Fantasy.Gameplay.Characters
                 weaponHolder.Initialize(_weaponFactory);
             }
 
+            if (TryGetComponent(out ClickToMove clickToMove))
+            {
+                clickToMove.Initialize(_cameraProvider);
+            }
+            
             if (TryGetComponent(out DamageableView damageableView))
             {
                 damageableView.Initialize(_damageable, _particleFactory);

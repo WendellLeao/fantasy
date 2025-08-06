@@ -160,6 +160,7 @@ MonoBehaviour:
   - {fileID: 840803360296624360}
   - {fileID: 2996856006919390465}
   - {fileID: 5590217155394660144}
+  - {fileID: 7342446073592018130}
   characterView: {fileID: 0}
 --- !u!114 &840803360296624360
 MonoBehaviour:
