@@ -18,10 +18,13 @@ namespace Fantasy.Gameplay
 
         [SerializeField]
         private Animator animator;
+        [SerializeField]
+        private float velocityDampTime = 0.08f;
 
         private IMoveableAgent _moveableAgent;
         private IDamageable _damageable;
         private IWeaponHolder _weaponHolder;
+        private float _smoothedSpeed;
 
         public void Initialize(IMoveableAgent moveableAgent, IDamageable damageable, IWeaponHolder weaponHolder)
         {
@@ -100,7 +103,7 @@ namespace Fantasy.Gameplay
 
         private void SetVelocity(float velocityMagnitude, float deltaTime)
         {
-            animator.SetFloat(id: Velocity, velocityMagnitude, dampTime: 0.1f, deltaTime);
+            animator.SetFloat(id: Velocity, velocityMagnitude, velocityDampTime, deltaTime);
         }
     }
 }

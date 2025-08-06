@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4379793739153695662}
+  velocityDampTime: 0.08
 --- !u!114 &7747436925177146090
 MonoBehaviour:
   m_ObjectHideFlags: 0
