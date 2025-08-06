@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 1696544635232054290}
   - component: {fileID: 840803360296624360}
   - component: {fileID: 2996856006919390465}
-  - component: {fileID: 5590217155394660144}
   - component: {fileID: 1422097962266893983}
   - component: {fileID: 7342446073592018130}
   m_Layer: 0
@@ -156,10 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92fd12fe8001472cb66ff8165edc864a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityComponents:
+  components:
   - {fileID: 840803360296624360}
   - {fileID: 2996856006919390465}
-  - {fileID: 5590217155394660144}
   - {fileID: 7342446073592018130}
   characterView: {fileID: 0}
 --- !u!114 &840803360296624360
@@ -190,18 +188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 0}
   parent: {fileID: 0}
---- !u!114 &5590217155394660144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2281967818230640125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8c19fb2d81403eafd75ef7f6227735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1422097962266893983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,5 +214,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 4167538285629242428}
-  humanoidAnimatorController: {fileID: 0}
   lookRotationSpeed: 10

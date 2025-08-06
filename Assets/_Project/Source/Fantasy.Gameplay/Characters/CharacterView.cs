@@ -1,22 +1,37 @@
 using Fantasy.Domain.Health;
 using Fantasy.Domain.Weapons;
-using UnityEngine;
+using Leaosoft;
 
 namespace Fantasy.Gameplay.Characters
 {
-    internal sealed class CharacterView : MonoBehaviour
+    public sealed class CharacterView : EntityView
     {
-        [SerializeField]
-        private HumanoidAnimatorController humanoidAnimatorController;
+        private IMoveableAgent _moveableAgent;
+        private IDamageable _damageable;
+        private IWeaponHolder _weaponHolder;
+        private IParticleFactory _particleFactory;
 
-        public void Initialize(IMoveableAgent moveableAgent, IDamageable damageable, IWeaponHolder weaponHolder)
+        public void Initialize(IMoveableAgent moveableAgent, IDamageable damageable, IWeaponHolder weaponHolder, IParticleFactory particleFactory)
         {
-            humanoidAnimatorController.Initialize(moveableAgent, damageable, weaponHolder);
+            _moveableAgent = moveableAgent;
+            _damageable = damageable;
+            _weaponHolder = weaponHolder;
+            _particleFactory = particleFactory;
+            
+            base.Initialize();
         }
-        
-        public void Dispose()
+
+        protected override void InitializeComponents()
         {
-            humanoidAnimatorController.Dispose();
+            if (TryGetComponent(out HumanoidAnimatorController humanoidAnimatorController))
+            {
+                humanoidAnimatorController.Initialize(_moveableAgent, _damageable, _weaponHolder);
+            }
+            
+            if (TryGetComponent(out DamageableView damageableView))
+            {
+                damageableView.Initialize(_damageable, _particleFactory);
+            }
         }
     }
 }

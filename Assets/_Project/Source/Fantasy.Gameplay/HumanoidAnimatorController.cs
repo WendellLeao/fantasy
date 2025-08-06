@@ -2,11 +2,12 @@
 using System;
 using Fantasy.Domain.Health;
 using Fantasy.Domain.Weapons;
+using Leaosoft;
 using Random = UnityEngine.Random;
 
 namespace Fantasy.Gameplay
 {
-    internal sealed class HumanoidAnimatorController : MonoBehaviour
+    internal sealed class HumanoidAnimatorController : EntityComponent
     {
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int MovesetType = Animator.StringToHash("MovesetType");
@@ -28,16 +29,32 @@ namespace Fantasy.Gameplay
             _damageable = damageable;
             _weaponHolder = weaponHolder;
 
+            base.Initialize();
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
             HandleWeaponMovesetType(_weaponHolder.Weapon);
             
             SubscribeEvents();
         }
-
-        public void Dispose()
+        
+        protected override void OnDispose()
         {
+            base.OnDispose();
+            
             UnsubscribeEvents();
         }
-        
+
+        protected override void OnTick(float deltaTime)
+        {
+            base.OnTick(deltaTime);
+            
+            SetVelocity(_moveableAgent.Velocity.magnitude, deltaTime);
+        }
+
         private void SubscribeEvents()
         {
             _damageable.OnDamageTaken += HandleDamageTaken;
@@ -54,11 +71,6 @@ namespace Fantasy.Gameplay
             
             _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
-        }
-
-        private void Update()
-        {
-            SetVelocity(_moveableAgent.Velocity.magnitude);
         }
 
         private void HandleDamageTaken(DamageData damageData)
@@ -86,9 +98,9 @@ namespace Fantasy.Gameplay
             animator.SetTrigger(id: ExecuteWeapon);
         }
 
-        private void SetVelocity(float velocityMagnitude)
+        private void SetVelocity(float velocityMagnitude, float deltaTime)
         {
-            animator.SetFloat(id: Velocity, velocityMagnitude, dampTime: 0.1f, Time.deltaTime);
+            animator.SetFloat(id: Velocity, velocityMagnitude, dampTime: 0.1f, deltaTime);
         }
     }
 }

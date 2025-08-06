@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8af1296228a4a6087190683892ec3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityComponents:
+  components:
   - {fileID: 5797961262117325252}
   collisionParticle: {fileID: 4218367092044171886, guid: 51989b63108a1a444bd297908d943b11, type: 3}
 --- !u!114 &5797961262117325252

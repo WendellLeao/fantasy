@@ -44,6 +44,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1e9e0a6c44158b5419a005b060b89ea8, type: 2}
     - target: {fileID: 1696544635232054290, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
+      propertyPath: view
+      value: 
+      objectReference: {fileID: 4866800970178502079}
+    - target: {fileID: 1696544635232054290, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
       propertyPath: characterView
       value: 
       objectReference: {fileID: 4866800970178502079}
@@ -213,6 +217,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d0b7693de5189144c9a91932fa107d71, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1384936128369806640}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d0b7693de5189144c9a91932fa107d71, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7747436925177146090}
   m_SourcePrefab: {fileID: 100100000, guid: d0b7693de5189144c9a91932fa107d71, type: 3}
 --- !u!4 &3949599408526258566 stripped
 Transform:
@@ -258,7 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8963ed6b524640b29d11cdcc4c3075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  humanoidAnimatorController: {fileID: 1384936128369806640}
+  components:
+  - {fileID: 1384936128369806640}
+  - {fileID: 7747436925177146090}
 --- !u!114 &1384936128369806640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +281,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4379793739153695662}
+--- !u!114 &7747436925177146090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432697692748819260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8c19fb2d81403eafd75ef7f6227735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6898134136646195523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7997947301047521070, guid: d0b7693de5189144c9a91932fa107d71, type: 3}

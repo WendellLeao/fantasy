@@ -1,15 +1,10 @@
 using Fantasy.Domain.Health;
 using Leaosoft;
-using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters
 {
     public sealed class Character : Entity
     {
-        [Header("View")]
-        [SerializeField]
-        private CharacterView characterView;
-        
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IDamageable _damageable;
@@ -44,20 +39,11 @@ namespace Fantasy.Gameplay.Characters
             {
                 navMeshClickMover.Initialize(_cameraProvider);
             }
-            
-            if (TryGetComponent(out DamageableView damageableView))
-            {
-                damageableView.Initialize(_damageable, _particleFactory);
-            }
-            
-            characterView.Initialize(navMeshClickMover, _damageable, weaponHolder);
-        }
 
-        protected override void OnDispose()
-        {
-            base.OnDispose();
-            
-            characterView.Dispose();
+            if (View is CharacterView characterView)
+            {
+                characterView.Initialize(navMeshClickMover, _damageable, weaponHolder, _particleFactory);
+            }
         }
     }
 }
