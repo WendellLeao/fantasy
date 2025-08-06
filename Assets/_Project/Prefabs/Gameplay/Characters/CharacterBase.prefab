@@ -214,5 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 4167538285629242428}
+  walkableLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   lookRotationSpeed: 10
   clickSurfaceParticlePrefab: {fileID: 5988617719677102830, guid: f8e2033b555f5ea4daa2c6ac755aa727, type: 3}

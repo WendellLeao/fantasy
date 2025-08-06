@@ -9,6 +9,8 @@ namespace Fantasy.Gameplay
         [SerializeField]
         private NavMeshAgent navMeshAgent;
         [SerializeField]
+        private LayerMask walkableLayerMask;
+        [SerializeField]
         private float lookRotationSpeed = 3f;
         
         [Header("Particle")]
@@ -43,7 +45,7 @@ namespace Fantasy.Gameplay
         {
             Ray ray = _cameraProvider.MainCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray.origin, ray.direction, out _cachedHitInfo))
+            if (Physics.Raycast(ray.origin, ray.direction, out _cachedHitInfo, maxDistance: Mathf.Infinity, walkableLayerMask))
             {
                 Vector3 hitInfoPoint = _cachedHitInfo.point;
                 
