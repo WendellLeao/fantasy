@@ -37,7 +37,7 @@ namespace Fantasy.Gameplay.Characters
 
             if (TryGetComponent(out NavMeshClickMover navMeshClickMover))
             {
-                navMeshClickMover.Initialize(_cameraProvider);
+                navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
             }
 
             if (View is CharacterView characterView)

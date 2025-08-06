@@ -159,7 +159,7 @@ MonoBehaviour:
   - {fileID: 840803360296624360}
   - {fileID: 2996856006919390465}
   - {fileID: 7342446073592018130}
-  characterView: {fileID: 0}
+  view: {fileID: 0}
 --- !u!114 &840803360296624360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,3 +215,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 4167538285629242428}
   lookRotationSpeed: 10
+  clickSurfaceParticlePrefab: {fileID: 5988617719677102830, guid: f8e2033b555f5ea4daa2c6ac755aa727, type: 3}
