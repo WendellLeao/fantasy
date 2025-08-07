@@ -1,5 +1,5 @@
 using System;
-using Fantasy.SharedKernel.Weapons;
+using Fantasy.Domain.Weapons;
 using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
@@ -30,29 +30,55 @@ namespace Fantasy.Gameplay
 
         public void ChangeWeapon(WeaponData weaponData)
         {
-            if (_weapon != null)
+            if (!IsEnabled)
             {
-                _weaponFactory.DisposeWeapon(_weapon);
+                return;
             }
+            
+            DisposeWeapon();
             
             _weapon = _weaponFactory.CreateWeapon(weaponData, parent);
             
             OnWeaponChanged?.Invoke(_weapon);
         }
-        
+
         [Button]
         public void ExecuteWeapon()
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+            
             _weapon.Execute();
             
             OnWeaponExecuted?.Invoke();
         }
         
-        protected override void OnInitialize()
+        protected override void OnBegin()
         {
-            base.OnInitialize();
+            base.OnBegin();
 
             ChangeWeapon(data);
+            
+            _weapon?.Begin();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            
+            _weapon?.Stop();
+        }
+        
+        private void DisposeWeapon()
+        {
+            if (_weapon == null)
+            {
+                return;
+            }
+            
+            _weaponFactory.DisposeWeapon(_weapon);
         }
     }
 }

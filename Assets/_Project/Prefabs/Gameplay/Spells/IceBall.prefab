@@ -390,8 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8af1296228a4a6087190683892ec3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityComponents:
-  - {fileID: 1062834722981190462}
+  components:
+  - {fileID: 9062774673047988237}
+  view: {fileID: 0}
   collisionParticle: {fileID: 4218367092044171886, guid: 642970c245efc5d439418aa3d81b7e68, type: 3}
 --- !u!114 &1062834722981190462
 MonoBehaviour:

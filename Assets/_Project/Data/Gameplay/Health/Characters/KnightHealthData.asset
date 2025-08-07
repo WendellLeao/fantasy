@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: KnightHealthData
   m_EditorClassIdentifier: 
   id: knight_health
-  maxHealth: 250
+  maxHealth: 150

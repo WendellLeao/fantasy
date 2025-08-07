@@ -1,4 +1,4 @@
-using Fantasy.SharedKernel.Health;
+using Fantasy.Domain.Health;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace Fantasy.Gameplay.Tests
         }
 
         [Test]
-        public void TakeDamage_ReducesCurrentHealthByThreePercent()
+        public void TakeDamage_DecreaseCurrentHealthByThreePercent()
         {
             // Arrange
             _mockDamageData.SetAmountForTests(30);

@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR || DEBUG
+using Fantasy.Gameplay.Cameras.Manager;
 using Fantasy.Gameplay.Characters;
 using Fantasy.Gameplay.Particles.Manager;
 using Fantasy.Gameplay.Weapons.Manager;
@@ -15,8 +16,9 @@ namespace Fantasy.Debugging
         {
             ParticleManager particleManager = FindAnyObjectByType<ParticleManager>();
             WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
+            CameraManager cameraManager = FindAnyObjectByType<CameraManager>();
             
-            character.Initialize(particleManager, weaponManager);
+            character.Initialize(particleManager, weaponManager, cameraManager);
         }
     }
 }

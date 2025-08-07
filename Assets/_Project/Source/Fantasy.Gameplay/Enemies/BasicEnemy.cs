@@ -1,20 +1,20 @@
-using Fantasy.SharedKernel.Health;
+using System;
+using Fantasy.Domain.Health;
 using Leaosoft;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
-    public sealed class BasicEnemy : Entity
+    public sealed class BasicEnemy : Entity, IMoveableAgent
     {
-        [Header("View")]
-        [SerializeField]
-        private BasicEnemyView basicEnemyView;
+        public event Action<BasicEnemy> OnDied;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IDamageable _damageable;
 
         public IDamageable Damageable => _damageable;
+        public Vector3 Velocity => Vector3.zero;
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
@@ -38,19 +38,33 @@ namespace Fantasy.Gameplay.Enemies
                 weaponHolder.Initialize(_weaponFactory);
             }
 
-            if (TryGetComponent(out DamageableView damageableView))
+            if (View is BasicEnemyView basicEnemyView)
             {
-                damageableView.Initialize(_damageable, _particleFactory);
+                // TODO: implement the enemy's moveable agent component
+                basicEnemyView.Initialize(moveableAgent: this, _damageable, weaponHolder, _particleFactory);
             }
-            
-            basicEnemyView.Initialize(_damageable, weaponHolder);
         }
 
-        protected override void OnDispose()
+        protected override void OnBegin()
         {
-            base.OnDispose();
-            
-            basicEnemyView.Dispose();
+            base.OnBegin();
+
+            _damageable.OnDied += HandleDamageableDied;
         }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            
+            _damageable.OnDied -= HandleDamageableDied;
+        }
+
+        private void HandleDamageableDied()
+        {
+            OnDied?.Invoke(this);
+        }
+
+        public void SetDestination(Vector3 position)
+        { }
     }
 }

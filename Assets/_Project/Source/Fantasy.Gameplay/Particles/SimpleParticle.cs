@@ -13,7 +13,7 @@ namespace Fantasy.Gameplay.Particles
         [SerializeField]
         private ParticleSystem particle;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _waitForParticleCts;
         private bool _isPlaying;
         
         public Transform Transform => transform;
@@ -34,10 +34,10 @@ namespace Fantasy.Gameplay.Particles
             
             particle.Play();
 
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = new CancellationTokenSource();
+            _waitForParticleCts?.Cancel();
+            _waitForParticleCts = new CancellationTokenSource();
             
-            WaitForParticleToCompleteAsync(_cancellationTokenSource.Token).Forget();
+            WaitForParticleToCompleteAsync(_waitForParticleCts.Token).Forget();
         }
 
         protected override void OnStop()
@@ -73,9 +73,9 @@ namespace Fantasy.Gameplay.Particles
         
         private void DisposeCancellationTokenSource()
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
-            _cancellationTokenSource = null;
+            _waitForParticleCts?.Cancel();
+            _waitForParticleCts?.Dispose();
+            _waitForParticleCts = null;
         }
         
         private bool IsParticleAlive()

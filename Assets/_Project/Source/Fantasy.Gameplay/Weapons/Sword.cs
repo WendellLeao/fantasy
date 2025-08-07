@@ -1,5 +1,5 @@
 using System;
-using Fantasy.SharedKernel.Weapons;
+using Fantasy.Domain.Weapons;
 using Leaosoft;
 using UnityEngine;
 
@@ -34,7 +34,12 @@ namespace Fantasy.Gameplay.Weapons
         }
 
         protected override void InitializeComponents()
-        { }
+        {
+            if (TryGetComponent(out Damager damager))
+            {
+                damager.Initialize();
+            }
+        }
 
         protected override void OnInitialize()
         {
@@ -45,6 +50,11 @@ namespace Fantasy.Gameplay.Weapons
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+            
             if (TryGetComponent(out Damager damager))
             {
                 damager.TryApplyDamage(other);

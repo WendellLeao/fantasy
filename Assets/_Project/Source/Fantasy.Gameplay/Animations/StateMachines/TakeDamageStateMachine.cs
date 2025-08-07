@@ -1,5 +1,5 @@
 ﻿using System;
-using Fantasy.SharedKernel.Health;
+using Fantasy.Domain.Health;
 using NaughtyAttributes;
 using UnityEngine;
 

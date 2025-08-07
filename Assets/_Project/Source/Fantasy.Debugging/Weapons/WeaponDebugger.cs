@@ -1,6 +1,6 @@
 ﻿#if UNITY_EDITOR || DEBUG
 using Fantasy.Gameplay.Characters;
-using Fantasy.SharedKernel.Weapons;
+using Fantasy.Domain.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Debugging.Weapons

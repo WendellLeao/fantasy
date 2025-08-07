@@ -1,6 +1,7 @@
 using System;
-using Fantasy.SharedKernel.Health;
+using Fantasy.Domain.Health;
 using Leaosoft;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
@@ -24,10 +25,10 @@ namespace Fantasy.Gameplay
         public Transform HealthBarParent => healthBarParent;
         public float HealthRatio => _healthModel.HealthRatio;
         public bool IsTakingDamage => _damagePerSecondDuration > 0f;
-
+        
         public void TakeDamage(DamageData damageData)
         {
-            if (_isInvincible || HealthRatio <= 0f)
+            if (!CanTakeDamage())
             {
                 return;
             }
@@ -46,6 +47,16 @@ namespace Fantasy.Gameplay
             {
                 OnDied?.Invoke();
             }
+        }
+
+        public void Heal(float amount)
+        {
+            if (HealthRatio <= 0f)
+            {
+                return;
+            }
+            
+            IncrementHealth(amount);
         }
 
         protected override void OnInitialize()
@@ -93,12 +104,33 @@ namespace Fantasy.Gameplay
             OnHealthChanged?.Invoke(HealthRatio);
         }
 
+        private bool CanTakeDamage()
+        {
+            return IsEnabled && !_isInvincible && HealthRatio > 0f;
+        }
+        
         public void SetIsInvincible(bool isInvincible)
         {
             _isInvincible = isInvincible;
         }
 
 #if UNITY_EDITOR
+        [Button("Heal_IncrementCurrentHealthBy50")]
+        public void Heal_IncrementCurrentHealthBy50()
+        {
+            Heal(amount: 50);
+        }
+        
+        [Button("TakeDamage_DecreaseCurrentHealthBy50")]
+        public void TakeDamage_DecreaseCurrentHealthBy50()
+        {
+            DamageData mockDamageData = ScriptableObject.CreateInstance<DamageData>(); 
+            
+            mockDamageData.SetAmountForTests(50);
+            
+            TakeDamage(mockDamageData);
+        }
+        
         public void SetHealthDataForTests(HealthData healthData)
         {
             data = healthData;

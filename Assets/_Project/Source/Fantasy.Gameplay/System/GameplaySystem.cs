@@ -1,3 +1,4 @@
+using Fantasy.Gameplay.Cameras.Manager;
 using Fantasy.Gameplay.Cursor.Manager;
 using Fantasy.Gameplay.Enemies.Manager;
 using Fantasy.Gameplay.Particles.Manager;
@@ -20,6 +21,11 @@ namespace Fantasy.Gameplay.System
                 cursorManager.Initialize();
             }
 
+            if (TryGetManager(out CameraManager cameraManager))
+            {
+                cameraManager.Initialize();
+            }
+            
             if (TryGetManager(out ParticleManager particleManager))
             {
                 particleManager.Initialize();
@@ -37,7 +43,7 @@ namespace Fantasy.Gameplay.System
 
             if (TryGetManager(out CharacterManager characterManager))
             {
-                characterManager.Initialize(particleManager, weaponManager, eventService);
+                characterManager.Initialize(particleManager, weaponManager, eventService, cameraManager);
             }
 
             if (TryGetManager(out EnemyManager enemyManager))

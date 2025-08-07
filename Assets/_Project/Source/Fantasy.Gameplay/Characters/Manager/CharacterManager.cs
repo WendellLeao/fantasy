@@ -1,5 +1,5 @@
 using Fantasy.Events.Health;
-using Fantasy.SharedKernel.Health;
+using Fantasy.Domain.Health;
 using Leaosoft.Events;
 using UnityEngine;
 
@@ -15,12 +15,15 @@ namespace Fantasy.Gameplay.Characters.Manager
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IEventService _eventService;
+        private ICameraProvider _cameraProvider;
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService)
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService,
+            ICameraProvider cameraProvider)
         {
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             _eventService = eventService;
+            _cameraProvider = cameraProvider;
             
             base.Initialize();
         }
@@ -34,11 +37,24 @@ namespace Fantasy.Gameplay.Characters.Manager
                 GameObject characterPrefab = characterPrefabs[i];
                 Character character = (Character)CreateEntity(characterPrefab, spawnPoints[i]);
 
-                character.Initialize(_particleFactory, _weaponFactory);
+                character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
                 character.Begin();
 
+                character.OnDied += HandleCharacterDied;
+                
                 DispatchDamageableSpawnedEvent(character.Damageable);
             }
+
+            Character firstCharacter = (Character)AllSpawnedEntities[0];
+            
+            _cameraProvider.VirtualCamera.SetTarget(firstCharacter.transform);
+        }
+
+        private void HandleCharacterDied(Character character)
+        {
+            character.OnDied -= HandleCharacterDied;
+            
+            character.Stop();
         }
 
         private void DispatchDamageableSpawnedEvent(IDamageable wizardDamageable)

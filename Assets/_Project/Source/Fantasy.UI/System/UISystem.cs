@@ -13,6 +13,7 @@ namespace Fantasy.UI.System
             {
                 IEventService eventService = ServiceLocator.GetService<IEventService>();
                 
+                // TODO: camera service
                 healthViewsManager.Initialize(Camera.main, eventService);
             }
         }

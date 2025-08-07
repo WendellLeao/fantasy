@@ -1,4 +1,4 @@
-using Fantasy.SharedKernel.Weapons;
+using Fantasy.Domain.Weapons;
 
 namespace Fantasy.Commands
 {
