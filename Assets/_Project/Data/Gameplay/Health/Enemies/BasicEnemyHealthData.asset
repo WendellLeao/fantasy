@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BasicEnemyHealthData
   m_EditorClassIdentifier: 
   id: basic_enemy_health
-  maxHealth: 150
+  maxHealth: 80

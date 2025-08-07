@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MageHealthData
   m_EditorClassIdentifier: 
   id: mage_health
-  maxHealth: 200
+  maxHealth: 100
