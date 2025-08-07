@@ -185,6 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   components:
   - {fileID: 5797961262117325252}
+  - {fileID: 116677593831863408}
+  view: {fileID: 0}
   collisionParticle: {fileID: 4218367092044171886, guid: 51989b63108a1a444bd297908d943b11, type: 3}
 --- !u!114 &5797961262117325252
 MonoBehaviour:

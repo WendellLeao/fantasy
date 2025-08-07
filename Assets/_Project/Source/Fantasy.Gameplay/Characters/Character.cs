@@ -69,8 +69,7 @@ namespace Fantasy.Gameplay.Characters
             OnDied?.Invoke(this);
         }
 
-        #region Debug
-
+#if UNITY_EDITOR
         [Button]
         public void BeginDebug()
         {
@@ -82,7 +81,6 @@ namespace Fantasy.Gameplay.Characters
         {
             Stop();
         }
-
-        #endregion
+#endif
     }
 }

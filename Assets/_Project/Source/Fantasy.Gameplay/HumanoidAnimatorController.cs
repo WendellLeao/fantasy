@@ -35,18 +35,18 @@ namespace Fantasy.Gameplay
             base.Initialize();
         }
 
-        protected override void OnInitialize()
+        protected override void OnBegin()
         {
-            base.OnInitialize();
+            base.OnBegin();
             
             HandleWeaponMovesetType(_weaponHolder.Weapon);
             
             SubscribeEvents();
         }
-        
-        protected override void OnDispose()
+
+        protected override void OnStop()
         {
-            base.OnDispose();
+            base.OnStop();
             
             UnsubscribeEvents();
         }

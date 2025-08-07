@@ -12,6 +12,7 @@ namespace Fantasy.Gameplay.Spells
         private GameObject collisionParticle;
         
         private IParticleFactory _particleFactory;
+        private Damager _damager;
 
         public Transform Transform => transform;
 
@@ -21,14 +22,16 @@ namespace Fantasy.Gameplay.Spells
             {
                 applyForwardForce.Initialize();
             }
+            
+            if (TryGetComponent(out _damager))
+            {
+                _damager.Initialize();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (TryGetComponent(out Damager damager))
-            {
-                damager.TryApplyDamage(other);
-            }
+            _damager.TryApplyDamage(other);
             
             _particleFactory.EmitParticle(collisionParticle, transform.position, Quaternion.identity);
             

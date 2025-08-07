@@ -10,6 +10,7 @@ namespace Fantasy.Domain.Weapons
         
         public void Initialize(WeaponData data);
         public void Begin();
+        public void Stop();
         public void Execute();
         public void SetColliderEnabled(bool isEnabled);
     }

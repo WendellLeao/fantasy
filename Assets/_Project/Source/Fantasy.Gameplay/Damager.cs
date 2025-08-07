@@ -1,9 +1,10 @@
 using Fantasy.Domain.Health;
+using Leaosoft;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal sealed class Damager : MonoBehaviour
+    internal sealed class Damager : EntityComponent
     {
         [SerializeField]
         private DamageData data;
