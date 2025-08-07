@@ -29,7 +29,7 @@ namespace Fantasy.Gameplay.Tests
         }
 
         [Test]
-        public void TakeDamage_ReducesCurrentHealthByThreePercent()
+        public void TakeDamage_DecreaseCurrentHealthByThreePercent()
         {
             // Arrange
             _mockDamageData.SetAmountForTests(30);
