@@ -40,12 +40,21 @@ namespace Fantasy.Gameplay.Characters.Manager
                 character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
                 character.Begin();
 
+                character.OnDied += HandleCharacterDied;
+                
                 DispatchDamageableSpawnedEvent(character.Damageable);
             }
 
             Character firstCharacter = (Character)AllSpawnedEntities[0];
             
             _cameraProvider.VirtualCamera.SetTarget(firstCharacter.transform);
+        }
+
+        private void HandleCharacterDied(Character character)
+        {
+            character.OnDied -= HandleCharacterDied;
+            
+            character.Stop();
         }
 
         private void DispatchDamageableSpawnedEvent(IDamageable wizardDamageable)

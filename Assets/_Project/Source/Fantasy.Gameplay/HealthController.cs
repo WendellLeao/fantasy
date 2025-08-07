@@ -1,6 +1,7 @@
 using System;
 using Fantasy.Domain.Health;
 using Leaosoft;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
@@ -24,7 +25,7 @@ namespace Fantasy.Gameplay
         public Transform HealthBarParent => healthBarParent;
         public float HealthRatio => _healthModel.HealthRatio;
         public bool IsTakingDamage => _damagePerSecondDuration > 0f;
-
+        
         public void TakeDamage(DamageData damageData)
         {
             if (_isInvincible || HealthRatio <= 0f)
@@ -104,5 +105,21 @@ namespace Fantasy.Gameplay
             data = healthData;
         }
 #endif
+
+        #region Debug
+
+        [Button]
+        public void Increment50Health()
+        {
+            IncrementHealth(50);
+        }
+        
+        [Button]
+        public void Decrement50Health()
+        {
+            DecrementHealth(50);
+        }
+
+        #endregion
     }
 }

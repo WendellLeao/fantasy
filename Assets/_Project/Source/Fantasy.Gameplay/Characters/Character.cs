@@ -1,17 +1,21 @@
+using System;
 using Fantasy.Domain.Health;
 using Leaosoft;
+using NaughtyAttributes;
 
 namespace Fantasy.Gameplay.Characters
 {
     public sealed class Character : Entity
     {
+        public event Action<Character> OnDied;
+        
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IDamageable _damageable;
         private ICameraProvider _cameraProvider;
 
         public IDamageable Damageable => _damageable;
-
+        
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _particleFactory = particleFactory;
@@ -45,5 +49,40 @@ namespace Fantasy.Gameplay.Characters
                 characterView.Initialize(navMeshClickMover, _damageable, weaponHolder, _particleFactory);
             }
         }
+        
+        protected override void OnBegin()
+        {
+            base.OnBegin();
+
+            _damageable.OnDied += HandleDamageableDied;
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            
+            _damageable.OnDied -= HandleDamageableDied;
+        }
+        
+        private void HandleDamageableDied()
+        {
+            OnDied?.Invoke(this);
+        }
+
+        #region Debug
+
+        [Button]
+        public void BeginDebug()
+        {
+            Begin();
+        }
+
+        [Button]
+        public void StopDebug()
+        {
+            Stop();
+        }
+
+        #endregion
     }
 }

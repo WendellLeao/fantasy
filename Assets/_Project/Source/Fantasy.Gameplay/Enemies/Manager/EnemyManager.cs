@@ -33,8 +33,17 @@ namespace Fantasy.Gameplay.Enemies.Manager
 
             basicEnemy.Initialize(_particleFactory, _weaponFactory);
             basicEnemy.Begin();
+
+            basicEnemy.OnDied += HandleBasicEnemyDied;
             
             DispatchDamageableSpawnedEvent(basicEnemy.Damageable);
+        }
+
+        private void HandleBasicEnemyDied(BasicEnemy basicEnemy)
+        {
+            basicEnemy.OnDied -= HandleBasicEnemyDied;
+            
+            basicEnemy.Stop();
         }
 
         private void DispatchDamageableSpawnedEvent(IDamageable enemyDamageable)
