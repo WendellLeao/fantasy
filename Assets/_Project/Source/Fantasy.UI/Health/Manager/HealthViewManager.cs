@@ -1,5 +1,6 @@
 using Fantasy.Events.Health;
 using Fantasy.Domain.Health;
+using Leaosoft;
 using Leaosoft.Events;
 using UnityEngine;
 
@@ -35,13 +36,24 @@ namespace Fantasy.UI.Health.Manager
             _eventService.RemoveEventListener<DamageableSpawnedEvent>(HandleDamageableSpawned);
         }
 
+        protected override void DisposeEntity(IEntity entity)
+        {
+            base.DisposeEntity(entity);
+
+            if (entity is not HealthView healthView)
+            {
+                return;
+            }
+            
+            healthView.OnDamageableDied -= HandleHealthViewDamageableDied;
+        }
+
         private void HandleDamageableSpawned(DamageableSpawnedEvent damageableSpawnedEvent)
         {
             IDamageable damageable = damageableSpawnedEvent.Damageable;
 
             HealthView healthView = (HealthView)CreateEntity(healthViewPrefab, damageable.HealthBarParent);
 
-            //TODO: PROPERLY UNSUBSCRIBE FROM ALL EVENTS ON DISPOSE
             healthView.OnDamageableDied += HandleHealthViewDamageableDied;
             
             healthView.Initialize(_mainCamera, damageable);
@@ -50,8 +62,6 @@ namespace Fantasy.UI.Health.Manager
 
         private void HandleHealthViewDamageableDied(HealthView healthView)
         {
-            healthView.OnDamageableDied -= HandleHealthViewDamageableDied;
-            
             DisposeEntity(healthView);
         }
     }
