@@ -40,9 +40,19 @@ namespace Fantasy.UI.Health.Manager
             IDamageable damageable = damageableSpawnedEvent.Damageable;
 
             HealthView healthView = (HealthView)CreateEntity(healthViewPrefab, damageable.HealthBarParent);
+
+            //TODO: PROPERLY UNSUBSCRIBE FROM ALL EVENTS ON DISPOSE
+            healthView.OnDamageableDied += HandleHealthViewDamageableDied;
             
             healthView.Initialize(_mainCamera, damageable);
             healthView.Begin();
+        }
+
+        private void HandleHealthViewDamageableDied(HealthView healthView)
+        {
+            healthView.OnDamageableDied -= HandleHealthViewDamageableDied;
+            
+            DisposeEntity(healthView);
         }
     }
 }

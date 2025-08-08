@@ -11,6 +11,8 @@ namespace Fantasy.Gameplay.Enemies.Manager
         private GameObject enemyPrefab;
         [SerializeField]
         private Transform spawnPoint;
+        [SerializeField]
+        private float destroyEnemyObjectDelay = 7f;
 
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
@@ -34,6 +36,7 @@ namespace Fantasy.Gameplay.Enemies.Manager
             basicEnemy.Initialize(_particleFactory, _weaponFactory);
             basicEnemy.Begin();
 
+            //TODO: PROPERLY UNSUBSCRIBE FROM ALL EVENTS ON DISPOSE
             basicEnemy.OnDied += HandleBasicEnemyDied;
             
             DispatchDamageableSpawnedEvent(basicEnemy.Damageable);
@@ -43,7 +46,9 @@ namespace Fantasy.Gameplay.Enemies.Manager
         {
             basicEnemy.OnDied -= HandleBasicEnemyDied;
             
-            basicEnemy.Stop();
+            DisposeEntity(basicEnemy);
+            
+            Destroy(basicEnemy.gameObject, destroyEnemyObjectDelay);
         }
 
         private void DispatchDamageableSpawnedEvent(IDamageable enemyDamageable)

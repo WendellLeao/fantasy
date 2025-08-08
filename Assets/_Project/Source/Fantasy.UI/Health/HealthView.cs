@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using Fantasy.Domain.Health;
 using Fantasy.UI.Screens;
 using Leaosoft;
@@ -7,9 +9,19 @@ namespace Fantasy.UI.Health
 {
     internal sealed class HealthView : Entity
     {
+        public event Action<HealthView> OnDamageableDied;
+        
+        [SerializeField]
+        private CanvasGroup canvasGroup;
         [SerializeField]
         private Billboard billboard;
 
+        [Header("Canvas Group Fade Settings")]
+        [SerializeField]
+        private float canvasGroupFadeDuration = 0.5f;
+        [SerializeField]
+        private float canvasGroupFadeDelay = 2f;
+        
         private Camera _mainCamera;
         private IDamageable _damageable;
         private ImageFiller _imageFiller;
@@ -35,6 +47,7 @@ namespace Fantasy.UI.Health
             base.OnInitialize();
             
             _damageable.OnHealthChanged += HandleHealthChanged;
+            _damageable.OnDied += HandleDamageableDied;
         }
 
         protected override void OnDispose()
@@ -42,6 +55,7 @@ namespace Fantasy.UI.Health
             base.OnDispose();
             
             _damageable.OnHealthChanged -= HandleHealthChanged;
+            _damageable.OnDied -= HandleDamageableDied;
         }
 
         protected override void OnLateTick(float deltaTime)
@@ -56,6 +70,19 @@ namespace Fantasy.UI.Health
         private void HandleHealthChanged(float healthRatio)
         {
             _imageFiller.UpdateFillAmount(healthRatio);
+        }
+        
+        private void HandleDamageableDied()
+        {
+            canvasGroup
+                .DOFade(endValue: 0f, canvasGroupFadeDuration)
+                .SetDelay(canvasGroupFadeDelay)
+                .OnComplete(DispatchDamageableDiedEvent);
+        }
+
+        private void DispatchDamageableDiedEvent()
+        {
+            OnDamageableDied?.Invoke(this);
         }
     }
 }
