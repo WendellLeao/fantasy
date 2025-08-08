@@ -167,6 +167,7 @@ MonoBehaviour:
   - {fileID: 8909414379109691139}
   - {fileID: 6717185278913323898}
   view: {fileID: 9218935339792421003}
+  smokeParticleObject: {fileID: 4907162240233864864, guid: f20d1c968f673474fb4d39f4cd4f83cc, type: 3}
 --- !u!114 &8909414379109691139
 MonoBehaviour:
   m_ObjectHideFlags: 0

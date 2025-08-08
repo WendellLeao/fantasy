@@ -9,6 +9,9 @@ namespace Fantasy.Gameplay.Enemies
     {
         public event Action<BasicEnemy> OnDied;
         
+        [SerializeField]
+        private GameObject smokeParticleObject;
+        
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IDamageable _damageable;
@@ -61,6 +64,8 @@ namespace Fantasy.Gameplay.Enemies
 
         private void HandleDamageableDied()
         {
+            _particleFactory.EmitParticle(smokeParticleObject, transform.position, smokeParticleObject.transform.rotation);
+            
             OnDied?.Invoke(this);
         }
 
