@@ -11,10 +11,10 @@ namespace Fantasy.Gameplay.Characters
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IDamageable _damageable;
+        private IHealth _health;
         private ICameraProvider _cameraProvider;
 
-        public IDamageable Damageable => _damageable;
+        public IHealth Health => _health;
         
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
@@ -31,7 +31,12 @@ namespace Fantasy.Gameplay.Characters
             {
                 healthController.Initialize();
 
-                _damageable = healthController;
+                _health = healthController;
+            }
+            
+            if (TryGetComponent(out DamageController damageController))
+            {
+                damageController.Initialize(_health);
             }
 
             if (TryGetComponent(out WeaponHolder weaponHolder))
@@ -46,7 +51,7 @@ namespace Fantasy.Gameplay.Characters
 
             if (View is CharacterView characterView)
             {
-                characterView.Initialize(navMeshClickMover, _damageable, weaponHolder, _particleFactory);
+                characterView.Initialize(navMeshClickMover, _health, damageController, weaponHolder, _particleFactory);
             }
         }
         
@@ -54,17 +59,17 @@ namespace Fantasy.Gameplay.Characters
         {
             base.OnBegin();
 
-            _damageable.OnDied += HandleDamageableDied;
+            _health.OnDepleted += HandleHealthDepleted;
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             
-            _damageable.OnDied -= HandleDamageableDied;
+            _health.OnDepleted -= HandleHealthDepleted;
         }
         
-        private void HandleDamageableDied()
+        private void HandleHealthDepleted()
         {
             OnDied?.Invoke(this);
         }

@@ -1,4 +1,3 @@
-using Fantasy.Domain.Health;
 using Leaosoft;
 using UnityEngine;
 

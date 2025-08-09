@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 5737042539406947941}
   - component: {fileID: 5498941038622772581}
   - component: {fileID: 8909414379109691139}
+  - component: {fileID: 129759179537839934}
   - component: {fileID: 6717185278913323898}
   - component: {fileID: 5633495181132293092}
   m_Layer: 8
@@ -165,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   components:
   - {fileID: 8909414379109691139}
+  - {fileID: 129759179537839934}
   - {fileID: 6717185278913323898}
   view: {fileID: 9218935339792421003}
   smokeParticleObject: {fileID: 4907162240233864864, guid: f20d1c968f673474fb4d39f4cd4f83cc, type: 3}
@@ -182,6 +184,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: f91460dc878b30e4a90220f266f57220, type: 2}
   healthBarParent: {fileID: 6722480650125387322}
+--- !u!114 &129759179537839934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854077087015093654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd1d57cc0c34eb2ba32f30f8d831b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6717185278913323898
 MonoBehaviour:
   m_ObjectHideFlags: 0

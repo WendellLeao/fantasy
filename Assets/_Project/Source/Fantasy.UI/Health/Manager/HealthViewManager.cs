@@ -26,14 +26,14 @@ namespace Fantasy.UI.Health.Manager
         {
             base.OnInitialize();
             
-            _eventService.AddEventListener<DamageableSpawnedEvent>(HandleDamageableSpawned);
+            _eventService.AddEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }
 
         protected override void OnDispose()
         {
             base.OnDispose();
             
-            _eventService.RemoveEventListener<DamageableSpawnedEvent>(HandleDamageableSpawned);
+            _eventService.RemoveEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }
 
         protected override void DisposeEntity(IEntity entity)
@@ -45,22 +45,22 @@ namespace Fantasy.UI.Health.Manager
                 return;
             }
             
-            healthView.OnDamageableDied -= HandleHealthViewDamageableDied;
+            healthView.OnHealthDepleted -= HandleHealthDepleted;
         }
 
-        private void HandleDamageableSpawned(DamageableSpawnedEvent damageableSpawnedEvent)
+        private void HandleHealthSpawned(HealthSpawnedEvent healthSpawnedEvent)
         {
-            IDamageable damageable = damageableSpawnedEvent.Damageable;
+            IHealth health = healthSpawnedEvent.Health;
 
-            HealthView healthView = (HealthView)CreateEntity(healthViewPrefab, damageable.HealthBarParent);
+            HealthView healthView = (HealthView)CreateEntity(healthViewPrefab, health.HealthBarParent);
 
-            healthView.OnDamageableDied += HandleHealthViewDamageableDied;
+            healthView.OnHealthDepleted += HandleHealthDepleted;
             
-            healthView.Initialize(_mainCamera, damageable);
+            healthView.Initialize(_mainCamera, health);
             healthView.Begin();
         }
 
-        private void HandleHealthViewDamageableDied(HealthView healthView)
+        private void HandleHealthDepleted(HealthView healthView)
         {
             DisposeEntity(healthView);
         }

@@ -38,14 +38,24 @@ namespace Fantasy.Gameplay.Spells.Manager
             
             return spell;
         }
-        
-        private void HandleSpellHit(ISpell spell)
+
+        protected override void DisposeEntity(IEntity entity)
         {
+            base.DisposeEntity(entity);
+
+            if (entity is not ISpell spell)
+            {
+                return;  
+            }
+            
             spell.OnHit -= HandleSpellHit;
-                
-            DisposeEntity(spell as IEntity);
             
             Destroy(spell.Transform.gameObject); // TODO: use pooling
+        }
+
+        private void HandleSpellHit(ISpell spell)
+        {
+            DisposeEntity(spell as IEntity);
         }
     }
 }

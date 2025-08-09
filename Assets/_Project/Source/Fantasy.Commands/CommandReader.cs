@@ -11,7 +11,7 @@ namespace Fantasy.Commands
         private CommandCollectionData commandCollectionData;
         
         private readonly Dictionary<CommandType, ICommand> _commands = new();
-        private IDamageable _damageable;
+        private IHealth _health;
         private bool _canExecuteCommand = true;
 
         private void Awake()
@@ -21,17 +21,17 @@ namespace Fantasy.Commands
                 _commands.Add(CommandType.Attack, new AttackCommand(weaponHolder));
             }
             
-            TryGetComponent(out _damageable);
+            TryGetComponent(out _health);
         }
         
         private void OnEnable()
         {
-            _damageable.OnDied += HandleDamageableDied;
+            _health.OnDepleted += HandleHealthDepleted;
         }
 
         private void OnDisable()
         {
-            _damageable.OnDied -= HandleDamageableDied;
+            _health.OnDepleted -= HandleHealthDepleted;
         }
         
         private void Update()
@@ -59,7 +59,7 @@ namespace Fantasy.Commands
             }
         }
         
-        private void HandleDamageableDied()
+        private void HandleHealthDepleted()
         {
             _canExecuteCommand = false;
         }

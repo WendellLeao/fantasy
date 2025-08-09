@@ -9,7 +9,7 @@ namespace Fantasy.UI.Health
 {
     internal sealed class HealthView : Entity
     {
-        public event Action<HealthView> OnDamageableDied;
+        public event Action<HealthView> OnHealthDepleted;
         
         [SerializeField]
         private CanvasGroup canvasGroup;
@@ -23,13 +23,13 @@ namespace Fantasy.UI.Health
         private float canvasGroupFadeDelay = 2f;
         
         private Camera _mainCamera;
-        private IDamageable _damageable;
+        private IHealth _health;
         private ImageFiller _imageFiller;
 
-        public void Initialize(Camera mainCamera, IDamageable damageable)
+        public void Initialize(Camera mainCamera, IHealth health)
         {
             _mainCamera = mainCamera;
-            _damageable = damageable;
+            _health = health;
 
             base.Initialize();
         }
@@ -38,7 +38,7 @@ namespace Fantasy.UI.Health
         {
             if (TryGetComponent(out _imageFiller))
             {
-                _imageFiller.Initialize(_damageable.HealthRatio);
+                _imageFiller.Initialize(_health.HealthRatio);
             }
         }
 
@@ -46,16 +46,16 @@ namespace Fantasy.UI.Health
         {
             base.OnInitialize();
             
-            _damageable.OnHealthChanged += HandleHealthChanged;
-            _damageable.OnDied += HandleDamageableDied;
+            _health.OnHealthChanged += HandleHealthChanged;
+            _health.OnDepleted += HandleHealthDepleted;
         }
 
         protected override void OnDispose()
         {
             base.OnDispose();
             
-            _damageable.OnHealthChanged -= HandleHealthChanged;
-            _damageable.OnDied -= HandleDamageableDied;
+            _health.OnHealthChanged -= HandleHealthChanged;
+            _health.OnDepleted -= HandleHealthDepleted;
         }
 
         protected override void OnLateTick(float deltaTime)
@@ -72,17 +72,17 @@ namespace Fantasy.UI.Health
             _imageFiller.UpdateFillAmount(healthRatio);
         }
         
-        private void HandleDamageableDied()
+        private void HandleHealthDepleted()
         {
             canvasGroup
                 .DOFade(endValue: 0f, canvasGroupFadeDuration)
                 .SetDelay(canvasGroupFadeDelay)
-                .OnComplete(DispatchDamageableDiedEvent);
+                .OnComplete(DispatchHealthDepletedEvent);
         }
 
-        private void DispatchDamageableDiedEvent()
+        private void DispatchHealthDepletedEvent()
         {
-            OnDamageableDied?.Invoke(this);
+            OnHealthDepleted?.Invoke(this);
         }
     }
 }

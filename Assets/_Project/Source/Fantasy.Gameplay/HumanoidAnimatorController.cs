@@ -22,13 +22,15 @@ namespace Fantasy.Gameplay
         private float velocityDampTime = 0.08f;
 
         private IMoveableAgent _moveableAgent;
+        private IHealth _health;
         private IDamageable _damageable;
         private IWeaponHolder _weaponHolder;
         private float _smoothedSpeed;
 
-        public void Initialize(IMoveableAgent moveableAgent, IDamageable damageable, IWeaponHolder weaponHolder)
+        public void Initialize(IMoveableAgent moveableAgent, IHealth health, IDamageable damageable, IWeaponHolder weaponHolder)
         {
             _moveableAgent = moveableAgent;
+            _health = health;
             _damageable = damageable;
             _weaponHolder = weaponHolder;
 
@@ -60,8 +62,9 @@ namespace Fantasy.Gameplay
 
         private void SubscribeEvents()
         {
+            _health.OnDepleted += HandleHealthDepleted;
+
             _damageable.OnDamageTaken += HandleDamageTaken;
-            _damageable.OnDied += HandleDamageableDied;
             
             _weaponHolder.OnWeaponChanged += HandleWeaponMovesetType;
             _weaponHolder.OnWeaponExecuted += HandleWeaponExecuted;
@@ -69,24 +72,25 @@ namespace Fantasy.Gameplay
 
         private void UnsubscribeEvents()
         {
+            _health.OnDepleted -= HandleHealthDepleted;
+
             _damageable.OnDamageTaken -= HandleDamageTaken;
-            _damageable.OnDied -= HandleDamageableDied;
             
             _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
         }
 
-        private void HandleDamageTaken(DamageData damageData)
-        {
-            animator.SetTrigger(id: TakeDamage);
-        }
-        
-        private void HandleDamageableDied()
+        private void HandleHealthDepleted()
         {
             int randomDeathType = Random.Range(0, Enum.GetValues(typeof(DeathType)).Length);
             
             animator.SetInteger(id: DeathType, randomDeathType);
             animator.SetTrigger(id: Die);
+        }
+        
+        private void HandleDamageTaken(DamageData damageData)
+        {
+            animator.SetTrigger(id: TakeDamage);
         }
         
         private void HandleWeaponMovesetType(IWeapon weapon)

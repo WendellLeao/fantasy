@@ -42,7 +42,7 @@ namespace Fantasy.Gameplay.Characters.Manager
 
                 character.OnDied += HandleCharacterDied;
                 
-                DispatchDamageableSpawnedEvent(character.Damageable);
+                DispatchHealthSpawnedEvent(character.Health);
             }
 
             Character firstCharacter = (Character)AllSpawnedEntities[0];
@@ -57,9 +57,9 @@ namespace Fantasy.Gameplay.Characters.Manager
             character.Stop();
         }
 
-        private void DispatchDamageableSpawnedEvent(IDamageable wizardDamageable)
+        private void DispatchHealthSpawnedEvent(IHealth health)
         {
-            _eventService.DispatchEvent(new DamageableSpawnedEvent(wizardDamageable));
+            _eventService.DispatchEvent(new HealthSpawnedEvent(health));
         }
     }
 }

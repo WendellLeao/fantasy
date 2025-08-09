@@ -65,28 +65,6 @@ namespace Fantasy.Gameplay.Enemies.Manager
             DestroyEnemyObjectAsync(basicEnemy.gameObject, _destroyEnemyObjectCts.Token).Forget();
         }
 
-        private void SpawnEnemy()
-        {
-            BasicEnemy basicEnemy = (BasicEnemy)CreateEntity(enemyPrefab, spawnPoint);
-
-            basicEnemy.Initialize(_particleFactory, _weaponFactory);
-            basicEnemy.Begin();
-
-            basicEnemy.OnDied += HandleBasicEnemyDied;
-            
-            DispatchDamageableSpawnedEvent(basicEnemy.Damageable);
-        }
-
-        private void HandleBasicEnemyDied(BasicEnemy basicEnemy)
-        {
-            DisposeEntity(basicEnemy);
-        }
-        
-        private void DispatchDamageableSpawnedEvent(IDamageable enemyDamageable)
-        {
-            _eventService.DispatchEvent(new DamageableSpawnedEvent(enemyDamageable));
-        }
-        
         private async UniTask DestroyEnemyObjectAsync(GameObject basicEnemyGameObject, CancellationToken token)
         {
             try
@@ -115,6 +93,28 @@ namespace Fantasy.Gameplay.Enemies.Manager
                 _destroyEnemyObjectCts?.Dispose();
                 _destroyEnemyObjectCts = null;
             }
+        }
+        
+        private void SpawnEnemy()
+        {
+            BasicEnemy basicEnemy = (BasicEnemy)CreateEntity(enemyPrefab, spawnPoint);
+
+            basicEnemy.Initialize(_particleFactory, _weaponFactory);
+            basicEnemy.Begin();
+
+            basicEnemy.OnDied += HandleBasicEnemyDied;
+            
+            DispatchHealthSpawnedEvent(basicEnemy.Health);
+        }
+
+        private void HandleBasicEnemyDied(BasicEnemy basicEnemy)
+        {
+            DisposeEntity(basicEnemy);
+        }
+        
+        private void DispatchHealthSpawnedEvent(IHealth health)
+        {
+            _eventService.DispatchEvent(new HealthSpawnedEvent(health));
         }
     }
 }

@@ -14,9 +14,9 @@ namespace Fantasy.Gameplay.Enemies
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IDamageable _damageable;
+        private IHealth _health;
 
-        public IDamageable Damageable => _damageable;
+        public IHealth Health => _health;
         public Vector3 Velocity => Vector3.zero;
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
@@ -33,9 +33,14 @@ namespace Fantasy.Gameplay.Enemies
             {
                 healthController.Initialize();
 
-                _damageable = healthController;
+                _health = healthController;
             }
 
+            if (TryGetComponent(out DamageController damageController))
+            {
+                damageController.Initialize(_health);
+            }
+            
             if (TryGetComponent(out WeaponHolder weaponHolder))
             {
                 weaponHolder.Initialize(_weaponFactory);
@@ -44,7 +49,7 @@ namespace Fantasy.Gameplay.Enemies
             if (View is BasicEnemyView basicEnemyView)
             {
                 // TODO: implement the enemy's moveable agent component
-                basicEnemyView.Initialize(moveableAgent: this, _damageable, weaponHolder, _particleFactory);
+                basicEnemyView.Initialize(moveableAgent: this, _health, damageController, weaponHolder, _particleFactory);
             }
         }
 
@@ -52,17 +57,17 @@ namespace Fantasy.Gameplay.Enemies
         {
             base.OnBegin();
 
-            _damageable.OnDied += HandleDamageableDied;
+            _health.OnDepleted += HandleHealthDepleted;
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             
-            _damageable.OnDied -= HandleDamageableDied;
+            _health.OnDepleted -= HandleHealthDepleted;
         }
 
-        private void HandleDamageableDied()
+        private void HandleHealthDepleted()
         {
             _particleFactory.EmitParticle(smokeParticleObject, transform.position, smokeParticleObject.transform.rotation);
             

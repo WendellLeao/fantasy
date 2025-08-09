@@ -45,9 +45,10 @@ GameObject:
   - component: {fileID: 4167538285629242428}
   - component: {fileID: 1696544635232054290}
   - component: {fileID: 840803360296624360}
+  - component: {fileID: 3206277104784625199}
   - component: {fileID: 2996856006919390465}
-  - component: {fileID: 1422097962266893983}
   - component: {fileID: 7342446073592018130}
+  - component: {fileID: 1422097962266893983}
   m_Layer: 8
   m_Name: CharacterBase
   m_TagString: Untagged
@@ -157,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   components:
   - {fileID: 840803360296624360}
+  - {fileID: 3206277104784625199}
   - {fileID: 2996856006919390465}
   - {fileID: 7342446073592018130}
   view: {fileID: 0}
@@ -174,6 +176,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 0}
   healthBarParent: {fileID: 4834784738536058337}
+--- !u!114 &3206277104784625199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281967818230640125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd1d57cc0c34eb2ba32f30f8d831b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2996856006919390465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,19 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 0}
   parent: {fileID: 0}
---- !u!114 &1422097962266893983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2281967818230640125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 313356e41a5d4de2a667a2dc0c2e684f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  commandCollectionData: {fileID: 11400000, guid: 4d2a2268379c2d04289f117debfd67b1, type: 2}
 --- !u!114 &7342446073592018130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,3 +220,16 @@ MonoBehaviour:
     m_Bits: 128
   lookRotationSpeed: 10
   clickSurfaceParticlePrefab: {fileID: 5988617719677102830, guid: f8e2033b555f5ea4daa2c6ac755aa727, type: 3}
+--- !u!114 &1422097962266893983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281967818230640125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313356e41a5d4de2a667a2dc0c2e684f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commandCollectionData: {fileID: 11400000, guid: 4d2a2268379c2d04289f117debfd67b1, type: 2}

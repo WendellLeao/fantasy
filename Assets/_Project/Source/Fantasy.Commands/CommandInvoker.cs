@@ -8,7 +8,7 @@ namespace Fantasy.Commands
     internal sealed class CommandInvoker : MonoBehaviour
     {
         private AttackCommand _attackCommand;
-        private IDamageable _damageable;
+        private IHealth _health;
         private Coroutine _executeAttackCommandRoutine;
 
         private void Awake()
@@ -18,20 +18,20 @@ namespace Fantasy.Commands
                 _attackCommand = new AttackCommand(weaponHolder);
             }
 
-            TryGetComponent(out _damageable);
+            TryGetComponent(out _health);
         }
 
         private void OnEnable()
         {
-            _damageable.OnDied += HandleDamageableDied;
+            _health.OnDepleted += HandleHealthDepleted;
         }
 
         private void OnDisable()
         {
-            _damageable.OnDied -= HandleDamageableDied;
+            _health.OnDepleted -= HandleHealthDepleted;
         }
 
-        private void HandleDamageableDied()
+        private void HandleHealthDepleted()
         {
             if (_executeAttackCommandRoutine != null)
             {
