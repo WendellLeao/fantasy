@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 880219298818877591}
   - component: {fileID: 1758676112630433466}
   - component: {fileID: 9014319798550977916}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Model (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 96525382691413305}
   - component: {fileID: 8716135463136243371}
   - component: {fileID: 4098819134422820089}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Model (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2278472591397040126}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: IceBallView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 8857217901390246920}
   - component: {fileID: 9181704840226907944}
   - component: {fileID: 7618748645008009805}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Model (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 1728456908057459640}
   - component: {fileID: 5014199593777741992}
   - component: {fileID: 2790564672681665756}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

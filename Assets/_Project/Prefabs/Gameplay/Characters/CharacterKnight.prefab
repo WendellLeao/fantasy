@@ -354,10 +354,6 @@ PrefabInstance:
       value: CharacterView
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
