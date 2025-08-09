@@ -2,7 +2,7 @@
 {
     internal enum DeathType
     {
-        DeathA = 0,
-        DeathB = 1,
+        DeathFallingBackwards = 0,
+        DeathFallingForward = 1,
     }
 }
