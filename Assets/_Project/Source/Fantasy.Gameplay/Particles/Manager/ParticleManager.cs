@@ -34,9 +34,19 @@ namespace Fantasy.Gameplay.Particles.Manager
         
         public void DisposeParticle(IParticle particle)
         {
-            particle.OnCompleted -= DisposeParticle;
-            
             DisposeEntity(particle as IEntity);
+        }
+
+        protected override void DisposeEntity(IEntity entity)
+        {
+            base.DisposeEntity(entity);
+
+            if (entity is not IParticle particle)
+            {
+                return;
+            }
+            
+            particle.OnCompleted -= DisposeParticle;
             
             Destroy(particle.Transform.gameObject); // TODO: use pooling
         }
