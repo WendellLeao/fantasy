@@ -1,17 +1,18 @@
-using System;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons.Manager
 {
     public sealed class WeaponManager : Leaosoft.Manager, IWeaponFactory
     {
+        private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
         private ISpellFactory _spellFactory;
 
-        public void Initialize(IParticleFactory particleFactory, ISpellFactory spellFactory)
+        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
         {
+            _poolingService = poolingService;
             _particleFactory = particleFactory;
             _spellFactory = spellFactory;
             
@@ -20,12 +21,14 @@ namespace Fantasy.Gameplay.Weapons.Manager
         
         public IWeapon CreateWeapon(WeaponData data, Transform parent)
         {
-            IEntity entity = Instantiate(data.Prefab, parent).GetComponent<IEntity>();
-
-            if (entity is not IWeapon weapon)
+            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, out IWeapon weapon))
             {
-                throw new InvalidOperationException($"Wasn't possible to cast the '{entity}' to '{nameof(IWeapon)}'");
+                return null;
             }
+
+            Transform weaponTransform = weapon.GameObject.transform;
+            
+            weaponTransform.SetParent(parent, worldPositionStays: false);
             
             weapon.Initialize(data);
             weapon.Begin();
@@ -52,7 +55,7 @@ namespace Fantasy.Gameplay.Weapons.Manager
         {
             base.DisposeEntity(entity);
 
-            Destroy(entity.GameObject); // TODO: use pooling
+            _poolingService.ReleaseObjectToPool(entity as IPooledObject);
         }
     }
 }

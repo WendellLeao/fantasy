@@ -1,5 +1,4 @@
 using Fantasy.Domain.Health;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
 
 namespace Fantasy.Gameplay.Characters

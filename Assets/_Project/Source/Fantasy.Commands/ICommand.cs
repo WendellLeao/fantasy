@@ -1,6 +1,6 @@
 namespace Fantasy.Commands
 {
-    internal interface ICommand
+    public interface ICommand
     {
         public void Execute();
     }

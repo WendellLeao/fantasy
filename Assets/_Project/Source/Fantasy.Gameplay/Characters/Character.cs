@@ -51,6 +51,11 @@ namespace Fantasy.Gameplay.Characters
                 navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
             }
 
+            if (TryGetComponent(out CommandInputReader commandReader))
+            {
+                commandReader.Initialize(weaponHolder);
+            }
+            
             if (View is CharacterView characterView)
             {
                 characterView.Initialize(_particleFactory, _health, damageController, weaponHolder, navMeshClickMover);

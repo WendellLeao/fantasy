@@ -1,5 +1,4 @@
 using System;
-using Fantasy.Domain.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
 

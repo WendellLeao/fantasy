@@ -1,6 +1,6 @@
-using Fantasy.Domain.Weapons;
+using Fantasy.Commands;
 
-namespace Fantasy.Commands
+namespace Fantasy.Gameplay
 {
     internal sealed class AttackCommand : ICommand
     {

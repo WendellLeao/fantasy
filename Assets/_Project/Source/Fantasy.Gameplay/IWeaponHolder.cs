@@ -1,6 +1,6 @@
 using System;
 
-namespace Fantasy.Domain.Weapons
+namespace Fantasy.Gameplay
 {
     public interface IWeaponHolder
     {

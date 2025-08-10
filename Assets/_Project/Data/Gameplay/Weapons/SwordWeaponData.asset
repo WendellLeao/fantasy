@@ -16,5 +16,5 @@ MonoBehaviour:
   viewName: Sword
   staminaCost: 0
   range: 0
-  prefab: {fileID: 4819132022086757035, guid: 70009b14618756640830938a5d829aaf, type: 3}
+  poolData: {fileID: 11400000, guid: 46191b44905af3d4bbefa40cac720f7b, type: 2}
   movesetType: 2

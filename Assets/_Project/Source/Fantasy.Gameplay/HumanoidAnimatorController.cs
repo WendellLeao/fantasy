@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using Fantasy.Domain.Health;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
 using Random = UnityEngine.Random;
 

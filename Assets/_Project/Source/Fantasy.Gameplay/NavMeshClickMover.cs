@@ -11,8 +11,6 @@ namespace Fantasy.Gameplay
         private NavMeshAgent navMeshAgent;
         [SerializeField]
         private LayerMask walkableLayerMask;
-        [SerializeField]
-        private float lookRotationSpeed = 3f;
         
         [Header("Particle")]
         [SerializeField]

@@ -40,7 +40,7 @@ namespace Fantasy.Gameplay.System
 
             if (TryGetManager(out WeaponManager weaponManager))
             {
-                weaponManager.Initialize(particleManager, spellManager);
+                weaponManager.Initialize(poolingService, particleManager, spellManager);
             }
 
             if (TryGetManager(out CharacterManager characterManager))

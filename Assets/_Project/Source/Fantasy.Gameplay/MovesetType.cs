@@ -1,4 +1,4 @@
-﻿namespace Fantasy.Domain.Weapons
+﻿namespace Fantasy.Gameplay
 {
     public enum MovesetType
     {

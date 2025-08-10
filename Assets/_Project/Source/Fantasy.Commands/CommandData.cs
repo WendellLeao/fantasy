@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Fantasy.Commands
 {
     [CreateAssetMenu(menuName = PathUtility.CommandMenuPath + "/CommandData", fileName = "NewCommandData")]
-    internal sealed class CommandData : ScriptableObject
+    public sealed class CommandData : ScriptableObject
     {
         [SerializeField]
         private KeyCode keyCode;

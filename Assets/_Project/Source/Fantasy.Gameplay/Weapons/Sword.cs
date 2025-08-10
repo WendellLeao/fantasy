@@ -1,5 +1,4 @@
 using System;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
 using Leaosoft.Pooling;
 using UnityEngine;
@@ -19,6 +18,7 @@ namespace Fantasy.Gameplay.Weapons
         private WeaponData _data;
 
         public WeaponData Data => _data;
+        public string PoolId { get; set; }
 
         public void Initialize(WeaponData data)
         {

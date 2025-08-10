@@ -1,9 +1,8 @@
 namespace Fantasy.Commands
 {
-    internal enum CommandType
+    public enum CommandType
     {
         None,
         Attack,
-        Jump
     }
 }

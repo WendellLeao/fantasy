@@ -1,8 +1,9 @@
 using System;
+using Leaosoft.Pooling;
 
-namespace Fantasy.Domain.Weapons
+namespace Fantasy.Gameplay
 {
-    public interface IWeapon
+    public interface IWeapon : IPooledObject
     {
         public event Action OnExecuted;
         

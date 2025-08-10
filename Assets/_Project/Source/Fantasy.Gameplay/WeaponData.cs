@@ -1,7 +1,8 @@
 using Fantasy.Utilities;
+using Leaosoft.Pooling;
 using UnityEngine;
 
-namespace Fantasy.Domain.Weapons
+namespace Fantasy.Gameplay
 {
     [CreateAssetMenu(menuName = PathUtility.WeaponsMenuPath + "/WeaponData", fileName = "NewWeaponData")]
     public sealed class WeaponData : ScriptableObject
@@ -15,12 +16,12 @@ namespace Fantasy.Domain.Weapons
         [SerializeField]
         private float range;
         [SerializeField]
-        private GameObject prefab;
+        private PoolData poolData;
         [SerializeField]
         private MovesetType movesetType;
         
         public string ViewName => viewName;
-        public GameObject Prefab => prefab;
+        public PoolData PoolData => poolData;
         public MovesetType MovesetType => movesetType;
     }
 }

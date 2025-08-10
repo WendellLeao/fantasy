@@ -48,6 +48,11 @@ namespace Fantasy.Gameplay.Enemies
                 weaponHolder.Initialize(_weaponFactory);
             }
 
+            if (TryGetComponent(out CommandInvoker commandInvoker))
+            {
+                commandInvoker.Initialize(weaponHolder);
+            }
+            
             if (View is BasicEnemyView basicEnemyView)
             {
                 // TODO: implement the enemy's moveable agent component

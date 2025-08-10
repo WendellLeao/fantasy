@@ -1,5 +1,5 @@
 ﻿#if UNITY_EDITOR || DEBUG
-using Fantasy.Domain.Weapons;
+using Fantasy.Gameplay;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

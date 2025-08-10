@@ -1,5 +1,4 @@
 using System;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -21,6 +20,7 @@ namespace Fantasy.Gameplay.Weapons
         private WeaponData _data;
 
         public WeaponData Data => _data;
+        public string PoolId { get; set; }
 
         public void Initialize(WeaponData data)
         {
