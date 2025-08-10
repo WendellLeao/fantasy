@@ -1,4 +1,3 @@
-using Fantasy.Domain.Health;
 using Leaosoft;
 
 namespace Fantasy.Gameplay.Characters

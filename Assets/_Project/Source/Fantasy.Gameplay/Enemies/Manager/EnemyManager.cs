@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Fantasy.Events.Health;
-using Fantasy.Domain.Health;
 using Leaosoft;
 using Leaosoft.Events;
 using Leaosoft.Pooling;

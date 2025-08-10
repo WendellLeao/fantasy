@@ -1,6 +1,5 @@
 using System;
 using DG.Tweening;
-using Fantasy.Domain.Health;
 using Fantasy.UI.Screens;
 using Leaosoft;
 using Leaosoft.Pooling;

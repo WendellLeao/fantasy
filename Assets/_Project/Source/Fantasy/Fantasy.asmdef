@@ -1,10 +1,7 @@
 {
-    "name": "Fantasy.Domain",
-    "rootNamespace": "Fantasy.Domain",
-    "references": [
-        "GUID:f08435d87fbdfb94b9825740ff07be80",
-        "GUID:776d03a35f1b52c4a9aed9f56d7b4229"
-    ],
+    "name": "Fantasy",
+    "rootNamespace": "Fantasy",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

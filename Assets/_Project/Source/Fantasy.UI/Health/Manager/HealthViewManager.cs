@@ -1,5 +1,4 @@
 using Fantasy.Events.Health;
-using Fantasy.Domain.Health;
 using Leaosoft;
 using Leaosoft.Events;
 using Leaosoft.Pooling;

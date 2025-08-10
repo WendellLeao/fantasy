@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Fantasy.Domain.Health
+namespace Fantasy
 {
     public interface IHealth
     {

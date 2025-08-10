@@ -1,5 +1,4 @@
 ﻿using System;
-using Fantasy.Domain.Health;
 using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
