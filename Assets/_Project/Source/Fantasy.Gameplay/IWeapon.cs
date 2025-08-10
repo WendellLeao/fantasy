@@ -13,6 +13,5 @@ namespace Fantasy.Gameplay
         public void Begin();
         public void Stop();
         public void Execute();
-        public void SetColliderEnabled(bool isEnabled);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons
 {
-    internal sealed class Sword : Entity, IWeapon, IParticleEmitter
+    internal sealed class Sword : Entity, IMeleeWeapon, IParticleEmitter
     {
         public event Action OnExecuted;
         
