@@ -61,6 +61,13 @@ namespace Fantasy.UI.Health
             _health.OnDepleted -= HandleHealthDepleted;
         }
 
+        protected override void OnBegin()
+        {
+            base.OnBegin();
+
+            canvasGroup.alpha = 1f;
+        }
+
         protected override void OnLateTick(float deltaTime)
         {
             base.OnLateTick(deltaTime);
