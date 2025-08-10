@@ -1,5 +1,5 @@
 using System;
-using Leaosoft.Domain.Pooling;
+using Leaosoft.Pooling;
 
 namespace Fantasy.Gameplay
 {

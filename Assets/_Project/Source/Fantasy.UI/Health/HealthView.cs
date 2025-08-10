@@ -3,7 +3,7 @@ using DG.Tweening;
 using Fantasy.Domain.Health;
 using Fantasy.UI.Screens;
 using Leaosoft;
-using Leaosoft.Domain.Pooling;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.UI.Health

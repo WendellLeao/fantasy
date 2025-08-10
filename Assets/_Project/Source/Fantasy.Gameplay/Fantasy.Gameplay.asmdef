@@ -3,7 +3,6 @@
     "rootNamespace": "Fantasy.Gameplay",
     "references": [
         "GUID:d99d98637fd56ff4c9f258fdedb73af5",
-        "GUID:7af1e540a441bd543a66d618114cb2a7",
         "GUID:6cfc7f64e61e1e4429f37484e489b8cf",
         "GUID:48fe1c002126e974a83627951e7e89d6",
         "GUID:6db9c19b80736f643b859bc09ee968c2",

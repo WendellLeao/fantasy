@@ -1,7 +1,6 @@
 using System;
 using Fantasy.Domain.Health;
 using Leaosoft;
-using Leaosoft.Domain.Pooling;
 using Leaosoft.Pooling;
 using UnityEngine;
 
