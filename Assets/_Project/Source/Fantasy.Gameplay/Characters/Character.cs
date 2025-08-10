@@ -53,7 +53,7 @@ namespace Fantasy.Gameplay.Characters
 
             if (View is CharacterView characterView)
             {
-                characterView.Initialize(navMeshClickMover, _health, damageController, weaponHolder, _particleFactory);
+                characterView.Initialize(_particleFactory, _health, damageController, weaponHolder, navMeshClickMover);
             }
         }
         

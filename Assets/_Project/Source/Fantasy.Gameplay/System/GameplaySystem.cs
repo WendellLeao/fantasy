@@ -50,7 +50,7 @@ namespace Fantasy.Gameplay.System
 
             if (TryGetManager(out EnemyManager enemyManager))
             {
-                enemyManager.Initialize(poolingService, particleManager, weaponManager, eventService);
+                enemyManager.Initialize(poolingService, eventService, particleManager, weaponManager);
             }
         }
     }

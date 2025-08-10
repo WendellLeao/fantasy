@@ -22,17 +22,18 @@ namespace Fantasy.Gameplay.Enemies.Manager
         private float respawnEnemyTimer = 2.5f;
 
         private IPoolingService _poolingService;
+        private IEventService _eventService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IEventService _eventService;
         private CancellationTokenSource _destroyEnemyObjectCts;
 
-        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService)
+        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+            IWeaponFactory weaponFactory)
         {
             _poolingService = poolingService;
+            _eventService = eventService;
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
-            _eventService = eventService;
             
             base.Initialize();
         }

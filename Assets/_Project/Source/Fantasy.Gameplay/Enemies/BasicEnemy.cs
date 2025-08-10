@@ -51,7 +51,7 @@ namespace Fantasy.Gameplay.Enemies
             if (View is BasicEnemyView basicEnemyView)
             {
                 // TODO: implement the enemy's moveable agent component
-                basicEnemyView.Initialize(moveableAgent: this, _health, damageController, weaponHolder, _particleFactory);
+                basicEnemyView.Initialize(_particleFactory, _health, damageController, weaponHolder, moveableAgent: this);
             }
         }
 

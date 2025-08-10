@@ -21,18 +21,18 @@ namespace Fantasy.Gameplay
         [SerializeField]
         private float velocityDampTime = 0.08f;
 
-        private IMoveableAgent _moveableAgent;
         private IHealth _health;
         private IDamageable _damageable;
         private IWeaponHolder _weaponHolder;
+        private IMoveableAgent _moveableAgent;
         private float _smoothedSpeed;
 
-        public void Initialize(IMoveableAgent moveableAgent, IHealth health, IDamageable damageable, IWeaponHolder weaponHolder)
+        public void Initialize(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
         {
-            _moveableAgent = moveableAgent;
             _health = health;
             _damageable = damageable;
             _weaponHolder = weaponHolder;
+            _moveableAgent = moveableAgent;
 
             base.Initialize();
         }

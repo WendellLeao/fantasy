@@ -4,16 +4,16 @@ namespace Fantasy.Gameplay
 {
     internal sealed class DamageableView : EntityComponent
     {
-        private IDamageable _damageable;
         private IParticleFactory _particleFactory;
+        private IDamageable _damageable;
         private IParticle _cachedParticle;
         private float _damagePerSecondCountdown;
         private bool _isDamagingPerSecond;
 
-        public void Initialize(IDamageable damageable, IParticleFactory particleFactory)
+        public void Initialize(IParticleFactory particleFactory, IDamageable damageable)
         {
-            _damageable = damageable;
             _particleFactory = particleFactory;
+            _damageable = damageable;
             
             base.Initialize();
         }
