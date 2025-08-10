@@ -1,4 +1,5 @@
 ﻿using Leaosoft;
+using Leaosoft.Pooling;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,7 +16,7 @@ namespace Fantasy.Gameplay
         
         [Header("Particle")]
         [SerializeField]
-        private GameObject clickSurfaceParticlePrefab;
+        private PoolData clickSurfaceParticlePoolData;
         
         private ICameraProvider _cameraProvider;
         private IParticleFactory _particleFactory;
@@ -59,7 +60,9 @@ namespace Fantasy.Gameplay
         {
             Vector3 particlePosition = hitInfoPoint + new Vector3(0f, 0.1f, 0f);
 
-            _particleFactory.EmitParticle(clickSurfaceParticlePrefab, particlePosition, clickSurfaceParticlePrefab.transform.rotation);
+            GameObject clickSurfaceParticlePrefab = clickSurfaceParticlePoolData.Prefab;
+            
+            _particleFactory.EmitParticle(clickSurfaceParticlePoolData, particlePosition, clickSurfaceParticlePrefab.transform.rotation);
         }
 
         public void SetDestination(Vector3 position)

@@ -1,11 +1,12 @@
 using System;
 using Fantasy.Domain.Health;
 using Leaosoft;
+using Leaosoft.Domain.Pooling;
 using NaughtyAttributes;
 
 namespace Fantasy.Gameplay.Characters
 {
-    public sealed class Character : Entity
+    public sealed class Character : Entity, IPooledObject
     {
         public event Action<Character> OnDied;
         
@@ -15,6 +16,7 @@ namespace Fantasy.Gameplay.Characters
         private ICameraProvider _cameraProvider;
 
         public IHealth Health => _health;
+        public string PoolId { get; set; }
         
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {

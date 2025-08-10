@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbc8de572027422fac3bb5490d0a075f, type: 3}
-  m_Name: FireBallSpellData
+  m_Script: {fileID: 11500000, guid: c9f71fbee99a96048a4ce89163601ddf, type: 3}
+  m_Name: FireBallPoolData
   m_EditorClassIdentifier: 
-  id: fire_ball_spell
+  id: fire_ball_pool_data
   prefab: {fileID: 5938726976110329355, guid: b590d50dc2dd61c4d92f19718b1deba1, type: 3}
-  poolData: {fileID: 11400000, guid: aee530eaadb35a8439991cc009877727, type: 2}
+  collectionCheck: 0
+  defaultCapacity: 10
+  maxSize: 15

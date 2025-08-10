@@ -1,6 +1,7 @@
 using Fantasy.Events.Health;
 using Fantasy.Domain.Health;
 using Leaosoft.Events;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters.Manager
@@ -8,21 +9,23 @@ namespace Fantasy.Gameplay.Characters.Manager
     internal sealed class CharacterManager : Leaosoft.Manager
     {
         [SerializeField]
-        private GameObject[] characterPrefabs;
+        private PoolData characterPoolData;
         [SerializeField]
-        private Transform[] spawnPoints;
+        private Transform spawnPoint;
         
+        private IPoolingService _poolingService;
+        private IEventService _eventService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IEventService _eventService;
         private ICameraProvider _cameraProvider;
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService,
-            ICameraProvider cameraProvider)
+        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+            IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
+            _poolingService = poolingService;
+            _eventService = eventService;
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
-            _eventService = eventService;
             _cameraProvider = cameraProvider;
             
             base.Initialize();
@@ -32,22 +35,23 @@ namespace Fantasy.Gameplay.Characters.Manager
         {
             base.OnInitialize();
 
-            for (int i = 0; i < characterPrefabs.Length; i++)
+            if (!_poolingService.TryGetObjectFromPool(characterPoolData.Id, out Character character))
             {
-                GameObject characterPrefab = characterPrefabs[i];
-                Character character = (Character)CreateEntity(characterPrefab, spawnPoints[i]);
-
-                character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
-                character.Begin();
-
-                character.OnDied += HandleCharacterDied;
-                
-                DispatchHealthSpawnedEvent(character.Health);
+                return;
             }
-
-            Character firstCharacter = (Character)AllSpawnedEntities[0];
             
-            _cameraProvider.VirtualCamera.SetTarget(firstCharacter.transform);
+            AddEntity(character);
+            
+            character.transform.SetParent(spawnPoint, worldPositionStays: false);
+            
+            character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
+            character.Begin();
+            
+            character.OnDied += HandleCharacterDied;
+            
+            DispatchHealthSpawnedEvent(character.Health);
+
+            _cameraProvider.VirtualCamera.SetTarget(character.transform);
         }
 
         private void HandleCharacterDied(Character character)

@@ -188,6 +188,7 @@ MonoBehaviour:
   - {fileID: 116677593831863408}
   view: {fileID: 0}
   collisionParticle: {fileID: 4218367092044171886, guid: 51989b63108a1a444bd297908d943b11, type: 3}
+  collisionParticlePoolData: {fileID: 11400000, guid: fca4f54bbb03308409f4ae9ba3092a0a, type: 2}
 --- !u!114 &5797961262117325252
 MonoBehaviour:
   m_ObjectHideFlags: 0

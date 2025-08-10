@@ -3,11 +3,12 @@ using DG.Tweening;
 using Fantasy.Domain.Health;
 using Fantasy.UI.Screens;
 using Leaosoft;
+using Leaosoft.Domain.Pooling;
 using UnityEngine;
 
 namespace Fantasy.UI.Health
 {
-    internal sealed class HealthView : Entity
+    internal sealed class HealthView : Entity, IPooledObject
     {
         public event Action<HealthView> OnHealthDepleted;
         
@@ -26,6 +27,8 @@ namespace Fantasy.UI.Health
         private IHealth _health;
         private ImageFiller _imageFiller;
 
+        public string PoolId { get; set; }
+        
         public void Initialize(Camera mainCamera, IHealth health)
         {
             _mainCamera = mainCamera;

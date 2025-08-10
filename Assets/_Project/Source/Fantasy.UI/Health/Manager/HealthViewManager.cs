@@ -2,6 +2,7 @@ using Fantasy.Events.Health;
 using Fantasy.Domain.Health;
 using Leaosoft;
 using Leaosoft.Events;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.UI.Health.Manager
@@ -9,14 +10,16 @@ namespace Fantasy.UI.Health.Manager
     internal sealed class HealthViewManager : Leaosoft.Manager
     {
         [SerializeField]
-        private GameObject healthViewPrefab;
+        private PoolData healthViewPoolData;
         
         private Camera _mainCamera;
+        private IPoolingService _poolingService;
         private IEventService _eventService;
 
-        public void Initialize(Camera mainCamera, IEventService eventService)
+        public void Initialize(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
         {
             _mainCamera = mainCamera;
+            _poolingService = poolingService;
             _eventService = eventService;
             
             base.Initialize();
@@ -46,14 +49,23 @@ namespace Fantasy.UI.Health.Manager
             }
             
             healthView.OnHealthDepleted -= HandleHealthDepleted;
+            
+            _poolingService.ReleaseObjectToPool(healthView);
         }
 
         private void HandleHealthSpawned(HealthSpawnedEvent healthSpawnedEvent)
         {
             IHealth health = healthSpawnedEvent.Health;
 
-            HealthView healthView = (HealthView)CreateEntity(healthViewPrefab, health.HealthBarParent);
+            if (!_poolingService.TryGetObjectFromPool(healthViewPoolData.Id, out HealthView healthView))
+            {
+                return;
+            }
+            
+            AddEntity(healthView);
 
+            healthView.gameObject.transform.SetParent(health.HealthBarParent, worldPositionStays: false);
+            
             healthView.OnHealthDepleted += HandleHealthDepleted;
             
             healthView.Initialize(_mainCamera, health);

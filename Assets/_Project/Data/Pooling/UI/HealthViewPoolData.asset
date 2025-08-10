@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9f71fbee99a96048a4ce89163601ddf, type: 3}
-  m_Name: SoundPlayerPoolData
+  m_Name: HealthViewPoolData
   m_EditorClassIdentifier: 
-  id: sound_player
-  prefab: {fileID: 4659221791940540471, guid: 3fb37c957bffb564b924ef66b9acef94, type: 3}
+  id: health_view_pool_data
+  prefab: {fileID: 2477064541613233677, guid: 22230699887816242ae7fcdb7c3add13, type: 3}
   collectionCheck: 0
-  defaultCapacity: 10
-  maxSize: 10000
+  defaultCapacity: 15
+  maxSize: 20

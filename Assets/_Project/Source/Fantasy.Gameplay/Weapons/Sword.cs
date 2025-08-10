@@ -1,6 +1,7 @@
 using System;
 using Fantasy.Domain.Weapons;
 using Leaosoft;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons
@@ -12,7 +13,7 @@ namespace Fantasy.Gameplay.Weapons
         [SerializeField]
         private CapsuleCollider capsuleCollider;
         [SerializeField]
-        private GameObject bloodParticlesPrefab;
+        private PoolData bloodParticlesPoolData;
         
         private IParticleFactory _particleFactory;
         private WeaponData _data;
@@ -59,7 +60,7 @@ namespace Fantasy.Gameplay.Weapons
             {
                 damager.TryApplyDamage(other);
                 
-                _particleFactory.EmitParticle(bloodParticlesPrefab, transform.position, Quaternion.identity);
+                _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
             }
         }
 

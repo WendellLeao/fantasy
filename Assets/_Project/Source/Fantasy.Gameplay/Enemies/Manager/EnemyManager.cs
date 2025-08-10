@@ -5,6 +5,7 @@ using Fantasy.Events.Health;
 using Fantasy.Domain.Health;
 using Leaosoft;
 using Leaosoft.Events;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies.Manager
@@ -12,7 +13,7 @@ namespace Fantasy.Gameplay.Enemies.Manager
     internal sealed class EnemyManager : Leaosoft.Manager
     {
         [SerializeField]
-        private GameObject enemyPrefab;
+        private PoolData enemyPoolData;
         [SerializeField]
         private Transform spawnPoint;
         [SerializeField]
@@ -20,13 +21,15 @@ namespace Fantasy.Gameplay.Enemies.Manager
         [SerializeField]
         private float respawnEnemyTimer = 2.5f;
 
+        private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IEventService _eventService;
         private CancellationTokenSource _destroyEnemyObjectCts;
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService)
+        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService)
         {
+            _poolingService = poolingService;
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             _eventService = eventService;
@@ -62,21 +65,23 @@ namespace Fantasy.Gameplay.Enemies.Manager
             _destroyEnemyObjectCts?.Cancel();
             _destroyEnemyObjectCts = new CancellationTokenSource();
             
-            DestroyEnemyObjectAsync(basicEnemy.gameObject, _destroyEnemyObjectCts.Token).Forget();
+            ReleaseEnemyObjectAsync(basicEnemy, _destroyEnemyObjectCts.Token).Forget();
         }
 
-        private async UniTask DestroyEnemyObjectAsync(GameObject basicEnemyGameObject, CancellationToken token)
+        private async UniTask ReleaseEnemyObjectAsync(BasicEnemy basicEnemy, CancellationToken token)
         {
             try
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(destroyEnemyObjectDelay), cancellationToken: token);
 
+                GameObject basicEnemyGameObject = basicEnemy.gameObject;
+                
                 if (!basicEnemyGameObject || token.IsCancellationRequested)
                 {
                     return;
                 }
 
-                Destroy(basicEnemyGameObject);
+                _poolingService.ReleaseObjectToPool(basicEnemy);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(respawnEnemyTimer), cancellationToken: token);
 
@@ -97,11 +102,18 @@ namespace Fantasy.Gameplay.Enemies.Manager
         
         private void SpawnEnemy()
         {
-            BasicEnemy basicEnemy = (BasicEnemy)CreateEntity(enemyPrefab, spawnPoint);
-
+            if (!_poolingService.TryGetObjectFromPool(enemyPoolData.Id, out BasicEnemy basicEnemy))
+            {
+                return;
+            }
+            
+            AddEntity(basicEnemy);
+            
+            basicEnemy.transform.SetParent(spawnPoint, worldPositionStays: false);
+            
             basicEnemy.Initialize(_particleFactory, _weaponFactory);
             basicEnemy.Begin();
-
+            
             basicEnemy.OnDied += HandleBasicEnemyDied;
             
             DispatchHealthSpawnedEvent(basicEnemy.Health);

@@ -20,7 +20,7 @@ namespace Fantasy.Gameplay.Weapons.Manager
         
         public IWeapon CreateWeapon(WeaponData data, Transform parent)
         {
-            IEntity entity = CreateEntity(data.Prefab, parent);
+            IEntity entity = Instantiate(data.Prefab, parent).GetComponent<IEntity>();
 
             if (entity is not IWeapon weapon)
             {

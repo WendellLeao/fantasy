@@ -1,6 +1,5 @@
 using System;
 using Leaosoft;
-using UnityEngine;
 
 namespace Fantasy.Gameplay.Spells
 {
@@ -8,8 +7,8 @@ namespace Fantasy.Gameplay.Spells
     {
         public event Action<ISpell> OnHit;
 
-        public Transform Transform => transform;
-
+        public string PoolId { get; set; }
+        
         protected override void InitializeComponents()
         { }
     }

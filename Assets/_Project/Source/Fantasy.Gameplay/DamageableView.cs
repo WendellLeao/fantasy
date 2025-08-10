@@ -49,7 +49,7 @@ namespace Fantasy.Gameplay
                 return;
             }
 
-            _cachedParticle ??= _particleFactory.EmitParticle(damageData.DpsParticlePrefab, transform);
+            _cachedParticle ??= _particleFactory.EmitParticle(damageData.DpsParticlePoolData, transform);
 
             _isDamagingPerSecond = damageData.HasDamagePerSecond;
             

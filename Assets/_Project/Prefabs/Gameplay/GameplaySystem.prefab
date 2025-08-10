@@ -655,8 +655,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6021e9f04a0e466f90218a02ac2201dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7854077087015093654, guid: 38b374ae2c5806a4e99d8c0c8d9e4f17, type: 3}
+  enemyPoolData: {fileID: 11400000, guid: 3f92df90cd871ae48871d83fd59ffa88, type: 2}
   spawnPoint: {fileID: 79520595731100248}
+  destroyEnemyObjectDelay: 7
+  respawnEnemyTimer: 2.5
 --- !u!1 &4787627457170835423
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,10 +735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74ac3e7203d4ffcb6d8dce38789b6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefabs:
-  - {fileID: 3530654034934081865, guid: e2cd738b5a9eeda468de65a4392da125, type: 3}
-  spawnPoints:
-  - {fileID: 8470374989654140582}
+  characterPoolData: {fileID: 11400000, guid: 29d3bf0153359f041adfb59301c81f18, type: 2}
+  spawnPoint: {fileID: 8470374989654140582}
 --- !u!1 &7080527897488809479
 GameObject:
   m_ObjectHideFlags: 0

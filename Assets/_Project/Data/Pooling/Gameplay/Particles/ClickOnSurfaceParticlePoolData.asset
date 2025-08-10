@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9f71fbee99a96048a4ce89163601ddf, type: 3}
-  m_Name: SoundPlayerPoolData
+  m_Name: ClickOnSurfaceParticlePoolData
   m_EditorClassIdentifier: 
-  id: sound_player
-  prefab: {fileID: 4659221791940540471, guid: 3fb37c957bffb564b924ef66b9acef94, type: 3}
+  id: click_on_surface_particle_pool_data
+  prefab: {fileID: 5988617719677102830, guid: f8e2033b555f5ea4daa2c6ac755aa727, type: 3}
   collectionCheck: 0
   defaultCapacity: 10
-  maxSize: 10000
+  maxSize: 10

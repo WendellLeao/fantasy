@@ -16,7 +16,7 @@ namespace Fantasy.Gameplay.Particles
         private CancellationTokenSource _waitForParticleCts;
         private bool _isPlaying;
         
-        public Transform Transform => transform;
+        public string PoolId { get; set; }
 
         protected override void InitializeComponents()
         { }

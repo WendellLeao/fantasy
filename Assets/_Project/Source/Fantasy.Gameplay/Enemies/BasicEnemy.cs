@@ -1,16 +1,18 @@
 using System;
 using Fantasy.Domain.Health;
 using Leaosoft;
+using Leaosoft.Domain.Pooling;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
-    public sealed class BasicEnemy : Entity, IMoveableAgent
+    public sealed class BasicEnemy : Entity, IPooledObject, IMoveableAgent
     {
         public event Action<BasicEnemy> OnDied;
         
         [SerializeField]
-        private GameObject smokeParticleObject;
+        private PoolData smokeParticlePoolData;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
@@ -18,6 +20,7 @@ namespace Fantasy.Gameplay.Enemies
 
         public IHealth Health => _health;
         public Vector3 Velocity => Vector3.zero;
+        public string PoolId { get; set; }
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
@@ -69,7 +72,9 @@ namespace Fantasy.Gameplay.Enemies
 
         private void HandleHealthDepleted()
         {
-            _particleFactory.EmitParticle(smokeParticleObject, transform.position, smokeParticleObject.transform.rotation);
+            GameObject smokeParticleObject = smokeParticlePoolData.Prefab;
+            
+            _particleFactory.EmitParticle(smokeParticlePoolData, transform.position, smokeParticleObject.transform.rotation);
             
             OnDied?.Invoke(this);
         }

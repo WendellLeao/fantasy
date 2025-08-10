@@ -17,5 +17,5 @@ MonoBehaviour:
   hasDamagePerSecond: 1
   damagePerSecondDuration: 2
   amountPerSecond: 10
-  dpsParticlePrefab: {fileID: 3276476055594407164, guid: 9ed1a47d430d4644088ea64e1aaa79aa,
-    type: 3}
+  dpsParticlePrefab: {fileID: 3276476055594407164, guid: 9ed1a47d430d4644088ea64e1aaa79aa, type: 3}
+  dpsParticlePoolData: {fileID: 11400000, guid: 36c18c035f42b3d4bbab297c59f3762f, type: 2}

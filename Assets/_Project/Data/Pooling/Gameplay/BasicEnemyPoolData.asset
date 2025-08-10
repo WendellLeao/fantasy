@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9f71fbee99a96048a4ce89163601ddf, type: 3}
-  m_Name: SoundPlayerPoolData
+  m_Name: BasicEnemyPoolData
   m_EditorClassIdentifier: 
-  id: sound_player
-  prefab: {fileID: 4659221791940540471, guid: 3fb37c957bffb564b924ef66b9acef94, type: 3}
+  id: basic_enemy_pool_data
+  prefab: {fileID: 7854077087015093654, guid: 38b374ae2c5806a4e99d8c0c8d9e4f17, type: 3}
   collectionCheck: 0
   defaultCapacity: 10
-  maxSize: 10000
+  maxSize: 20

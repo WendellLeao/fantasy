@@ -1,12 +1,13 @@
 using System;
-using UnityEngine;
+using Leaosoft.Domain.Pooling;
 
 namespace Fantasy.Gameplay
 {
-    public interface ISpell
+    public interface ISpell : IPooledObject
     {
         public event Action<ISpell> OnHit;
-        
-        public Transform Transform { get; }
+
+        public void Initialize();
+        public void Begin();
     }
 }
