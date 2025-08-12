@@ -7,7 +7,7 @@ namespace Fantasy.Gameplay.Enemies
 {
     public sealed class BasicEnemy : Entity, IEnemy, IPooledObject
     {
-        public event Action<BasicEnemy> OnDied;
+        public event Action<IEnemy> OnDied;
         
         [SerializeField]
         private PoolData smokeParticlePoolData;
@@ -16,7 +16,6 @@ namespace Fantasy.Gameplay.Enemies
         private IWeaponFactory _weaponFactory;
         private IHealth _health;
 
-        public IHealth Health => _health;
         public string PoolId { get; set; }
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
@@ -64,6 +63,13 @@ namespace Fantasy.Gameplay.Enemies
             {
                 damageableView.Initialize(_particleFactory, damageable);
             }
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            Begin();
         }
 
         protected override void OnBegin()

@@ -40,6 +40,13 @@ namespace Fantasy.Gameplay.Weapons
         protected override void InitializeComponents()
         { }
 
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            Begin();
+        }
+
         public void SetSpellFactory(ISpellFactory spellFactory)
         {
             _spellFactory = spellFactory;

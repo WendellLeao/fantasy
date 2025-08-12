@@ -1,7 +1,12 @@
-﻿using Leaosoft;
+﻿using System;
+using Leaosoft;
 
 namespace Fantasy.Gameplay
 {
-    internal interface IEnemy : IEntity
-    { }
+    public interface IEnemy : IEntity
+    {
+        public event Action<IEnemy> OnDied;
+
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory);
+    }
 }

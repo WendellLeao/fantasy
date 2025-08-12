@@ -1,4 +1,3 @@
-using Fantasy.Events.Health;
 using Leaosoft;
 using Leaosoft.Events;
 using Leaosoft.Pooling;
@@ -9,9 +8,7 @@ namespace Fantasy.Gameplay.Characters.Manager
     internal sealed class CharacterManager : EntityManager<ICharacter>
     {
         [SerializeField]
-        private PoolData characterPoolData;
-        [SerializeField]
-        private Transform spawnPoint;
+        private CharacterSpawner characterSpawner;
         
         private IPoolingService _poolingService;
         private IEventService _eventService;
@@ -34,36 +31,26 @@ namespace Fantasy.Gameplay.Characters.Manager
         protected override void OnInitialize()
         {
             base.OnInitialize();
+
+            characterSpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
             
-            if (!_poolingService.TryGetObjectFromPool(characterPoolData.Id, out Character character))
-            {
-                return;
-            }
+            SpawnCharacter();
+        }
+
+        private void SpawnCharacter()
+        {
+            ICharacter character = characterSpawner.SpawnCharacter();
             
             RegisterEntity(character);
             
-            character.transform.SetParent(spawnPoint, worldPositionStays: false);
-            
-            character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
-            character.Begin();
-            
             character.OnDied += HandleCharacterDied;
-            
-            DispatchHealthSpawnedEvent(character.Health);
-
-            _cameraProvider.VirtualCamera.SetTarget(character.transform);
         }
 
-        private void HandleCharacterDied(Character character)
+        private void HandleCharacterDied(ICharacter character)
         {
             character.OnDied -= HandleCharacterDied;
             
             character.Stop();
-        }
-
-        private void DispatchHealthSpawnedEvent(IHealth health)
-        {
-            _eventService.DispatchEvent(new HealthSpawnedEvent(health));
         }
     }
 }

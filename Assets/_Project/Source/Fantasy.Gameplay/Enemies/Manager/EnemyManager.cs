@@ -1,7 +1,3 @@
-using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using Fantasy.Events.Health;
 using Leaosoft;
 using Leaosoft.Events;
 using Leaosoft.Pooling;
@@ -9,33 +5,23 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies.Manager
 {
-    internal sealed class EnemyManager : EntityManager<BasicEnemy>
+    internal sealed class EnemyManager : EntityManager<IEnemy>
     {
         [SerializeField]
-        private PoolData enemyPoolData;
-        [SerializeField]
-        private Transform spawnPoint;
-        [SerializeField]
-        private float destroyEnemyObjectDelay = 7f;
-        [SerializeField]
-        private float respawnEnemyTimer = 2.5f;
-
+        private EnemySpawner enemySpawner;
+        
         private IPoolingService _poolingService;
         private IEventService _eventService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private CancellationTokenSource _destroyEnemyObjectCts;
 
-        public override void DisposeEntity(BasicEnemy basicEnemy)
+        public override void DisposeEntity(IEnemy enemy)
         {
-            base.DisposeEntity(basicEnemy);
+            base.DisposeEntity(enemy);
             
-            basicEnemy.OnDied -= HandleBasicEnemyDied;
-
-            _destroyEnemyObjectCts?.Cancel();
-            _destroyEnemyObjectCts = new CancellationTokenSource();
+            enemy.OnDied -= DisposeEntity;
             
-            ReleaseEnemyObjectAsync(basicEnemy, _destroyEnemyObjectCts.Token).Forget();
+            enemySpawner.ReleaseEnemy(enemy);
         }
         
         public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
@@ -53,75 +39,27 @@ namespace Fantasy.Gameplay.Enemies.Manager
         {
             base.OnInitialize();
             
-            SpawnEnemy();
-        }
+            enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
 
+            enemySpawner.OnEnemySpawned += HandleEnemySpawned;
+            
+            enemySpawner.SpawnEnemy();
+        }
+        
         protected override void OnDispose()
         {
             base.OnDispose();
             
-            _destroyEnemyObjectCts?.Cancel();
-        }
+            enemySpawner.OnEnemySpawned -= HandleEnemySpawned;
 
-        private async UniTask ReleaseEnemyObjectAsync(BasicEnemy basicEnemy, CancellationToken token)
-        {
-            try
-            {
-                await UniTask.Delay(TimeSpan.FromSeconds(destroyEnemyObjectDelay), cancellationToken: token);
-
-                GameObject basicEnemyGameObject = basicEnemy.gameObject;
-                
-                if (!basicEnemyGameObject || token.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                _poolingService.ReleaseObjectToPool(basicEnemy);
-
-                await UniTask.Delay(TimeSpan.FromSeconds(respawnEnemyTimer), cancellationToken: token);
-
-                SpawnEnemy();
-            }
-            catch (OperationCanceledException)
-            { }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-            finally
-            {
-                _destroyEnemyObjectCts?.Dispose();
-                _destroyEnemyObjectCts = null;
-            }
+            enemySpawner.Dispose();
         }
         
-        private void SpawnEnemy()
+        private void HandleEnemySpawned(IEnemy enemy)
         {
-            if (!_poolingService.TryGetObjectFromPool(enemyPoolData.Id, out BasicEnemy basicEnemy))
-            {
-                return;
-            }
+            RegisterEntity(enemy);
             
-            RegisterEntity(basicEnemy);
-            
-            basicEnemy.transform.SetParent(spawnPoint, worldPositionStays: false);
-            
-            basicEnemy.Initialize(_particleFactory, _weaponFactory);
-            basicEnemy.Begin();
-            
-            basicEnemy.OnDied += HandleBasicEnemyDied;
-            
-            DispatchHealthSpawnedEvent(basicEnemy.Health);
-        }
-
-        private void HandleBasicEnemyDied(BasicEnemy basicEnemy)
-        {
-            DisposeEntity(basicEnemy);
-        }
-        
-        private void DispatchHealthSpawnedEvent(IHealth health)
-        {
-            _eventService.DispatchEvent(new HealthSpawnedEvent(health));
+            enemy.OnDied += DisposeEntity;
         }
     }
 }

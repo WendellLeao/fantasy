@@ -47,6 +47,8 @@ namespace Fantasy.Gameplay.Weapons
             base.OnInitialize();
             
             SetColliderEnabled(false);
+            
+            Begin();
         }
 
         private void OnTriggerEnter(Collider other)

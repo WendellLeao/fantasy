@@ -69,7 +69,7 @@ namespace Fantasy.Gameplay.Navigation
             _particleFactory.EmitParticle(clickSurfaceParticlePoolData, particlePosition, clickSurfaceParticlePrefab.transform.rotation);
         }
 
-        public void SetDestination(Vector3 position)
+        private void SetDestination(Vector3 position)
         {
             navMeshAgent.destination = position;
         }

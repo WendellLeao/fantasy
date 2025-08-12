@@ -30,6 +30,13 @@ namespace Fantasy.Gameplay.Spells
             }
         }
 
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            Begin();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             _damager.TryApplyDamage(other);

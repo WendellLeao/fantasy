@@ -35,12 +35,9 @@ namespace Fantasy.Gameplay.Weapons.Manager
             
             RegisterEntity(weapon);
 
-            Transform weaponTransform = weapon.GameObject.transform;
-            
-            weaponTransform.SetParent(parent, worldPositionStays: false);
+            weapon.transform.SetParent(parent, worldPositionStays: false);
             
             weapon.Initialize(data);
-            weapon.Begin();
             
             if (weapon is IParticleEmitter particleEmitter)
             {

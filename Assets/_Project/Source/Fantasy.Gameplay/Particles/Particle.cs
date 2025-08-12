@@ -21,6 +21,13 @@ namespace Fantasy.Gameplay.Particles
         protected override void InitializeComponents()
         { }
 
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            Begin();
+        }
+
         protected override void OnBegin()
         {
             base.OnBegin();

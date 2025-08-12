@@ -36,7 +36,6 @@ namespace Fantasy.Gameplay.Spells.Manager
             RegisterEntity(spell);
 
             spell.Initialize();
-            spell.Begin();
 
             SetSpellPositionAndRotation(position, direction, spell);
 
@@ -52,7 +51,7 @@ namespace Fantasy.Gameplay.Spells.Manager
 
         private void SetSpellPositionAndRotation(Vector3 position, Vector3 direction, ISpell spell)
         {
-            Transform spellTransform = spell.GameObject.transform;
+            Transform spellTransform = ((IPooledObject)spell).gameObject.transform;
 
             spellTransform.SetPositionAndRotation(position, Quaternion.LookRotation(direction));
         }

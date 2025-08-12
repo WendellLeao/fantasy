@@ -33,10 +33,9 @@ namespace Fantasy.Gameplay.Particles.Manager
 
             RegisterEntity(particle);
             
-            particle.GameObject.transform.SetParent(parent, worldPositionStays: false);
+            particle.transform.SetParent(parent, worldPositionStays: false);
             
             particle.Initialize();
-            particle.Begin();
             
             particle.OnCompleted += DisposeEntity;
             
@@ -47,7 +46,7 @@ namespace Fantasy.Gameplay.Particles.Manager
         {
             IParticle particle = EmitParticle(particlePoolData, parent: null);
 
-            Transform particleTransform = particle.GameObject.transform;
+            Transform particleTransform = ((IPooledObject)particle).gameObject.transform;
             
             particleTransform.SetPositionAndRotation(position, rotation);
             

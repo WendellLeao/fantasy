@@ -7,7 +7,7 @@ namespace Fantasy.Gameplay.Characters
 {
     public sealed class Character : Entity, ICharacter, IPooledObject
     {
-        public event Action<Character> OnDied;
+        public event Action<ICharacter> OnDied;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
@@ -16,7 +16,6 @@ namespace Fantasy.Gameplay.Characters
         private IMoveableAgent _navMeshClickMover;
         private ICameraProvider _cameraProvider;
 
-        public IHealth Health => _health;
         public string PoolId { get; set; }
         
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
@@ -71,6 +70,8 @@ namespace Fantasy.Gameplay.Characters
             base.OnInitialize();
             
             _cameraProvider.VirtualCamera.SetTarget(transform);
+            
+            Begin();
         }
 
         protected override void OnBegin()
