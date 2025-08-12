@@ -26,14 +26,12 @@ namespace Fantasy.Gameplay.Particles.Manager
         
         public IParticle EmitParticle(PoolData particlePoolData, Transform parent)
         {
-            if (!_poolingService.TryGetObjectFromPool(particlePoolData.Id, out IParticle particle))
+            if (!_poolingService.TryGetObjectFromPool(particlePoolData.Id, parent, out IParticle particle))
             {
                 return null;
             }
 
             RegisterEntity(particle);
-            
-            particle.transform.SetParent(parent, worldPositionStays: false);
             
             particle.Initialize();
             
@@ -46,9 +44,7 @@ namespace Fantasy.Gameplay.Particles.Manager
         {
             IParticle particle = EmitParticle(particlePoolData, parent: null);
 
-            Transform particleTransform = ((IPooledObject)particle).gameObject.transform;
-            
-            particleTransform.SetPositionAndRotation(position, rotation);
+            particle.transform.SetPositionAndRotation(position, rotation);
             
             return particle;
         }

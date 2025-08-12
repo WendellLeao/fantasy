@@ -51,19 +51,16 @@ namespace Fantasy.UI.Health.Manager
         {
             IHealth health = healthSpawnedEvent.Health;
 
-            if (!_poolingService.TryGetObjectFromPool(healthViewPoolData.Id, out HealthView healthView))
+            if (!_poolingService.TryGetObjectFromPool(healthViewPoolData.Id, health.HealthBarParent, out HealthView healthView))
             {
                 return;
             }
             
             RegisterEntity(healthView);
 
-            healthView.gameObject.transform.SetParent(health.HealthBarParent, worldPositionStays: false);
-            
             healthView.OnHealthDepleted += HandleHealthDepleted;
             
             healthView.Initialize(_mainCamera, health);
-            healthView.Begin();
         }
 
         private void HandleHealthDepleted(HealthView healthView)

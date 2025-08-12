@@ -28,7 +28,7 @@ namespace Fantasy.Gameplay.Spells.Manager
         
         public ISpell CastSpell(SpellData data, Vector3 position, Vector3 direction)
         {
-            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, out ISpell spell))
+            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent: null, out ISpell spell))
             {
                 return null;
             }
@@ -51,9 +51,7 @@ namespace Fantasy.Gameplay.Spells.Manager
 
         private void SetSpellPositionAndRotation(Vector3 position, Vector3 direction, ISpell spell)
         {
-            Transform spellTransform = ((IPooledObject)spell).gameObject.transform;
-
-            spellTransform.SetPositionAndRotation(position, Quaternion.LookRotation(direction));
+            spell.transform.SetPositionAndRotation(position, Quaternion.LookRotation(direction));
         }
     }
 }

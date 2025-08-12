@@ -1,9 +1,10 @@
 ﻿using System;
 using Leaosoft;
+using Leaosoft.Pooling;
 
 namespace Fantasy.Gameplay
 {
-    public interface ICharacter : IEntity
+    public interface ICharacter : IEntity, IPooledObject
     {
         public event Action<ICharacter> OnDied;
         

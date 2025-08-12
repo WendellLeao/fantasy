@@ -1,4 +1,5 @@
-﻿using Fantasy.Events.Health;
+﻿using System;
+using Fantasy.Events.Health;
 using Leaosoft.Events;
 using Leaosoft.Pooling;
 using UnityEngine;
@@ -30,26 +31,26 @@ namespace Fantasy.Gameplay.Characters
         
         public ICharacter SpawnCharacter()
         {
-            if (!_poolingService.TryGetObjectFromPool(characterPoolData.Id, out IPooledObject pooledObject))
+            if (!_poolingService.TryGetObjectFromPool(characterPoolData.Id, spawnPoint, out ICharacter character))
             {
                 return null;
             }
 
-            if (!pooledObject.gameObject.TryGetComponent(out ICharacter character))
-            {
-                return null; // TODO: THROW EXCEPTION
-            }
-            
-            pooledObject.transform.SetParent(spawnPoint, worldPositionStays: false);
-
             character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
             
-            if (character.gameObject.TryGetComponent(out IHealth health))
-            {
-                _eventService.DispatchEvent(new HealthSpawnedEvent(health));
-            }
+            DispatchHealthSpawnedEvent(character);
             
             return character;
+        }
+
+        private void DispatchHealthSpawnedEvent(ICharacter character)
+        {
+            if (!character.gameObject.TryGetComponent(out IHealth health))
+            {
+                return;
+            }
+            
+            _eventService.DispatchEvent(new HealthSpawnedEvent(health));
         }
     }
 }

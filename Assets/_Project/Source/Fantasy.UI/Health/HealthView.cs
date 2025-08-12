@@ -50,6 +50,8 @@ namespace Fantasy.UI.Health
             
             _health.OnHealthChanged += HandleHealthChanged;
             _health.OnDepleted += HandleHealthDepleted;
+            
+            Begin();
         }
 
         protected override void OnDispose()

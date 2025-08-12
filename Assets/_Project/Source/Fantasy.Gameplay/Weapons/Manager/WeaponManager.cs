@@ -28,15 +28,13 @@ namespace Fantasy.Gameplay.Weapons.Manager
         
         public IWeapon CreateWeapon(WeaponData data, Transform parent)
         {
-            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, out IWeapon weapon))
+            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent, out IWeapon weapon))
             {
                 return null;
             }
             
             RegisterEntity(weapon);
 
-            weapon.transform.SetParent(parent, worldPositionStays: false);
-            
             weapon.Initialize(data);
             
             if (weapon is IParticleEmitter particleEmitter)

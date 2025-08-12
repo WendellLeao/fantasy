@@ -43,24 +43,14 @@ namespace Fantasy.Gameplay.Enemies
         
         public void SpawnEnemy()
         {
-            if (!_poolingService.TryGetObjectFromPool(enemyPoolData.Id, out IPooledObject pooledObject))
+            if (!_poolingService.TryGetObjectFromPool(enemyPoolData.Id, spawnPoint, out IEnemy enemy))
             {
                 return;
             }
             
-            pooledObject.transform.SetParent(spawnPoint, worldPositionStays: false);
-            
-            if (!pooledObject.gameObject.TryGetComponent(out IEnemy enemy))
-            {
-                return; // TODO: THROW EXCEPTION
-            }
-            
             enemy.Initialize(_particleFactory, _weaponFactory);
-            
-            if (enemy.gameObject.TryGetComponent(out IHealth health))
-            {
-                _eventService.DispatchEvent(new HealthSpawnedEvent(health));
-            }
+
+            DispatchHealthSpawnedEvent(enemy);
 
             OnEnemySpawned?.Invoke(enemy);
         }
@@ -86,7 +76,7 @@ namespace Fantasy.Gameplay.Enemies
                     return;
                 }
 
-                _poolingService.ReleaseObjectToPool(enemy as IPooledObject);
+                _poolingService.ReleaseObjectToPool(enemy);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(respawnEnemyTimer), cancellationToken: token);
 
@@ -103,6 +93,16 @@ namespace Fantasy.Gameplay.Enemies
                 _destroyEnemyObjectCts?.Dispose();
                 _destroyEnemyObjectCts = null;
             }
+        }
+        
+        private void DispatchHealthSpawnedEvent(IEnemy enemy)
+        {
+            if (!enemy.gameObject.TryGetComponent(out IHealth health))
+            {
+                return;
+            }
+            
+            _eventService.DispatchEvent(new HealthSpawnedEvent(health));
         }
     }
 }
