@@ -85,7 +85,7 @@ namespace Fantasy.Gameplay
                 return;
             }
             
-            _weaponFactory.DisposeWeapon(_weapon);
+            _weaponFactory.DisposeEntity(_weapon);
         }
     }
 }

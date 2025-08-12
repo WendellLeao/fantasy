@@ -3,6 +3,7 @@
     "rootNamespace": "Fantasy.Debugging",
     "references": [
         "GUID:d99d98637fd56ff4c9f258fdedb73af5",
+        "GUID:f1b7cea8f0a50b74081489eeb86b18bd",
         "GUID:d5ff05603486df9448377f01bd51305f",
         "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],

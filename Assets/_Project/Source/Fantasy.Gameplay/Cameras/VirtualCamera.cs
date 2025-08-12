@@ -1,13 +1,17 @@
 ﻿using System;
+using Leaosoft;
 using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Cameras
 {
-    internal sealed class VirtualCamera : MonoBehaviour, IVirtualCamera
+    public sealed class VirtualCamera : Entity, IVirtualCamera
     {
         [SerializeField]
         private CinemachineCamera cinemachineCamera;
+        
+        protected override void InitializeComponents()
+        { }
         
         public void SetTarget(Transform targetTransform)
         {

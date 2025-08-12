@@ -5,7 +5,7 @@ using NaughtyAttributes;
 
 namespace Fantasy.Gameplay.Characters
 {
-    public sealed class Character : Entity, IPooledObject
+    internal sealed class Character : Entity, ICharacter, IPooledObject
     {
         public event Action<Character> OnDied;
         

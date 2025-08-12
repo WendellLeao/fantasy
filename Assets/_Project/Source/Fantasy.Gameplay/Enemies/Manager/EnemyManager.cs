@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies.Manager
 {
-    internal sealed class EnemyManager : Leaosoft.Manager
+    internal sealed class EnemyManager : EntityManager<BasicEnemy>
     {
         [SerializeField]
         private PoolData enemyPoolData;
@@ -26,6 +26,18 @@ namespace Fantasy.Gameplay.Enemies.Manager
         private IWeaponFactory _weaponFactory;
         private CancellationTokenSource _destroyEnemyObjectCts;
 
+        public override void DisposeEntity(BasicEnemy basicEnemy)
+        {
+            base.DisposeEntity(basicEnemy);
+            
+            basicEnemy.OnDied -= HandleBasicEnemyDied;
+
+            _destroyEnemyObjectCts?.Cancel();
+            _destroyEnemyObjectCts = new CancellationTokenSource();
+            
+            ReleaseEnemyObjectAsync(basicEnemy, _destroyEnemyObjectCts.Token).Forget();
+        }
+        
         public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory)
         {
@@ -40,7 +52,7 @@ namespace Fantasy.Gameplay.Enemies.Manager
         protected override void OnInitialize()
         {
             base.OnInitialize();
-
+            
             SpawnEnemy();
         }
 
@@ -49,23 +61,6 @@ namespace Fantasy.Gameplay.Enemies.Manager
             base.OnDispose();
             
             _destroyEnemyObjectCts?.Cancel();
-        }
-
-        protected override void DisposeEntity(Entity entity)
-        {
-            base.DisposeEntity(entity);
-
-            if (entity is not BasicEnemy basicEnemy)
-            {
-                return;
-            }
-            
-            basicEnemy.OnDied -= HandleBasicEnemyDied;
-
-            _destroyEnemyObjectCts?.Cancel();
-            _destroyEnemyObjectCts = new CancellationTokenSource();
-            
-            ReleaseEnemyObjectAsync(basicEnemy, _destroyEnemyObjectCts.Token).Forget();
         }
 
         private async UniTask ReleaseEnemyObjectAsync(BasicEnemy basicEnemy, CancellationToken token)
@@ -107,7 +102,7 @@ namespace Fantasy.Gameplay.Enemies.Manager
                 return;
             }
             
-            AddEntity(basicEnemy);
+            RegisterEntity(basicEnemy);
             
             basicEnemy.transform.SetParent(spawnPoint, worldPositionStays: false);
             

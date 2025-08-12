@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Fantasy.UI.Health.Manager
 {
-    internal sealed class HealthViewManager : Leaosoft.Manager
+    internal sealed class HealthViewManager : EntityManager<HealthView>
     {
         [SerializeField]
         private PoolData healthViewPoolData;
@@ -15,6 +15,15 @@ namespace Fantasy.UI.Health.Manager
         private IPoolingService _poolingService;
         private IEventService _eventService;
 
+        public override void DisposeEntity(HealthView healthView)
+        {
+            base.DisposeEntity(healthView);
+            
+            healthView.OnHealthDepleted -= HandleHealthDepleted;
+            
+            _poolingService.ReleaseObjectToPool(healthView);
+        }
+        
         public void Initialize(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
         {
             _mainCamera = mainCamera;
@@ -38,20 +47,6 @@ namespace Fantasy.UI.Health.Manager
             _eventService.RemoveEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }
 
-        protected override void DisposeEntity(Entity entity)
-        {
-            base.DisposeEntity(entity);
-
-            if (entity is not HealthView healthView)
-            {
-                return;
-            }
-            
-            healthView.OnHealthDepleted -= HandleHealthDepleted;
-            
-            _poolingService.ReleaseObjectToPool(healthView);
-        }
-
         private void HandleHealthSpawned(HealthSpawnedEvent healthSpawnedEvent)
         {
             IHealth health = healthSpawnedEvent.Health;
@@ -61,7 +56,7 @@ namespace Fantasy.UI.Health.Manager
                 return;
             }
             
-            AddEntity(healthView);
+            RegisterEntity(healthView);
 
             healthView.gameObject.transform.SetParent(health.HealthBarParent, worldPositionStays: false);
             

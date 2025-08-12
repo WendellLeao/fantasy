@@ -4,12 +4,19 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons.Manager
 {
-    public sealed class WeaponManager : Leaosoft.Manager, IWeaponFactory
+    public sealed class WeaponManager : EntityManager<IWeapon>, IWeaponFactory
     {
         private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
         private ISpellFactory _spellFactory;
 
+        public override void DisposeEntity(IWeapon weapon)
+        {
+            base.DisposeEntity(weapon);
+            
+            _poolingService.ReleaseObjectToPool(weapon);
+        }
+        
         public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
         {
             _poolingService = poolingService;
@@ -25,6 +32,8 @@ namespace Fantasy.Gameplay.Weapons.Manager
             {
                 return null;
             }
+            
+            RegisterEntity(weapon);
 
             Transform weaponTransform = weapon.GameObject.transform;
             
@@ -44,18 +53,6 @@ namespace Fantasy.Gameplay.Weapons.Manager
             }
             
             return weapon;
-        }
-
-        public void DisposeWeapon(IWeapon weapon)
-        {
-            DisposeEntity(weapon as Entity);
-        }
-
-        protected override void DisposeEntity(Entity entity)
-        {
-            base.DisposeEntity(entity);
-
-            _poolingService.ReleaseObjectToPool(entity as IPooledObject);
         }
     }
 }

@@ -1,11 +1,12 @@
 using Fantasy.Events.Health;
+using Leaosoft;
 using Leaosoft.Events;
 using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters.Manager
 {
-    internal sealed class CharacterManager : Leaosoft.Manager
+    internal sealed class CharacterManager : EntityManager<ICharacter>
     {
         [SerializeField]
         private PoolData characterPoolData;
@@ -33,13 +34,13 @@ namespace Fantasy.Gameplay.Characters.Manager
         protected override void OnInitialize()
         {
             base.OnInitialize();
-
+            
             if (!_poolingService.TryGetObjectFromPool(characterPoolData.Id, out Character character))
             {
                 return;
             }
             
-            AddEntity(character);
+            RegisterEntity(character);
             
             character.transform.SetParent(spawnPoint, worldPositionStays: false);
             

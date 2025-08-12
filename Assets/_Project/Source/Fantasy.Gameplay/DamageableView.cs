@@ -68,7 +68,7 @@ namespace Fantasy.Gameplay
         
         private void DisposeCachedParticle()
         {
-            _particleFactory.DisposeParticle(_cachedParticle);
+            _particleFactory.DisposeEntity(_cachedParticle);
 
             _cachedParticle = null;
             _isDamagingPerSecond = false;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fantasy.UI.Health
 {
-    internal sealed class HealthView : Entity, IPooledObject
+    internal sealed class HealthView : Entity, IEntity, IPooledObject
     {
         public event Action<HealthView> OnHealthDepleted;
         

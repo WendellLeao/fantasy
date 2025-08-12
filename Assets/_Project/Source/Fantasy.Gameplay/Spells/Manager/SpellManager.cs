@@ -4,11 +4,20 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Spells.Manager
 {
-    internal sealed class SpellManager : Leaosoft.Manager, ISpellFactory
+    internal sealed class SpellManager : EntityManager<ISpell>, ISpellFactory
     {
         private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
 
+        public override void DisposeEntity(ISpell spell)
+        {
+            base.DisposeEntity(spell);
+
+            spell.OnHit -= DisposeEntity;
+            
+            _poolingService.ReleaseObjectToPool(spell);
+        }
+        
         public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory)
         {
             _poolingService = poolingService;
@@ -24,14 +33,14 @@ namespace Fantasy.Gameplay.Spells.Manager
                 return null;
             }
             
-            AddEntity(spell as Entity);
+            RegisterEntity(spell);
 
             spell.Initialize();
             spell.Begin();
 
             SetSpellPositionAndRotation(position, direction, spell);
 
-            spell.OnHit += HandleSpellHit;
+            spell.OnHit += DisposeEntity;
             
             if (spell is IParticleEmitter particleEmitter)
             {
@@ -41,25 +50,6 @@ namespace Fantasy.Gameplay.Spells.Manager
             return spell;
         }
 
-        protected override void DisposeEntity(Entity entity)
-        {
-            base.DisposeEntity(entity);
-
-            if (entity is not ISpell spell)
-            {
-                return;  
-            }
-            
-            spell.OnHit -= HandleSpellHit;
-            
-            _poolingService.ReleaseObjectToPool(spell);
-        }
-
-        private void HandleSpellHit(ISpell spell)
-        {
-            DisposeEntity(spell as Entity);
-        }
-        
         private void SetSpellPositionAndRotation(Vector3 position, Vector3 direction, ISpell spell)
         {
             Transform spellTransform = spell.GameObject.transform;

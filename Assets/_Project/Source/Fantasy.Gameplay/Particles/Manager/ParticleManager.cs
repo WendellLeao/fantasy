@@ -4,10 +4,19 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Particles.Manager
 {
-    public sealed class ParticleManager : Leaosoft.Manager, IParticleFactory
+    public sealed class ParticleManager : EntityManager<IParticle>, IParticleFactory
     {
         private IPoolingService _poolingService;
 
+        public override void DisposeEntity(IParticle particle)
+        {
+            base.DisposeEntity(particle);
+
+            particle.OnCompleted -= DisposeEntity;
+            
+            _poolingService.ReleaseObjectToPool(particle);
+        }
+        
         public void Initialize(IPoolingService poolingService)
         {
             _poolingService = poolingService;
@@ -22,14 +31,14 @@ namespace Fantasy.Gameplay.Particles.Manager
                 return null;
             }
 
-            AddEntity(particle as Entity);
+            RegisterEntity(particle);
             
             particle.GameObject.transform.SetParent(parent, worldPositionStays: false);
             
             particle.Initialize();
             particle.Begin();
             
-            particle.OnCompleted += DisposeParticle;
+            particle.OnCompleted += DisposeEntity;
             
             return particle;
         }
@@ -43,25 +52,6 @@ namespace Fantasy.Gameplay.Particles.Manager
             particleTransform.SetPositionAndRotation(position, rotation);
             
             return particle;
-        }
-        
-        public void DisposeParticle(IParticle particle)
-        {
-            DisposeEntity(particle as Entity);
-        }
-
-        protected override void DisposeEntity(Entity entity)
-        {
-            base.DisposeEntity(entity);
-
-            if (entity is not IParticle particle)
-            {
-                return;
-            }
-            
-            particle.OnCompleted -= DisposeParticle;
-            
-            _poolingService.ReleaseObjectToPool(particle);
         }
     }
 }

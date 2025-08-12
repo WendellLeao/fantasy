@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
-    public sealed class BasicEnemy : Entity, IPooledObject, IMoveableAgent
+    public sealed class BasicEnemy : Entity, IEnemy, IPooledObject, IMoveableAgent
     {
         public event Action<BasicEnemy> OnDied;
         
