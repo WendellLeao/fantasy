@@ -24,7 +24,7 @@ namespace Fantasy.Gameplay.Spells.Manager
                 return null;
             }
             
-            AddEntity(spell as IEntity);
+            AddEntity(spell as Entity);
 
             spell.Initialize();
             spell.Begin();
@@ -41,7 +41,7 @@ namespace Fantasy.Gameplay.Spells.Manager
             return spell;
         }
 
-        protected override void DisposeEntity(IEntity entity)
+        protected override void DisposeEntity(Entity entity)
         {
             base.DisposeEntity(entity);
 
@@ -57,7 +57,7 @@ namespace Fantasy.Gameplay.Spells.Manager
 
         private void HandleSpellHit(ISpell spell)
         {
-            DisposeEntity(spell as IEntity);
+            DisposeEntity(spell as Entity);
         }
         
         private void SetSpellPositionAndRotation(Vector3 position, Vector3 direction, ISpell spell)

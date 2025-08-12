@@ -38,7 +38,7 @@ namespace Fantasy.UI.Health.Manager
             _eventService.RemoveEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }
 
-        protected override void DisposeEntity(IEntity entity)
+        protected override void DisposeEntity(Entity entity)
         {
             base.DisposeEntity(entity);
 

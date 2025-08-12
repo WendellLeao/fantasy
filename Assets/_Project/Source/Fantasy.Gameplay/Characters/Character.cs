@@ -57,9 +57,14 @@ namespace Fantasy.Gameplay.Characters
                 commandReader.Initialize(_weaponHolder);
             }
             
-            if (View is CharacterView characterView)
+            if (TryGetComponent(out HumanoidAnimatorController humanoidAnimatorController))
             {
-                characterView.Initialize(_particleFactory, _health, damageController, _weaponHolder, _navMeshClickMover);
+                humanoidAnimatorController.Initialize(_health, damageController, _weaponHolder, _navMeshClickMover);
+            }
+            
+            if (TryGetComponent(out DamageableView damageableView))
+            {
+                damageableView.Initialize(_particleFactory, damageController);
             }
         }
         

@@ -48,10 +48,10 @@ namespace Fantasy.Gameplay.Weapons.Manager
 
         public void DisposeWeapon(IWeapon weapon)
         {
-            DisposeEntity(weapon as IEntity);
+            DisposeEntity(weapon as Entity);
         }
 
-        protected override void DisposeEntity(IEntity entity)
+        protected override void DisposeEntity(Entity entity)
         {
             base.DisposeEntity(entity);
 

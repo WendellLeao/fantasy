@@ -52,10 +52,14 @@ namespace Fantasy.Gameplay.Enemies
                 commandInvoker.Initialize(weaponHolder);
             }
             
-            if (View is BasicEnemyView basicEnemyView)
+            if (TryGetComponent(out HumanoidAnimatorController humanoidAnimatorController))
             {
-                // TODO: implement the enemy's moveable agent component
-                basicEnemyView.Initialize(_particleFactory, _health, damageController, weaponHolder, moveableAgent: this);
+                humanoidAnimatorController.Initialize(_health, damageController, weaponHolder, this);
+            }
+            
+            if (TryGetComponent(out DamageableView damageableView))
+            {
+                damageableView.Initialize(_particleFactory, damageController);
             }
         }
 

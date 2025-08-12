@@ -51,7 +51,7 @@ namespace Fantasy.Gameplay.Enemies.Manager
             _destroyEnemyObjectCts?.Cancel();
         }
 
-        protected override void DisposeEntity(IEntity entity)
+        protected override void DisposeEntity(Entity entity)
         {
             base.DisposeEntity(entity);
 

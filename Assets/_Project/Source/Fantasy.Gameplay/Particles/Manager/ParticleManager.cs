@@ -22,7 +22,7 @@ namespace Fantasy.Gameplay.Particles.Manager
                 return null;
             }
 
-            AddEntity(particle as IEntity);
+            AddEntity(particle as Entity);
             
             particle.GameObject.transform.SetParent(parent, worldPositionStays: false);
             
@@ -47,10 +47,10 @@ namespace Fantasy.Gameplay.Particles.Manager
         
         public void DisposeParticle(IParticle particle)
         {
-            DisposeEntity(particle as IEntity);
+            DisposeEntity(particle as Entity);
         }
 
-        protected override void DisposeEntity(IEntity entity)
+        protected override void DisposeEntity(Entity entity)
         {
             base.DisposeEntity(entity);
 
