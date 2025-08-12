@@ -1,9 +1,9 @@
 using Leaosoft;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Damage
 {
-    internal sealed class Damager : EntityComponent
+    internal sealed class Damager : EntityComponent, IDamager
     {
         [SerializeField]
         private DamageData data;

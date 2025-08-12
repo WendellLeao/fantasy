@@ -36,7 +36,7 @@ namespace Fantasy.Gameplay.Weapons
 
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out Damager damager))
+            if (TryGetComponent(out IDamager damager))
             {
                 damager.Initialize();
             }
@@ -56,7 +56,7 @@ namespace Fantasy.Gameplay.Weapons
                 return;
             }
             
-            if (TryGetComponent(out Damager damager))
+            if (TryGetComponent(out IDamager damager))
             {
                 damager.TryApplyDamage(other);
                 

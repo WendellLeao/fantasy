@@ -5,15 +5,15 @@ using NaughtyAttributes;
 
 namespace Fantasy.Gameplay.Characters
 {
-    internal sealed class Character : Entity, ICharacter, IPooledObject
+    public sealed class Character : Entity, ICharacter, IPooledObject
     {
         public event Action<Character> OnDied;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IHealth _health;
-        private WeaponHolder _weaponHolder;
-        private NavMeshClickMover _navMeshClickMover;
+        private IWeaponHolder _weaponHolder;
+        private IMoveableAgent _navMeshClickMover;
         private ICameraProvider _cameraProvider;
 
         public IHealth Health => _health;
@@ -30,16 +30,14 @@ namespace Fantasy.Gameplay.Characters
 
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out HealthController healthController))
+            if (TryGetComponent(out _health))
             {
-                healthController.Initialize();
-
-                _health = healthController;
+                _health.Initialize();
             }
             
-            if (TryGetComponent(out DamageController damageController))
+            if (TryGetComponent(out IDamageable damageable))
             {
-                damageController.Initialize(_health);
+                damageable.Initialize(_health);
             }
 
             if (TryGetComponent(out _weaponHolder))
@@ -52,22 +50,29 @@ namespace Fantasy.Gameplay.Characters
                 _navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
             }
 
-            if (TryGetComponent(out CommandInputReader commandReader))
+            if (TryGetComponent(out ICommandInvoker commandInvoker))
             {
-                commandReader.Initialize(_weaponHolder);
+                commandInvoker.Initialize(_weaponHolder);
             }
             
-            if (TryGetComponent(out HumanoidAnimatorController humanoidAnimatorController))
+            if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
             {
-                humanoidAnimatorController.Initialize(_health, damageController, _weaponHolder, _navMeshClickMover);
+                humanoidAnimatorController.Initialize(_health, damageable, _weaponHolder, _navMeshClickMover);
             }
             
-            if (TryGetComponent(out DamageableView damageableView))
+            if (TryGetComponent(out IDamageableView damageableView))
             {
-                damageableView.Initialize(_particleFactory, damageController);
+                damageableView.Initialize(_particleFactory, damageable);
             }
         }
-        
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            _cameraProvider.VirtualCamera.SetTarget(transform);
+        }
+
         protected override void OnBegin()
         {
             base.OnBegin();

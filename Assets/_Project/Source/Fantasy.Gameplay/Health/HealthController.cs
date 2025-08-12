@@ -3,7 +3,7 @@ using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Health
 {
     public sealed class HealthController : EntityComponent, IHealth
     {

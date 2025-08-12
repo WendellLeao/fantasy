@@ -1,7 +1,7 @@
 using Leaosoft;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Spells
 {
     internal sealed class ApplyForwardForce : EntityComponent
     {

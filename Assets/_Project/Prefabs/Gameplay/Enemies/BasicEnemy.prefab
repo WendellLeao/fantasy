@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 129759179537839934}
   - component: {fileID: 6717185278913323898}
   - component: {fileID: 5633495181132293092}
+  - component: {fileID: 5853928626212152992}
   - component: {fileID: 2026381003369324425}
   - component: {fileID: 7481043741812190463}
   m_Layer: 8
@@ -171,6 +172,7 @@ MonoBehaviour:
   - {fileID: 129759179537839934}
   - {fileID: 6717185278913323898}
   - {fileID: 5633495181132293092}
+  - {fileID: 5853928626212152992}
   - {fileID: 2026381003369324425}
   - {fileID: 7481043741812190463}
   smokeParticlePoolData: {fileID: 11400000, guid: f43941729fef80d498896be8893e36a7, type: 2}
@@ -224,6 +226,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfe7e59802924201a174e1daa12e9488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5853928626212152992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854077087015093654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692d9c0416cc40048325968b6320900a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2026381003369324425

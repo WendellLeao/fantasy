@@ -1,6 +1,6 @@
 ﻿#if UNITY_EDITOR || DEBUG
 using Fantasy.Gameplay;
-using Leaosoft.Utilities.Extensions;
+using Fantasy.Gameplay.Characters;
 using UnityEngine;
 
 namespace Fantasy.Debugging.Weapons
@@ -16,12 +16,9 @@ namespace Fantasy.Debugging.Weapons
 
         private void Start()
         {
-            if (!GameObjectExtensions.TryFindObjectOfInterface(out ICharacter character))
-            {
-                return;
-            }
-            
-            IWeaponHolder weaponHolder = character.gameObject.GetComponent<IWeaponHolder>();
+            Character character = FindFirstObjectByType<Character>();
+
+            IWeaponHolder weaponHolder = character.GetComponent<IWeaponHolder>();
             
             foreach (WeaponData data in weaponData)
             {

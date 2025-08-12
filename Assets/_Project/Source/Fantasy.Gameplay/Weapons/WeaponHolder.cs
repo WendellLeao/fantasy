@@ -3,7 +3,7 @@ using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Weapons
 {
     internal sealed class WeaponHolder : EntityComponent, IWeaponHolder
     {

@@ -1,4 +1,4 @@
-﻿namespace Fantasy.Gameplay
+﻿namespace Fantasy.Gameplay.Animations
 {
     internal enum DeathType
     {

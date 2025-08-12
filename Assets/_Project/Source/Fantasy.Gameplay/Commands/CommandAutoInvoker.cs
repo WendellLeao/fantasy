@@ -2,9 +2,9 @@ using System.Collections;
 using Leaosoft;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Commands
 {
-    internal sealed class CommandInvoker : EntityComponent
+    internal sealed class CommandAutoInvoker : EntityComponent, ICommandInvoker
     {
         private AttackCommand _attackCommand;
         private Coroutine _executeAttackCommandRoutine;

@@ -3,9 +3,9 @@ using System;
 using Leaosoft;
 using Random = UnityEngine.Random;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Animations
 {
-    internal sealed class HumanoidAnimatorController : EntityComponent
+    internal sealed class HumanoidAnimatorController : EntityComponent, IHumanoidAnimatorController
     {
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int MovesetType = Animator.StringToHash("MovesetType");

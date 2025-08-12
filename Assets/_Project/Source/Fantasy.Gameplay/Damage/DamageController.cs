@@ -3,7 +3,7 @@ using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Damage
 {
     public sealed class DamageController : EntityComponent, IDamageable
     {

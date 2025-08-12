@@ -1,6 +1,6 @@
 using Fantasy.Commands;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Commands
 {
     internal sealed class AttackCommand : ICommand
     {

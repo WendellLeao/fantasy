@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Health
 {
     internal sealed class HealthModel
     {

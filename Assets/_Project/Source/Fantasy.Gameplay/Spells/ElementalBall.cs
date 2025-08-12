@@ -13,7 +13,7 @@ namespace Fantasy.Gameplay.Spells
         private PoolData collisionParticlePoolData;
         
         private IParticleFactory _particleFactory;
-        private Damager _damager;
+        private IDamager _damager;
 
         public string PoolId { get; set; }
         

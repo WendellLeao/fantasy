@@ -1,8 +1,8 @@
 using Leaosoft;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Damage.View
 {
-    internal sealed class DamageableView : EntityComponent
+    internal sealed class DamageableView : EntityComponent, IDamageableView
     {
         private IParticleFactory _particleFactory;
         private IDamageable _damageable;

@@ -1,7 +1,7 @@
 using Fantasy.Utilities;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Health
 {
     [CreateAssetMenu(menuName = PathUtility.HealthMenuPath + "/HealthData", fileName = "NewHealthData")]
     public sealed class HealthData : ScriptableObject

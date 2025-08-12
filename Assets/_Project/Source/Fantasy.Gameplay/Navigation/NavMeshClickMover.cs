@@ -3,7 +3,7 @@ using Leaosoft.Pooling;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Navigation
 {
     internal sealed class NavMeshClickMover : EntityComponent, IMoveableAgent
     {

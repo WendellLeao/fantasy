@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
-    public sealed class BasicEnemy : Entity, IEnemy, IPooledObject, IMoveableAgent
+    public sealed class BasicEnemy : Entity, IEnemy, IPooledObject
     {
         public event Action<BasicEnemy> OnDied;
         
@@ -17,7 +17,6 @@ namespace Fantasy.Gameplay.Enemies
         private IHealth _health;
 
         public IHealth Health => _health;
-        public Vector3 Velocity => Vector3.zero;
         public string PoolId { get; set; }
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
@@ -30,36 +29,40 @@ namespace Fantasy.Gameplay.Enemies
 
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out HealthController healthController))
+            if (TryGetComponent(out _health))
             {
-                healthController.Initialize();
-
-                _health = healthController;
+                _health.Initialize();
             }
 
-            if (TryGetComponent(out DamageController damageController))
+            if (TryGetComponent(out IDamageable damageable))
             {
-                damageController.Initialize(_health);
+                damageable.Initialize(_health);
             }
             
-            if (TryGetComponent(out WeaponHolder weaponHolder))
+            if (TryGetComponent(out IWeaponHolder weaponHolder))
             {
                 weaponHolder.Initialize(_weaponFactory);
             }
 
-            if (TryGetComponent(out CommandInvoker commandInvoker))
+            if (TryGetComponent(out ICommandInvoker commandInvoker))
             {
                 commandInvoker.Initialize(weaponHolder);
             }
             
-            if (TryGetComponent(out HumanoidAnimatorController humanoidAnimatorController))
+            if (TryGetComponent(out IMoveableAgent moveableAgent))
             {
-                humanoidAnimatorController.Initialize(_health, damageController, weaponHolder, this);
+                // TODO: implement this
+                moveableAgent.Initialize(cameraProvider: null, particleFactory: null);
             }
             
-            if (TryGetComponent(out DamageableView damageableView))
+            if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
             {
-                damageableView.Initialize(_particleFactory, damageController);
+                humanoidAnimatorController.Initialize(_health, damageable, weaponHolder, moveableAgent);
+            }
+            
+            if (TryGetComponent(out IDamageableView damageableView))
+            {
+                damageableView.Initialize(_particleFactory, damageable);
             }
         }
 
@@ -85,8 +88,5 @@ namespace Fantasy.Gameplay.Enemies
             
             OnDied?.Invoke(this);
         }
-
-        public void SetDestination(Vector3 position)
-        { }
     }
 }

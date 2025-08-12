@@ -3,9 +3,9 @@ using Fantasy.Commands;
 using Leaosoft;
 using UnityEngine;
 
-namespace Fantasy.Gameplay
+namespace Fantasy.Gameplay.Commands
 {
-    internal sealed class CommandInputReader : EntityComponent
+    internal sealed class CommandInputReader : EntityComponent, ICommandInvoker
     {
         [SerializeField]
         private CommandCollectionData commandCollectionData;

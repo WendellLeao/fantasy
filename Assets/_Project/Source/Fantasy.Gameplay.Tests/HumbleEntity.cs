@@ -6,12 +6,12 @@ namespace Fantasy.Gameplay.Tests
     {
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out HealthController healthController))
+            if (TryGetComponent(out IHealth healthController))
             {
                 healthController.Initialize();
             }
             
-            if (TryGetComponent(out DamageController damageController))
+            if (TryGetComponent(out IDamageable damageController))
             {
                 damageController.Initialize(healthController);
             }

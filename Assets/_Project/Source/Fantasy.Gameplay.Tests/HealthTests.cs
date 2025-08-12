@@ -1,3 +1,5 @@
+using Fantasy.Gameplay.Damage;
+using Fantasy.Gameplay.Health;
 using NUnit.Framework;
 using UnityEngine;
 
