@@ -7,8 +7,9 @@ namespace Fantasy.Gameplay
 {
     internal sealed class WeaponHolder : EntityComponent, IWeaponHolder
     {
-        public event Action OnWeaponExecuted;
         public event Action<IWeapon> OnWeaponChanged;
+        public event Action OnWeaponExecuted;
+        public event Action OnWeaponExecutionFinished;
 
         [SerializeField]
         private WeaponData data;
@@ -48,10 +49,17 @@ namespace Fantasy.Gameplay
             {
                 return;
             }
-            
+                  
             _weapon.Execute();
             
             OnWeaponExecuted?.Invoke();
+        }
+
+        public void FinishWeaponExecution()
+        {
+            _weapon.FinishExecution();
+            
+            OnWeaponExecutionFinished?.Invoke();
         }
         
         protected override void OnBegin()

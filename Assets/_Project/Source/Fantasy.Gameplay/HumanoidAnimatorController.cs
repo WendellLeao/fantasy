@@ -65,7 +65,7 @@ namespace Fantasy.Gameplay
             _damageable.OnDamageTaken += HandleDamageTaken;
             
             _weaponHolder.OnWeaponChanged += HandleWeaponMovesetType;
-            _weaponHolder.OnWeaponExecuted += HandleWeaponExecuted;
+            _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
 
         private void UnsubscribeEvents()
@@ -75,7 +75,7 @@ namespace Fantasy.Gameplay
             _damageable.OnDamageTaken -= HandleDamageTaken;
             
             _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
-            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecuted;
+            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
 
         private void HandleHealthDepleted()
@@ -98,7 +98,7 @@ namespace Fantasy.Gameplay
             animator.SetInteger(id: MovesetType, (int)weaponData.MovesetType);
         }
         
-        private void HandleWeaponExecuted()
+        private void HandleWeaponExecute()
         {
             animator.SetTrigger(id: ExecuteWeapon);
         }

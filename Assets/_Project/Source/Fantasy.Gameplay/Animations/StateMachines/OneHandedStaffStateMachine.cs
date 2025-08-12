@@ -12,8 +12,10 @@ namespace Fantasy.Gameplay.Animations.StateMachines
         private float castSpellTime;
 
         private ISpellCaster _cachedSpellCaster;
+        private IWeaponHolder _cachedWeaponHolder;
+        private IWeapon _cachedWeapon;
         private bool _hasCastedSpell;
-        
+
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
@@ -44,6 +46,8 @@ namespace Fantasy.Gameplay.Animations.StateMachines
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
 
+            _cachedWeaponHolder.FinishWeaponExecution();
+            
             _hasCastedSpell = false;
         }
 
@@ -51,11 +55,13 @@ namespace Fantasy.Gameplay.Animations.StateMachines
         {
             Transform parent = animator.transform.parent;
             
-            if (parent.TryGetComponent(out IWeaponHolder weaponHolder))
+            if (parent.TryGetComponent(out _cachedWeaponHolder))
             {
-                if (weaponHolder.Weapon is not ISpellCaster spellCaster)
+                _cachedWeapon = _cachedWeaponHolder.Weapon;
+                
+                if (_cachedWeapon is not ISpellCaster spellCaster)
                 {
-                    throw new InvalidOperationException($"The weapon '{weaponHolder.Weapon.Data.ViewName}' doesn't implement the {nameof(ISpellCaster)}!");
+                    throw new InvalidOperationException($"The weapon '{_cachedWeapon.Data.ViewName}' doesn't implement the {nameof(ISpellCaster)}!");
                 }
                 
                 return spellCaster;

@@ -1,4 +1,3 @@
-using System;
 using Leaosoft;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,8 +6,6 @@ namespace Fantasy.Gameplay.Weapons
 {
     internal sealed class Staff : Entity, IWeapon, ISpellCaster
     {
-        public event Action OnExecuted;
-        
         [SerializeField]
         private SpellData[] spellData;
         [SerializeField]
@@ -28,9 +25,10 @@ namespace Fantasy.Gameplay.Weapons
         }
 
         public void Execute()
-        {
-            OnExecuted?.Invoke();
-        }
+        { }
+        
+        public void FinishExecution()
+        { }
         
         public void CastSpell()
         {

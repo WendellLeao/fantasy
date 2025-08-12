@@ -12,6 +12,8 @@ namespace Fantasy.Gameplay.Characters
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private IHealth _health;
+        private WeaponHolder _weaponHolder;
+        private NavMeshClickMover _navMeshClickMover;
         private ICameraProvider _cameraProvider;
 
         public IHealth Health => _health;
@@ -40,24 +42,24 @@ namespace Fantasy.Gameplay.Characters
                 damageController.Initialize(_health);
             }
 
-            if (TryGetComponent(out WeaponHolder weaponHolder))
+            if (TryGetComponent(out _weaponHolder))
             {
-                weaponHolder.Initialize(_weaponFactory);
+                _weaponHolder.Initialize(_weaponFactory);
             }
 
-            if (TryGetComponent(out NavMeshClickMover navMeshClickMover))
+            if (TryGetComponent(out _navMeshClickMover))
             {
-                navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
+                _navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
             }
 
             if (TryGetComponent(out CommandInputReader commandReader))
             {
-                commandReader.Initialize(weaponHolder);
+                commandReader.Initialize(_weaponHolder);
             }
             
             if (View is CharacterView characterView)
             {
-                characterView.Initialize(_particleFactory, _health, damageController, weaponHolder, navMeshClickMover);
+                characterView.Initialize(_particleFactory, _health, damageController, _weaponHolder, _navMeshClickMover);
             }
         }
         
@@ -66,6 +68,8 @@ namespace Fantasy.Gameplay.Characters
             base.OnBegin();
 
             _health.OnDepleted += HandleHealthDepleted;
+            
+            _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
 
         protected override void OnStop()
@@ -73,11 +77,18 @@ namespace Fantasy.Gameplay.Characters
             base.OnStop();
             
             _health.OnDepleted -= HandleHealthDepleted;
+            
+            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
-        
+
         private void HandleHealthDepleted()
         {
             OnDied?.Invoke(this);
+        }
+        
+        private void HandleWeaponExecute()
+        {
+            _navMeshClickMover.ResetPath();
         }
 
 #if UNITY_EDITOR

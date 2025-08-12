@@ -1,4 +1,3 @@
-using System;
 using Leaosoft;
 using Leaosoft.Pooling;
 using UnityEngine;
@@ -7,8 +6,6 @@ namespace Fantasy.Gameplay.Weapons
 {
     internal sealed class Sword : Entity, IMeleeWeapon, IParticleEmitter
     {
-        public event Action OnExecuted;
-        
         [SerializeField]
         private CapsuleCollider capsuleCollider;
         [SerializeField]
@@ -30,8 +27,11 @@ namespace Fantasy.Gameplay.Weapons
         public void Execute()
         {
             SetColliderEnabled(false);
-            
-            OnExecuted?.Invoke();
+        }
+
+        public void FinishExecution()
+        {
+            SetColliderEnabled(false);
         }
 
         protected override void InitializeComponents()

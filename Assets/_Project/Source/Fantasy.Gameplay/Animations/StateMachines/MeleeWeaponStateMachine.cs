@@ -11,6 +11,7 @@ namespace Fantasy.Gameplay.Animations.StateMachines
         [SerializeField]
         private Vector2 colliderEnableRange = new(0.15f, 0.3f);
         
+        private IWeaponHolder _cachedWeaponHolder;
         private IMeleeWeapon _cachedMeleeWeapon;
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -37,18 +38,18 @@ namespace Fantasy.Gameplay.Animations.StateMachines
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
             
-            _cachedMeleeWeapon.SetColliderEnabled(false);
+            _cachedWeaponHolder.FinishWeaponExecution();
         }
         
         private IMeleeWeapon GetEntityMeleeWeapon(Animator animator)
         {
             Transform parent = animator.transform.parent;
             
-            if (parent.TryGetComponent(out IWeaponHolder weaponHolder))
+            if (parent.TryGetComponent(out _cachedWeaponHolder))
             {
-                if (weaponHolder.Weapon is not IMeleeWeapon meleeWeapon)
+                if (_cachedWeaponHolder.Weapon is not IMeleeWeapon meleeWeapon)
                 {
-                    throw new InvalidOperationException($"The weapon of type '{weaponHolder.Weapon.GetType().Name}' doesn't implement '{nameof(IMeleeWeapon)}'");
+                    throw new InvalidOperationException($"The weapon of type '{_cachedWeaponHolder.Weapon.GetType().Name}' doesn't implement '{nameof(IMeleeWeapon)}'");
                 }
                 
                 return meleeWeapon;

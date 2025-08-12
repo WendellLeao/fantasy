@@ -30,6 +30,12 @@ namespace Fantasy.Gameplay
             base.Initialize();
         }
 
+        public void ResetPath()
+        {
+            navMeshAgent.ResetPath();
+            navMeshAgent.velocity = Vector3.zero;
+        }
+
         protected override void OnTick(float deltaTime)
         {
             base.OnTick(deltaTime);
