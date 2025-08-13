@@ -78,6 +78,16 @@ namespace Fantasy.Gameplay.Damage
             
             TakeDamage(mockDamageData);
         }
+        
+        [Button("TakeDamage_Die")]
+        public void TakeDamage_Die()
+        {
+            DamageData mockDamageData = ScriptableObject.CreateInstance<DamageData>(); 
+            
+            mockDamageData.SetAmountForTests(99999999);
+            
+            TakeDamage(mockDamageData);
+        }
 #endif
     }
 }
