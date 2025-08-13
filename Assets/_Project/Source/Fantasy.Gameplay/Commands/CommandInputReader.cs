@@ -14,7 +14,7 @@ namespace Fantasy.Gameplay.Commands
 
         public void Initialize(IWeaponHolder weaponHolder)
         {
-            _commands.Add(CommandType.Attack, new AttackCommand(weaponHolder));
+            _commands.TryAdd(CommandType.Attack, new AttackCommand(weaponHolder));
             
             base.Initialize();
         }

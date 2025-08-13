@@ -7,15 +7,6 @@ namespace Fantasy.Gameplay.Particles.Manager
     public sealed class ParticleManager : EntityManager<IParticle>, IParticleFactory
     {
         private IPoolingService _poolingService;
-
-        public override void DisposeEntity(IParticle particle)
-        {
-            base.DisposeEntity(particle);
-
-            particle.OnCompleted -= DisposeEntity;
-            
-            _poolingService.ReleaseObjectToPool(particle);
-        }
         
         public void Initialize(IPoolingService poolingService)
         {
@@ -47,6 +38,20 @@ namespace Fantasy.Gameplay.Particles.Manager
             particle.transform.SetPositionAndRotation(position, rotation);
             
             return particle;
+        }
+
+        public void DisposeParticle(IParticle particle)
+        {
+            DisposeEntity(particle);
+        }
+
+        protected override void DisposeEntity(IParticle particle)
+        {
+            base.DisposeEntity(particle);
+
+            particle.OnCompleted -= DisposeEntity;
+            
+            _poolingService.ReleaseObjectToPool(particle);
         }
     }
 }

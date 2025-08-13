@@ -17,7 +17,8 @@ namespace Fantasy.Gameplay.Characters
         private ICameraProvider _cameraProvider;
 
         public string PoolId { get; set; }
-        
+        public IHealth Health => _health;
+
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _particleFactory = particleFactory;

@@ -14,15 +14,6 @@ namespace Fantasy.Gameplay.Enemies.Manager
         private IEventService _eventService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-
-        public override void DisposeEntity(IEnemy enemy)
-        {
-            base.DisposeEntity(enemy);
-            
-            enemy.OnDied -= DisposeEntity;
-            
-            enemySpawner.ReleaseEnemy(enemy);
-        }
         
         public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory)
@@ -39,11 +30,9 @@ namespace Fantasy.Gameplay.Enemies.Manager
         {
             base.OnInitialize();
             
-            enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
-
             enemySpawner.OnEnemySpawned += HandleEnemySpawned;
-            
-            enemySpawner.SpawnEnemy();
+
+            enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
         }
         
         protected override void OnDispose()
@@ -55,11 +44,25 @@ namespace Fantasy.Gameplay.Enemies.Manager
             enemySpawner.Dispose();
         }
         
+        protected override void DisposeEntity(IEnemy enemy)
+        {
+            base.DisposeEntity(enemy);
+            
+            enemy.OnDied -= HandleEnemyDied;
+        }
+        
         private void HandleEnemySpawned(IEnemy enemy)
         {
             RegisterEntity(enemy);
             
-            enemy.OnDied += DisposeEntity;
+            enemy.OnDied += HandleEnemyDied;
+        }
+
+        private void HandleEnemyDied(IEnemy enemy)
+        {
+            DisposeEntity(enemy);
+            
+            enemySpawner.RespawnEntity(enemy);
         }
     }
 }

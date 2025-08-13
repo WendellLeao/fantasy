@@ -9,13 +9,6 @@ namespace Fantasy.Gameplay.Weapons.Manager
         private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
         private ISpellFactory _spellFactory;
-
-        public override void DisposeEntity(IWeapon weapon)
-        {
-            base.DisposeEntity(weapon);
-            
-            _poolingService.ReleaseObjectToPool(weapon);
-        }
         
         public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
         {
@@ -48,6 +41,18 @@ namespace Fantasy.Gameplay.Weapons.Manager
             }
             
             return weapon;
+        }
+
+        public void DisposeWeapon(IWeapon weapon)
+        {
+            DisposeEntity(weapon);
+        }
+
+        protected override void DisposeEntity(IWeapon weapon)
+        {
+            base.DisposeEntity(weapon);
+            
+            _poolingService.ReleaseObjectToPool(weapon);
         }
     }
 }

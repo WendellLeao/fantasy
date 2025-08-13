@@ -14,15 +14,6 @@ namespace Fantasy.UI.Health.Manager
         private Camera _mainCamera;
         private IPoolingService _poolingService;
         private IEventService _eventService;
-
-        public override void DisposeEntity(HealthView healthView)
-        {
-            base.DisposeEntity(healthView);
-            
-            healthView.OnHealthDepleted -= HandleHealthDepleted;
-            
-            _poolingService.ReleaseObjectToPool(healthView);
-        }
         
         public void Initialize(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
         {
@@ -47,6 +38,15 @@ namespace Fantasy.UI.Health.Manager
             _eventService.RemoveEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }
 
+        protected override void DisposeEntity(HealthView healthView)
+        {
+            base.DisposeEntity(healthView);
+            
+            healthView.OnHealthDepleted -= HandleHealthDepleted;
+            
+            _poolingService.ReleaseObjectToPool(healthView);
+        }
+        
         private void HandleHealthSpawned(HealthSpawnedEvent healthSpawnedEvent)
         {
             IHealth health = healthSpawnedEvent.Health;

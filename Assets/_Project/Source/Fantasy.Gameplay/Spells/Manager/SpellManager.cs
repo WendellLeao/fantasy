@@ -8,15 +8,6 @@ namespace Fantasy.Gameplay.Spells.Manager
     {
         private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
-
-        public override void DisposeEntity(ISpell spell)
-        {
-            base.DisposeEntity(spell);
-
-            spell.OnHit -= DisposeEntity;
-            
-            _poolingService.ReleaseObjectToPool(spell);
-        }
         
         public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory)
         {
@@ -47,6 +38,20 @@ namespace Fantasy.Gameplay.Spells.Manager
             }
             
             return spell;
+        }
+
+        public void DisposeSpell(ISpell spell)
+        {
+            DisposeEntity(spell);
+        }
+
+        protected override void DisposeEntity(ISpell spell)
+        {
+            base.DisposeEntity(spell);
+
+            spell.OnHit -= DisposeEntity;
+            
+            _poolingService.ReleaseObjectToPool(spell);
         }
 
         private void SetSpellPositionAndRotation(Vector3 position, Vector3 direction, ISpell spell)

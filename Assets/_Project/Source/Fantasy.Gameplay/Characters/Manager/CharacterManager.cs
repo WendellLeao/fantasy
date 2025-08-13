@@ -15,7 +15,7 @@ namespace Fantasy.Gameplay.Characters.Manager
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
-
+        
         public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
@@ -32,25 +32,39 @@ namespace Fantasy.Gameplay.Characters.Manager
         {
             base.OnInitialize();
 
-            characterSpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
+            characterSpawner.OnCharacterSpawned += HandleCharacterSpawned;
             
-            SpawnCharacter();
+            characterSpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
         }
 
-        private void SpawnCharacter()
+        protected override void OnDispose()
         {
-            ICharacter character = characterSpawner.SpawnCharacter();
+            base.OnDispose();
             
+            characterSpawner.OnCharacterSpawned -= HandleCharacterSpawned;
+
+            characterSpawner.Dispose();
+        }
+
+        protected override void DisposeEntity(ICharacter character)
+        {
+            base.DisposeEntity(character);
+            
+            character.OnDied -= HandleCharacterDied;
+        }
+
+        private void HandleCharacterSpawned(ICharacter character)
+        {
             RegisterEntity(character);
             
             character.OnDied += HandleCharacterDied;
         }
-
+        
         private void HandleCharacterDied(ICharacter character)
         {
-            character.OnDied -= HandleCharacterDied;
-            
-            character.Stop();
+            DisposeEntity(character);
+
+            characterSpawner.RespawnEntity(character);
         }
     }
 }

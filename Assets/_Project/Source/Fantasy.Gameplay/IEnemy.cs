@@ -8,6 +8,8 @@ namespace Fantasy.Gameplay
     {
         public event Action<IEnemy> OnDied;
 
+        public IHealth Health { get; }
+        
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory);
     }
 }

@@ -17,6 +17,7 @@ namespace Fantasy.Gameplay.Enemies
         private IHealth _health;
 
         public string PoolId { get; set; }
+        public IHealth Health =>  _health;
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {

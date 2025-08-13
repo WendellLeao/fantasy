@@ -68,7 +68,7 @@ namespace Fantasy.Gameplay.Damage.View
         
         private void DisposeCachedParticle()
         {
-            _particleFactory.DisposeEntity(_cachedParticle);
+            _particleFactory.DisposeParticle(_cachedParticle);
 
             _cachedParticle = null;
             _isDamagingPerSecond = false;

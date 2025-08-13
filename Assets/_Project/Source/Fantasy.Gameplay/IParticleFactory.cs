@@ -7,6 +7,6 @@ namespace Fantasy.Gameplay
     {
         public IParticle EmitParticle(PoolData particlePoolData, Transform parent);
         public IParticle EmitParticle(PoolData particlePoolData, Vector3 position, Quaternion rotation);
-        public virtual void DisposeEntity(IParticle particle) { }
+        public void DisposeParticle(IParticle particle);
     }
 }

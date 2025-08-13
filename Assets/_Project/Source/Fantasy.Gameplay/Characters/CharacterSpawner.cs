@@ -2,18 +2,13 @@
 using Fantasy.Events.Health;
 using Leaosoft.Events;
 using Leaosoft.Pooling;
-using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters
 {
-    internal sealed class CharacterSpawner : MonoBehaviour
+    internal sealed class CharacterSpawner : BasicEntitySpawner<ICharacter>
     {
-        [SerializeField]
-        private PoolData characterPoolData;
-        [SerializeField]
-        private Transform spawnPoint;
-
-        private IPoolingService _poolingService;
+        public event Action<ICharacter> OnCharacterSpawned;
+        
         private IEventService _eventService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
@@ -22,35 +17,25 @@ namespace Fantasy.Gameplay.Characters
         public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
-            _poolingService = poolingService;
             _eventService = eventService;
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
+            
+            base.Initialize(poolingService);
         }
-        
-        public ICharacter SpawnCharacter()
-        {
-            if (!_poolingService.TryGetObjectFromPool(characterPoolData.Id, spawnPoint, out ICharacter character))
-            {
-                return null;
-            }
 
+        protected override ICharacter SpawnEntity()
+        {
+            ICharacter character = base.SpawnEntity();
+            
             character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
             
-            DispatchHealthSpawnedEvent(character);
+            _eventService.DispatchEvent(new HealthSpawnedEvent(character.Health));
             
-            return character;
-        }
+            OnCharacterSpawned?.Invoke(character);
 
-        private void DispatchHealthSpawnedEvent(ICharacter character)
-        {
-            if (!character.gameObject.TryGetComponent(out IHealth health))
-            {
-                return;
-            }
-            
-            _eventService.DispatchEvent(new HealthSpawnedEvent(health));
+            return character;
         }
     }
 }
