@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal abstract class BasicEntitySpawner<T> : MonoBehaviour where T : IEntity
+    internal abstract class BasicEntitySpawner<TEntity> : MonoBehaviour where TEntity : IEntity
     {
         [Header("Objects")]
         [SerializeField]
@@ -38,7 +38,7 @@ namespace Fantasy.Gameplay
             _releaseEntityCts = null;
         }
 
-        public void RespawnEntity(T entity)
+        public void RespawnEntity(TEntity entity)
         {
             _releaseEntityCts?.Cancel();
             _releaseEntityCts = new CancellationTokenSource();
@@ -46,17 +46,17 @@ namespace Fantasy.Gameplay
             RespawnEntityAsync(entity, _releaseEntityCts.Token).Forget();
         }
         
-        protected virtual T SpawnEntity()
+        protected virtual TEntity SpawnEntity()
         {
             if (!_poolingService.TryGetObjectFromPool(poolData.Id, spawnPoint, out IPooledObject pooledObject))
             {
                 return default;
             }
 
-            return (T)pooledObject;
+            return (TEntity)pooledObject;
         }
         
-        private async UniTask<T> RespawnEntityAsync(T entity, CancellationToken token)
+        private async UniTask<TEntity> RespawnEntityAsync(TEntity entity, CancellationToken token)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Fantasy.Gameplay
             return default;
         }
         
-        private async UniTask ReleaseEntity(T entity, float delay, CancellationToken token)
+        private async UniTask ReleaseEntity(TEntity entity, float delay, CancellationToken token)
         {
             if (entity is not IPooledObject pooledObject)
             {
