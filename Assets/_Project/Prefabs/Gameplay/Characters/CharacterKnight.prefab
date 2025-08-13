@@ -43,22 +43,14 @@ PrefabInstance:
       propertyPath: data
       value: 
       objectReference: {fileID: 11400000, guid: 312a5c7247c48364f9cbb16496d0ad4b, type: 2}
-    - target: {fileID: 1696544635232054290, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
-      propertyPath: view
+    - target: {fileID: 942492207742366949, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
+      propertyPath: animator
       value: 
-      objectReference: {fileID: 386259364797212909}
-    - target: {fileID: 1696544635232054290, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
-      propertyPath: characterView
-      value: 
-      objectReference: {fileID: 386259364797212909}
+      objectReference: {fileID: 490559235572138481}
     - target: {fileID: 1696544635232054290, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
       propertyPath: entityComponents.Array.size
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1696544635232054290, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
-      propertyPath: 'entityComponents.Array.data[3]'
-      value: 
-      objectReference: {fileID: 386259364797212909}
     - target: {fileID: 2281967818230640125, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
       propertyPath: m_Name
       value: CharacterKnight
@@ -115,10 +107,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7342446073592018130, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
-      propertyPath: humanoidAnimatorController
-      value: 
-      objectReference: {fileID: 5849853075178265243}
     - target: {fileID: 9139992728979575932, guid: c3ea6f6c19384b94ba3145e7c155a123, type: 3}
       propertyPath: animator
       value: 
@@ -354,10 +342,6 @@ PrefabInstance:
       value: CharacterView
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -463,15 +447,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
       insertIndex: -1
       addedObject: {fileID: 490559235572138481}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 386259364797212909}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5849853075178265243}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7857296963112854362}
   m_SourcePrefab: {fileID: 100100000, guid: 42202b41213229f43b111c1b02b1d785, type: 3}
 --- !u!4 &939902598848873815 stripped
 Transform:
@@ -510,44 +485,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &386259364797212909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013090165585934120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe8963ed6b524640b29d11cdcc4c3075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  components:
-  - {fileID: 5849853075178265243}
-  - {fileID: 7857296963112854362}
---- !u!114 &5849853075178265243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013090165585934120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f813121cdf403fadab4f17b1d3b497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 490559235572138481}
-  velocityDampTime: 0.08
---- !u!114 &7857296963112854362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013090165585934120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8c19fb2d81403eafd75ef7f6227735, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

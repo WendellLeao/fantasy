@@ -1,26 +1,27 @@
-using Fantasy.Events.Health;
-using Fantasy.Domain.Health;
+using Leaosoft;
 using Leaosoft.Events;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies.Manager
 {
-    internal sealed class EnemyManager : Leaosoft.Manager
+    internal sealed class EnemyManager : EntityManager<IEnemy>
     {
         [SerializeField]
-        private GameObject enemyPrefab;
-        [SerializeField]
-        private Transform spawnPoint;
-
+        private EnemySpawner enemySpawner;
+        
+        private IPoolingService _poolingService;
+        private IEventService _eventService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IEventService _eventService;
-
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, IEventService eventService)
+        
+        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+            IWeaponFactory weaponFactory)
         {
+            _poolingService = poolingService;
+            _eventService = eventService;
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
-            _eventService = eventService;
             
             base.Initialize();
         }
@@ -29,26 +30,39 @@ namespace Fantasy.Gameplay.Enemies.Manager
         {
             base.OnInitialize();
             
-            BasicEnemy basicEnemy = (BasicEnemy)CreateEntity(enemyPrefab, spawnPoint);
+            enemySpawner.OnEnemySpawned += HandleEnemySpawned;
 
-            basicEnemy.Initialize(_particleFactory, _weaponFactory);
-            basicEnemy.Begin();
-
-            basicEnemy.OnDied += HandleBasicEnemyDied;
+            enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
+        }
+        
+        protected override void OnDispose()
+        {
+            base.OnDispose();
             
-            DispatchDamageableSpawnedEvent(basicEnemy.Damageable);
+            enemySpawner.OnEnemySpawned -= HandleEnemySpawned;
+
+            enemySpawner.Dispose();
+        }
+        
+        protected override void DisposeEntity(IEnemy enemy)
+        {
+            base.DisposeEntity(enemy);
+            
+            enemy.OnDied -= HandleEnemyDied;
+        }
+        
+        private void HandleEnemySpawned(IEnemy enemy)
+        {
+            RegisterEntity(enemy);
+            
+            enemy.OnDied += HandleEnemyDied;
         }
 
-        private void HandleBasicEnemyDied(BasicEnemy basicEnemy)
+        private void HandleEnemyDied(IEnemy enemy)
         {
-            basicEnemy.OnDied -= HandleBasicEnemyDied;
+            DisposeEntity(enemy);
             
-            basicEnemy.Stop();
-        }
-
-        private void DispatchDamageableSpawnedEvent(IDamageable enemyDamageable)
-        {
-            _eventService.DispatchEvent(new DamageableSpawnedEvent(enemyDamageable));
+            enemySpawner.RespawnEntity(enemy);
         }
     }
 }

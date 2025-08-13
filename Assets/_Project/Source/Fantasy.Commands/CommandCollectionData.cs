@@ -4,25 +4,25 @@ using UnityEngine;
 namespace Fantasy.Commands
 {
     [CreateAssetMenu(menuName = PathUtility.CommandMenuPath + "/CommandCollectionData", fileName = "CommandCollectionData")]
-    internal sealed class CommandCollectionData : ScriptableObject
+    public sealed class CommandCollectionData : ScriptableObject
     {
         [SerializeField]
         private CommandData[] commandData;
 
-        public bool TryGetCommandDataByType(CommandType type, out CommandData data)
+        public bool TryGetCommandDataByType(CommandType type, out CommandData result)
         {
-            foreach (CommandData d in commandData)
+            foreach (CommandData data in commandData)
             {
-                if (d.Type == type)
+                if (data.Type == type)
                 {
-                    data = d;
+                    result = data;
                     return true;
                 }
             }
 
             Debug.LogError($"Wasn't possible to retrieve a command data for the type '{type}'");
             
-            data = null;
+            result = null;
             return false;
         }
     }

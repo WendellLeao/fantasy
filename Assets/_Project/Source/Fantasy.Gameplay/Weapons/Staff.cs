@@ -1,5 +1,3 @@
-using System;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,19 +6,16 @@ namespace Fantasy.Gameplay.Weapons
 {
     internal sealed class Staff : Entity, IWeapon, ISpellCaster
     {
-        public event Action OnExecuted;
-        
         [SerializeField]
         private SpellData[] spellData;
         [SerializeField]
         private Transform spawnPoint;
-        [SerializeField]
-        private BoxCollider boxCollider;
 
         private ISpellFactory _spellFactory;
         private WeaponData _data;
 
         public WeaponData Data => _data;
+        public string PoolId { get; set; }
 
         public void Initialize(WeaponData data)
         {
@@ -30,9 +25,10 @@ namespace Fantasy.Gameplay.Weapons
         }
 
         public void Execute()
-        {
-            OnExecuted?.Invoke();
-        }
+        { }
+        
+        public void FinishExecution()
+        { }
         
         public void CastSpell()
         {
@@ -48,17 +44,12 @@ namespace Fantasy.Gameplay.Weapons
         {
             base.OnInitialize();
             
-            SetColliderEnabled(false);
+            Begin();
         }
 
         public void SetSpellFactory(ISpellFactory spellFactory)
         {
             _spellFactory = spellFactory;
-        }
-
-        public void SetColliderEnabled(bool isEnabled)
-        {
-            boxCollider.enabled = isEnabled;
         }
     }
 }

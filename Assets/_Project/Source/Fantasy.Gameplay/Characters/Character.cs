@@ -1,21 +1,23 @@
 using System;
-using Fantasy.Domain.Health;
 using Leaosoft;
 using NaughtyAttributes;
 
 namespace Fantasy.Gameplay.Characters
 {
-    public sealed class Character : Entity
+    public sealed class Character : Entity, ICharacter
     {
-        public event Action<Character> OnDied;
+        public event Action<ICharacter> OnDied;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IDamageable _damageable;
+        private IHealth _health;
+        private IWeaponHolder _weaponHolder;
+        private IMoveableAgent _navMeshClickMover;
         private ICameraProvider _cameraProvider;
 
-        public IDamageable Damageable => _damageable;
-        
+        public string PoolId { get; set; }
+        public IHealth Health => _health;
+
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _particleFactory = particleFactory;
@@ -27,46 +29,77 @@ namespace Fantasy.Gameplay.Characters
 
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out HealthController healthController))
+            if (TryGetComponent(out _health))
             {
-                healthController.Initialize();
-
-                _damageable = healthController;
+                _health.Initialize();
+            }
+            
+            if (TryGetComponent(out IDamageable damageable))
+            {
+                damageable.Initialize(_health);
             }
 
-            if (TryGetComponent(out WeaponHolder weaponHolder))
+            if (TryGetComponent(out _weaponHolder))
             {
-                weaponHolder.Initialize(_weaponFactory);
+                _weaponHolder.Initialize(_weaponFactory);
             }
 
-            if (TryGetComponent(out NavMeshClickMover navMeshClickMover))
+            if (TryGetComponent(out _navMeshClickMover))
             {
-                navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
+                _navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
             }
 
-            if (View is CharacterView characterView)
+            if (TryGetComponent(out ICommandInvoker commandInvoker))
             {
-                characterView.Initialize(navMeshClickMover, _damageable, weaponHolder, _particleFactory);
+                commandInvoker.Initialize(_weaponHolder);
+            }
+            
+            if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
+            {
+                humanoidAnimatorController.Initialize(_health, damageable, _weaponHolder, _navMeshClickMover);
+            }
+            
+            if (TryGetComponent(out IDamageableView damageableView))
+            {
+                damageableView.Initialize(_particleFactory, damageable);
             }
         }
-        
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            _cameraProvider.VirtualCamera.SetTarget(transform);
+            
+            Begin();
+        }
+
         protected override void OnBegin()
         {
             base.OnBegin();
 
-            _damageable.OnDied += HandleDamageableDied;
+            _health.OnDepleted += HandleHealthDepleted;
+            
+            _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             
-            _damageable.OnDied -= HandleDamageableDied;
+            _health.OnDepleted -= HandleHealthDepleted;
+            
+            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
-        
-        private void HandleDamageableDied()
+
+        private void HandleHealthDepleted()
         {
             OnDied?.Invoke(this);
+        }
+        
+        private void HandleWeaponExecute()
+        {
+            _navMeshClickMover.ResetPath();
         }
 
 #if UNITY_EDITOR

@@ -1,4 +1,5 @@
 using Fantasy.Utilities;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay
@@ -9,8 +10,8 @@ namespace Fantasy.Gameplay
         [SerializeField]
         private string id;
         [SerializeField]
-        private GameObject prefab;
+        private PoolData poolData;
 
-        public GameObject Prefab => prefab;
+        public PoolData PoolData => poolData;
     }
 }

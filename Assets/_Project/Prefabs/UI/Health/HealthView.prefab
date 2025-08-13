@@ -124,7 +124,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   components:
   - {fileID: 507656469629030952}
+  view: {fileID: 0}
+  canvasGroup: {fileID: 7462864531018822406}
   billboard: {fileID: 5350465590962134365}
+  canvasGroupFadeDuration: 0.5
+  canvasGroupFadeDelay: 2
 --- !u!114 &507656469629030952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +244,7 @@ GameObject:
   - component: {fileID: 150312680919379100}
   - component: {fileID: 1321022733368687161}
   - component: {fileID: 8694046588813589899}
+  - component: {fileID: 7462864531018822406}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -315,6 +320,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!225 &7462864531018822406
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244378475275205947}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &7930154617824788377
 GameObject:
   m_ObjectHideFlags: 0

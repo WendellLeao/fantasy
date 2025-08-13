@@ -1,6 +1,6 @@
 ﻿#if UNITY_EDITOR || DEBUG
+using Fantasy.Gameplay;
 using Fantasy.Gameplay.Cameras.Manager;
-using Fantasy.Gameplay.Characters;
 using Fantasy.Gameplay.Particles.Manager;
 using Fantasy.Gameplay.Weapons.Manager;
 using UnityEngine;
@@ -9,16 +9,16 @@ namespace Fantasy.Debugging
 {
     internal sealed class CharacterInitializer : MonoBehaviour
     {
-        [SerializeField]
-        private Character character;
-        
         private void Start()
         {
             ParticleManager particleManager = FindAnyObjectByType<ParticleManager>();
             WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
             CameraManager cameraManager = FindAnyObjectByType<CameraManager>();
-            
-            character.Initialize(particleManager, weaponManager, cameraManager);
+
+            if (TryGetComponent(out ICharacter character))
+            {
+                character.Initialize(particleManager, weaponManager, cameraManager);
+            }
         }
     }
 }

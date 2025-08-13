@@ -6,6 +6,7 @@ using Fantasy.Gameplay.Spells.Manager;
 using Fantasy.Gameplay.Weapons.Manager;
 using Fantasy.Gameplay.Characters.Manager;
 using Leaosoft.Events;
+using Leaosoft.Pooling;
 using Leaosoft.Services;
 
 namespace Fantasy.Gameplay.System
@@ -14,6 +15,7 @@ namespace Fantasy.Gameplay.System
     {
         protected override void InitializeManagers()
         {
+            IPoolingService poolingService = ServiceLocator.GetService<IPoolingService>();
             IEventService eventService = ServiceLocator.GetService<IEventService>();
 
             if (TryGetManager(out CursorManager cursorManager))
@@ -28,27 +30,27 @@ namespace Fantasy.Gameplay.System
             
             if (TryGetManager(out ParticleManager particleManager))
             {
-                particleManager.Initialize();
+                particleManager.Initialize(poolingService);
             }
 
             if (TryGetManager(out SpellManager spellManager))
             {
-                spellManager.Initialize(particleManager);
+                spellManager.Initialize(poolingService, particleManager);
             }
 
             if (TryGetManager(out WeaponManager weaponManager))
             {
-                weaponManager.Initialize(particleManager, spellManager);
+                weaponManager.Initialize(poolingService, particleManager, spellManager);
             }
 
             if (TryGetManager(out CharacterManager characterManager))
             {
-                characterManager.Initialize(particleManager, weaponManager, eventService, cameraManager);
+                characterManager.Initialize(poolingService, eventService, particleManager, weaponManager, cameraManager);
             }
 
             if (TryGetManager(out EnemyManager enemyManager))
             {
-                enemyManager.Initialize(particleManager, weaponManager, eventService);
+                enemyManager.Initialize(poolingService, eventService, particleManager, weaponManager);
             }
         }
     }

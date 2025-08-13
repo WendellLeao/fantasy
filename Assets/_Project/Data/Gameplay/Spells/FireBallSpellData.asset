@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FireBallSpellData
   m_EditorClassIdentifier: 
   id: fire_ball_spell
-  damage: 25
   prefab: {fileID: 5938726976110329355, guid: b590d50dc2dd61c4d92f19718b1deba1, type: 3}
+  poolData: {fileID: 11400000, guid: aee530eaadb35a8439991cc009877727, type: 2}

@@ -1,4 +1,3 @@
-using Fantasy.Domain.Weapons;
 using UnityEngine;
 
 namespace Fantasy.Gameplay

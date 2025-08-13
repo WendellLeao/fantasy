@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4100705861166165008}
   - component: {fileID: 8526023709118096804}
   - component: {fileID: 5765426536795264508}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,6 +188,7 @@ MonoBehaviour:
   - {fileID: 116677593831863408}
   view: {fileID: 0}
   collisionParticle: {fileID: 4218367092044171886, guid: 51989b63108a1a444bd297908d943b11, type: 3}
+  collisionParticlePoolData: {fileID: 11400000, guid: fca4f54bbb03308409f4ae9ba3092a0a, type: 2}
 --- !u!114 &5797961262117325252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5083769121035118252}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: FireBallView
   m_TagString: Untagged
   m_Icon: {fileID: 0}

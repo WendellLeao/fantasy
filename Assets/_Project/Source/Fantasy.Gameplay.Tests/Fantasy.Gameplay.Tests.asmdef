@@ -5,7 +5,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Leaosoft",
-        "Fantasy.Domain",
+        "Fantasy",
         "Fantasy.Gameplay"
     ],
     "includePlatforms": [],

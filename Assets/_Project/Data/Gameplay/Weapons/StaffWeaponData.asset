@@ -16,5 +16,5 @@ MonoBehaviour:
   viewName: Staff
   staminaCost: 0
   range: 0
-  prefab: {fileID: 5309791788902657291, guid: 54fd475af6d9542498189a483009652f, type: 3}
+  poolData: {fileID: 11400000, guid: e1d54bfad1bcffa45abf991a31fb5dac, type: 2}
   movesetType: 1

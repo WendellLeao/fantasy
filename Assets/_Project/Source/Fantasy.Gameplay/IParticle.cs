@@ -1,11 +1,11 @@
 using System;
-using UnityEngine;
+using Leaosoft;
+using Leaosoft.Pooling;
 
 namespace Fantasy.Gameplay
 {
-    public interface IParticle
+    public interface IParticle : IEntity, IPooledObject
     {
         public event Action<IParticle> OnCompleted;
-        public Transform Transform { get; }
     }
 }

@@ -5,7 +5,8 @@ namespace Fantasy.Gameplay
     public interface IMoveableAgent
     {
         public Vector3 Velocity { get; }
-        
-        public void SetDestination(Vector3 position);
+
+        public void Initialize(ICameraProvider cameraProvider, IParticleFactory particleFactory);
+        public void ResetPath();
     }
 }

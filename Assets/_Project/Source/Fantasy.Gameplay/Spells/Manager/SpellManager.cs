@@ -1,15 +1,17 @@
-using System;
 using Leaosoft;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Spells.Manager
 {
-    internal sealed class SpellManager : Leaosoft.Manager, ISpellFactory
+    internal sealed class SpellManager : EntityManager<ISpell>, ISpellFactory
     {
+        private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
-
-        public void Initialize(IParticleFactory particleFactory)
+        
+        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory)
         {
+            _poolingService = poolingService;
             _particleFactory = particleFactory;
             
             base.Initialize();
@@ -17,19 +19,18 @@ namespace Fantasy.Gameplay.Spells.Manager
         
         public ISpell CastSpell(SpellData data, Vector3 position, Vector3 direction)
         {
-            IEntity entity = CreateEntity(data.Prefab, parent: null);
-            
-            entity.Initialize();
-            entity.Begin();
-
-            if (entity is not ISpell spell)
+            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent: null, out ISpell spell))
             {
-                throw new InvalidOperationException($"Wasn't possible to cast the '{entity}' to '{nameof(ISpell)}'");
+                return null;
             }
             
-            spell.Transform.SetPositionAndRotation(position, Quaternion.LookRotation(direction));
-            
-            spell.OnHit += HandleSpellHit;
+            RegisterEntity(spell);
+
+            spell.Initialize();
+
+            SetSpellPositionAndRotation(position, direction, spell);
+
+            spell.OnHit += DisposeEntity;
             
             if (spell is IParticleEmitter particleEmitter)
             {
@@ -38,14 +39,19 @@ namespace Fantasy.Gameplay.Spells.Manager
             
             return spell;
         }
-        
-        private void HandleSpellHit(ISpell spell)
+
+        protected override void DisposeEntity(ISpell spell)
         {
-            spell.OnHit -= HandleSpellHit;
-                
-            DisposeEntity(spell as IEntity);
+            base.DisposeEntity(spell);
+
+            spell.OnHit -= DisposeEntity;
             
-            Destroy(spell.Transform.gameObject); // TODO: use pooling
+            _poolingService.ReleaseObjectToPool(spell);
+        }
+
+        private void SetSpellPositionAndRotation(Vector3 position, Vector3 direction, ISpell spell)
+        {
+            spell.transform.SetPositionAndRotation(position, Quaternion.LookRotation(direction));
         }
     }
 }

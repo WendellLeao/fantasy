@@ -1,17 +1,18 @@
-using System;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons.Manager
 {
-    public sealed class WeaponManager : Leaosoft.Manager, IWeaponFactory
+    public sealed class WeaponManager : EntityManager<IWeapon>, IWeaponFactory
     {
+        private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
         private ISpellFactory _spellFactory;
-
-        public void Initialize(IParticleFactory particleFactory, ISpellFactory spellFactory)
+        
+        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
         {
+            _poolingService = poolingService;
             _particleFactory = particleFactory;
             _spellFactory = spellFactory;
             
@@ -20,15 +21,14 @@ namespace Fantasy.Gameplay.Weapons.Manager
         
         public IWeapon CreateWeapon(WeaponData data, Transform parent)
         {
-            IEntity entity = CreateEntity(data.Prefab, parent);
-
-            if (entity is not IWeapon weapon)
+            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent, out IWeapon weapon))
             {
-                throw new InvalidOperationException($"Wasn't possible to cast the '{entity}' to '{nameof(IWeapon)}'");
+                return null;
             }
             
+            RegisterEntity(weapon);
+
             weapon.Initialize(data);
-            weapon.Begin();
             
             if (weapon is IParticleEmitter particleEmitter)
             {
@@ -45,12 +45,14 @@ namespace Fantasy.Gameplay.Weapons.Manager
 
         public void DisposeWeapon(IWeapon weapon)
         {
-            if (weapon is IEntity entity)
-            {
-                DisposeEntity(entity);
-                
-                Destroy(entity.GameObject); // TODO: use pooling
-            }
+            DisposeEntity(weapon);
+        }
+
+        protected override void DisposeEntity(IWeapon weapon)
+        {
+            base.DisposeEntity(weapon);
+            
+            _poolingService.ReleaseObjectToPool(weapon);
         }
     }
 }

@@ -1,0 +1,111 @@
+﻿using UnityEngine;
+using System;
+using Leaosoft;
+using Random = UnityEngine.Random;
+
+namespace Fantasy.Gameplay.Animations
+{
+    internal sealed class HumanoidAnimatorController : EntityComponent, IHumanoidAnimatorController
+    {
+        private static readonly int Velocity = Animator.StringToHash("Velocity");
+        private static readonly int MovesetType = Animator.StringToHash("MovesetType");
+        private static readonly int ExecuteWeapon = Animator.StringToHash("ExecuteWeapon");
+        private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
+        private static readonly int DeathType = Animator.StringToHash("DeathType");
+        private static readonly int Die = Animator.StringToHash("Die");
+
+        [SerializeField]
+        private Animator animator;
+        [SerializeField]
+        private float velocityDampTime = 0.08f;
+
+        private IHealth _health;
+        private IDamageable _damageable;
+        private IWeaponHolder _weaponHolder;
+        private IMoveableAgent _moveableAgent;
+        private float _smoothedSpeed;
+
+        public void Initialize(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
+        {
+            _health = health;
+            _damageable = damageable;
+            _weaponHolder = weaponHolder;
+            _moveableAgent = moveableAgent;
+
+            base.Initialize();
+        }
+
+        protected override void OnBegin()
+        {
+            base.OnBegin();
+            
+            HandleWeaponMovesetType(_weaponHolder.Weapon);
+            
+            SubscribeEvents();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            
+            UnsubscribeEvents();
+        }
+
+        protected override void OnTick(float deltaTime)
+        {
+            base.OnTick(deltaTime);
+            
+            SetVelocity(_moveableAgent.Velocity.magnitude, deltaTime);
+        }
+
+        private void SubscribeEvents()
+        {
+            _health.OnDepleted += HandleHealthDepleted;
+
+            _damageable.OnDamageTaken += HandleDamageTaken;
+            
+            _weaponHolder.OnWeaponChanged += HandleWeaponMovesetType;
+            _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            _health.OnDepleted -= HandleHealthDepleted;
+
+            _damageable.OnDamageTaken -= HandleDamageTaken;
+            
+            _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
+            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
+        }
+
+        private void HandleHealthDepleted()
+        {
+            int randomDeathType = Random.Range(0, Enum.GetValues(typeof(DeathType)).Length);
+            
+            animator.SetInteger(id: DeathType, randomDeathType);
+            animator.SetTrigger(id: Die);
+        }
+        
+        private void HandleDamageTaken(DamageData damageData)
+        {
+            animator.SetTrigger(id: TakeDamage);
+        }
+        
+        private void HandleWeaponMovesetType(IWeapon weapon)
+        {
+            WeaponData weaponData = weapon.Data;
+            
+            animator.SetInteger(id: MovesetType, (int)weaponData.MovesetType);
+        }
+        
+        private void HandleWeaponExecute()
+        {
+            animator.SetTrigger(id: ExecuteWeapon);
+        }
+
+        private void SetVelocity(float velocityMagnitude, float deltaTime)
+        {
+            animator.SetFloat(id: Velocity, velocityMagnitude, velocityDampTime, deltaTime);
+        }
+    }
+}

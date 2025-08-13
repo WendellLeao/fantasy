@@ -91,4 +91,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cda88592414cb891df1b7d71546782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthViewPrefab: {fileID: 2477064541613233677, guid: 22230699887816242ae7fcdb7c3add13, type: 3}
+  healthViewPoolData: {fileID: 11400000, guid: 18809b631e59ee042b65e4cdd753c4f4, type: 2}

@@ -2,7 +2,7 @@
 
 namespace Fantasy.Gameplay.Cameras.Manager
 {
-    public sealed class CameraManager : Leaosoft.Manager, ICameraProvider
+    public sealed class CameraManager : Leaosoft.EntityManager<IVirtualCamera>, ICameraProvider
     {
         [SerializeField]
         private Camera mainCamera;

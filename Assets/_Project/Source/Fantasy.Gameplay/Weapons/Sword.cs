@@ -1,23 +1,22 @@
-using System;
-using Fantasy.Domain.Weapons;
 using Leaosoft;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons
 {
-    internal sealed class Sword : Entity, IWeapon, IParticleEmitter
+    internal sealed class Sword : Entity, IMeleeWeapon
     {
-        public event Action OnExecuted;
-        
         [SerializeField]
         private CapsuleCollider capsuleCollider;
         [SerializeField]
-        private GameObject bloodParticlesPrefab;
+        private PoolData bloodParticlesPoolData;
         
         private IParticleFactory _particleFactory;
         private WeaponData _data;
+        private IDamager _damager;
 
         public WeaponData Data => _data;
+        public string PoolId { get; set; }
 
         public void Initialize(WeaponData data)
         {
@@ -29,15 +28,18 @@ namespace Fantasy.Gameplay.Weapons
         public void Execute()
         {
             SetColliderEnabled(false);
-            
-            OnExecuted?.Invoke();
+        }
+
+        public void FinishExecution()
+        {
+            SetColliderEnabled(false);
         }
 
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out Damager damager))
+            if (TryGetComponent(out _damager))
             {
-                damager.Initialize();
+                _damager.Initialize();
             }
         }
 
@@ -46,6 +48,8 @@ namespace Fantasy.Gameplay.Weapons
             base.OnInitialize();
             
             SetColliderEnabled(false);
+            
+            Begin();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -55,22 +59,19 @@ namespace Fantasy.Gameplay.Weapons
                 return;
             }
             
-            if (TryGetComponent(out Damager damager))
-            {
-                damager.TryApplyDamage(other);
-                
-                _particleFactory.EmitParticle(bloodParticlesPrefab, transform.position, Quaternion.identity);
-            }
-        }
-
-        public void SetParticleFactory(IParticleFactory particleFactory)
-        {
-            _particleFactory = particleFactory;
+            _damager.TryApplyDamage(other);
+            
+            _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
         }
 
         public void SetColliderEnabled(bool isEnabled)
         {
             capsuleCollider.enabled = isEnabled;
+        }
+        
+        public void SetParticleFactory(IParticleFactory particleFactory)
+        {
+            _particleFactory = particleFactory;
         }
     }
 }

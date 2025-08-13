@@ -1,4 +1,5 @@
-using Fantasy.Domain.Health;
+using Fantasy.Gameplay.Damage;
+using Fantasy.Gameplay.Health;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace Fantasy.Gameplay.Tests
     {
         private HealthData _mockHealthData;
         private DamageData _mockDamageData;
+        private HumbleEntity _humbleEntity;
+        private DamageController _damageController;
         private HealthController _sut;
 
         [SetUp]
@@ -15,17 +18,21 @@ namespace Fantasy.Gameplay.Tests
         {
             _mockHealthData = GetMockHealthData();
             _mockDamageData = GetMockDamageData();
-            _sut = GetHealthController();
-            
-            _sut.SetHealthDataForTests(_mockHealthData);
+
+            _humbleEntity = CreateHumbleEntity();
+
+            _sut = _humbleEntity.GetComponent<HealthController>();
+            _damageController = _humbleEntity.GetComponent<DamageController>();
         }
 
         [TearDown]
         public void TearDown()
         {
+            _humbleEntity.Dispose();
+            
             DestroyImmediate(_mockHealthData);
             DestroyImmediate(_mockDamageData);
-            DestroyImmediate(_sut.gameObject);
+            DestroyImmediate(_humbleEntity.gameObject);
         }
 
         [Test]
@@ -35,10 +42,15 @@ namespace Fantasy.Gameplay.Tests
             _mockDamageData.SetAmountForTests(30);
             _mockHealthData.SetMaxHealthForTests(100);
             
-            _sut.Initialize();
+            _sut.SetHealthDataForTests(_mockHealthData);
+            
+            _humbleEntity.AddComponentsForTests(_sut, _damageController);
+            
+            _humbleEntity.Initialize();
+            _humbleEntity.Begin();
             
             // Act
-            _sut.TakeDamage(_mockDamageData);
+            _damageController.TakeDamage(_mockDamageData);
             
             // Assert
             Assert.That(_sut.HealthRatio, expression: Is.EqualTo(expected: 0.7f).Within(0.0001f));
@@ -49,15 +61,16 @@ namespace Fantasy.Gameplay.Tests
             return ScriptableObject.CreateInstance<HealthData>();
         }
 
-        private HealthController GetHealthController()
+        private HumbleEntity CreateHumbleEntity()
         {
-            GameObject newGameObject = new GameObject(name: $"Humble {nameof(HumbleEntity)}", components: new[]
+            GameObject humbleEntityObject = new GameObject(name: $"Humble {nameof(HumbleEntity)}", components: new[]
             {
                 typeof(HumbleEntity),
-                typeof(HealthController)
+                typeof(HealthController),
+                typeof(DamageController)
             });
 
-            return newGameObject.GetComponent<HealthController>();
+            return humbleEntityObject.GetComponent<HumbleEntity>();
         }
         
         private DamageData GetMockDamageData()

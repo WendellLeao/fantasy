@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SoundPlayerPoolData
   m_EditorClassIdentifier: 
   id: sound_player
-  objectToPool: {fileID: 4659221791940540471, guid: 3fb37c957bffb564b924ef66b9acef94,
-    type: 3}
-  startAmount: 5
+  prefab: {fileID: 4659221791940540471, guid: 3fb37c957bffb564b924ef66b9acef94, type: 3}
+  collectionCheck: 0
+  defaultCapacity: 10
+  maxSize: 10000

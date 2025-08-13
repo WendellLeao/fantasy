@@ -1,20 +1,23 @@
 using System;
-using Fantasy.Domain.Health;
 using Leaosoft;
+using Leaosoft.Pooling;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
 {
-    public sealed class BasicEnemy : Entity, IMoveableAgent
+    public sealed class BasicEnemy : Entity, IEnemy
     {
-        public event Action<BasicEnemy> OnDied;
+        public event Action<IEnemy> OnDied;
+        
+        [SerializeField]
+        private PoolData smokeParticlePoolData;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IDamageable _damageable;
+        private IHealth _health;
 
-        public IDamageable Damageable => _damageable;
-        public Vector3 Velocity => Vector3.zero;
+        public string PoolId { get; set; }
+        public IHealth Health =>  _health;
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
@@ -26,45 +29,71 @@ namespace Fantasy.Gameplay.Enemies
 
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out HealthController healthController))
+            if (TryGetComponent(out _health))
             {
-                healthController.Initialize();
-
-                _damageable = healthController;
+                _health.Initialize();
             }
 
-            if (TryGetComponent(out WeaponHolder weaponHolder))
+            if (TryGetComponent(out IDamageable damageable))
+            {
+                damageable.Initialize(_health);
+            }
+            
+            if (TryGetComponent(out IWeaponHolder weaponHolder))
             {
                 weaponHolder.Initialize(_weaponFactory);
             }
 
-            if (View is BasicEnemyView basicEnemyView)
+            if (TryGetComponent(out ICommandInvoker commandInvoker))
             {
-                // TODO: implement the enemy's moveable agent component
-                basicEnemyView.Initialize(moveableAgent: this, _damageable, weaponHolder, _particleFactory);
+                commandInvoker.Initialize(weaponHolder);
             }
+            
+            if (TryGetComponent(out IMoveableAgent moveableAgent))
+            {
+                // TODO: implement this
+                moveableAgent.Initialize(cameraProvider: null, particleFactory: null);
+            }
+            
+            if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
+            {
+                humanoidAnimatorController.Initialize(_health, damageable, weaponHolder, moveableAgent);
+            }
+            
+            if (TryGetComponent(out IDamageableView damageableView))
+            {
+                damageableView.Initialize(_particleFactory, damageable);
+            }
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            
+            Begin();
         }
 
         protected override void OnBegin()
         {
             base.OnBegin();
 
-            _damageable.OnDied += HandleDamageableDied;
+            _health.OnDepleted += HandleHealthDepleted;
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             
-            _damageable.OnDied -= HandleDamageableDied;
+            _health.OnDepleted -= HandleHealthDepleted;
         }
 
-        private void HandleDamageableDied()
+        private void HandleHealthDepleted()
         {
+            GameObject smokeParticleObject = smokeParticlePoolData.Prefab;
+            
+            _particleFactory.EmitParticle(smokeParticlePoolData, transform.position, smokeParticleObject.transform.rotation);
+            
             OnDied?.Invoke(this);
         }
-
-        public void SetDestination(Vector3 position)
-        { }
     }
 }
