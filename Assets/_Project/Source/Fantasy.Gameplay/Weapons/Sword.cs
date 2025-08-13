@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons
 {
-    internal sealed class Sword : Entity, IMeleeWeapon, IParticleEmitter
+    internal sealed class Sword : Entity, IMeleeWeapon
     {
         [SerializeField]
         private CapsuleCollider capsuleCollider;
@@ -13,6 +13,7 @@ namespace Fantasy.Gameplay.Weapons
         
         private IParticleFactory _particleFactory;
         private WeaponData _data;
+        private IDamager _damager;
 
         public WeaponData Data => _data;
         public string PoolId { get; set; }
@@ -36,9 +37,9 @@ namespace Fantasy.Gameplay.Weapons
 
         protected override void InitializeComponents()
         {
-            if (TryGetComponent(out IDamager damager))
+            if (TryGetComponent(out _damager))
             {
-                damager.Initialize();
+                _damager.Initialize();
             }
         }
 
@@ -58,22 +59,19 @@ namespace Fantasy.Gameplay.Weapons
                 return;
             }
             
-            if (TryGetComponent(out IDamager damager))
-            {
-                damager.TryApplyDamage(other);
-                
-                _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
-            }
-        }
-
-        public void SetParticleFactory(IParticleFactory particleFactory)
-        {
-            _particleFactory = particleFactory;
+            _damager.TryApplyDamage(other);
+            
+            _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
         }
 
         public void SetColliderEnabled(bool isEnabled)
         {
             capsuleCollider.enabled = isEnabled;
+        }
+        
+        public void SetParticleFactory(IParticleFactory particleFactory)
+        {
+            _particleFactory = particleFactory;
         }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using DG.Tweening;
-using Fantasy.UI.Screens;
 using Leaosoft;
 using Leaosoft.Pooling;
 using UnityEngine;

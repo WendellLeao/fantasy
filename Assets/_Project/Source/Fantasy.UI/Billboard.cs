@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Fantasy.UI.Screens
+namespace Fantasy.UI
 {
     internal sealed class Billboard : MonoBehaviour
     {

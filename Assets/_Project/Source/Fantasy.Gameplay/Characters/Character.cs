@@ -1,6 +1,5 @@
 using System;
 using Leaosoft;
-using Leaosoft.Pooling;
 using NaughtyAttributes;
 
 namespace Fantasy.Gameplay.Characters

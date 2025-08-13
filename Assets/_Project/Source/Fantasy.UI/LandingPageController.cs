@@ -3,7 +3,7 @@ using Leaosoft.UI;
 using Leaosoft.UI.Screens;
 using UnityEngine;
 
-namespace Fantasy.UI.Screens
+namespace Fantasy.UI
 {
     // TODO: this is temporary. The title screen must be loaded after the startup scene finishes its processes.
     internal sealed class LandingPageController : MonoBehaviour

@@ -40,11 +40,6 @@ namespace Fantasy.Gameplay.Spells.Manager
             return spell;
         }
 
-        public void DisposeSpell(ISpell spell)
-        {
-            DisposeEntity(spell);
-        }
-
         protected override void DisposeEntity(ISpell spell)
         {
             base.DisposeEntity(spell);

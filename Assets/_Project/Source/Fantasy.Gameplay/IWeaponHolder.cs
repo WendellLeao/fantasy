@@ -6,7 +6,6 @@ namespace Fantasy.Gameplay
     {
         public event Action<IWeapon> OnWeaponChanged;
         public event Action OnWeaponExecuted;
-        public event Action OnWeaponExecutionFinished;
         
         public IWeapon Weapon { get; }
 
