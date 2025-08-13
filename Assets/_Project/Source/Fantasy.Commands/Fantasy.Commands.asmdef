@@ -1,0 +1,16 @@
+{
+    "name": "Fantasy.Commands",
+    "rootNamespace": "Fantasy.Commands",
+    "references": [
+        "GUID:f08435d87fbdfb94b9825740ff07be80"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

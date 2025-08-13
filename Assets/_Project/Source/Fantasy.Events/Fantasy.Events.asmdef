@@ -1,0 +1,18 @@
+{
+    "name": "Fantasy.Events",
+    "rootNamespace": "Fantasy.Events",
+    "references": [
+        "GUID:d99d98637fd56ff4c9f258fdedb73af5",
+        "GUID:ca76530d50b497f4eb3b5bf028c1daa4",
+        "GUID:6cfc7f64e61e1e4429f37484e489b8cf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

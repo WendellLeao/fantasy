@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d98af2fc7e541708b211bfa6adc7fee, type: 3}
+  m_Name: FireBallDamageData
+  m_EditorClassIdentifier: 
+  id: fire_ball_damage
+  amount: 10
+  hasDamagePerSecond: 1
+  damagePerSecondDuration: 2
+  amountPerSecond: 10
+  dpsParticlePrefab: {fileID: 3276476055594407164, guid: 9ed1a47d430d4644088ea64e1aaa79aa, type: 3}
+  dpsParticlePoolData: {fileID: 11400000, guid: 36c18c035f42b3d4bbab297c59f3762f, type: 2}
