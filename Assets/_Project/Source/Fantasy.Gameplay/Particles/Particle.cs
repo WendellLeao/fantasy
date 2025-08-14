@@ -18,9 +18,6 @@ namespace Fantasy.Gameplay.Particles
         
         public string PoolId { get; set; }
 
-        protected override void SetUpComponents()
-        { }
-
         protected override void OnSetUp()
         {
             base.OnSetUp();

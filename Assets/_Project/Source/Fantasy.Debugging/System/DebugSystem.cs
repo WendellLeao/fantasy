@@ -8,9 +8,6 @@ namespace Fantasy.Debugging.System
         [SerializeField]
         private Canvas canvas;
         
-        protected override void InitializeManagers()
-        { }
-
         protected override void OnTick(float deltaTime)
         {
             base.OnTick(deltaTime);

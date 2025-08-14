@@ -1,3 +1,4 @@
+using Fantasy.Gameplay.Damage;
 using Leaosoft;
 using Leaosoft.Pooling;
 using UnityEngine;
@@ -6,14 +7,18 @@ namespace Fantasy.Gameplay.Weapons
 {
     internal sealed class Sword : Entity, IMeleeWeapon
     {
+        [Header("Components")]
         [SerializeField]
         private CapsuleCollider capsuleCollider;
+        [SerializeField]
+        private Damager damager;
+        
+        [Header("Data")]
         [SerializeField]
         private PoolData bloodParticlesPoolData;
         
         private IParticleFactory _particleFactory;
         private WeaponData _data;
-        private IDamager _damager;
 
         public WeaponData Data => _data;
         public string PoolId { get; set; }
@@ -35,17 +40,13 @@ namespace Fantasy.Gameplay.Weapons
             SetColliderEnabled(false);
         }
 
-        protected override void SetUpComponents()
-        {
-            if (TryGetComponent(out _damager))
-            {
-                _damager.SetUp();
-            }
-        }
-
         protected override void OnSetUp()
         {
             base.OnSetUp();
+            
+            damager.SetUp();
+            
+            RegisterComponents(damager);
             
             SetColliderEnabled(false);
         }
@@ -57,7 +58,7 @@ namespace Fantasy.Gameplay.Weapons
                 return;
             }
             
-            _damager.TryApplyDamage(other);
+            damager.TryApplyDamage(other);
             
             _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
         }

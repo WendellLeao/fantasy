@@ -122,10 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246d6e2200f44031b34c5702cbc60b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components:
-  - {fileID: 507656469629030952}
-  view: {fileID: 0}
   canvasGroup: {fileID: 7462864531018822406}
+  imageFiller: {fileID: 507656469629030952}
   billboard: {fileID: 5350465590962134365}
   canvasGroupFadeDuration: 0.5
   canvasGroupFadeDelay: 2

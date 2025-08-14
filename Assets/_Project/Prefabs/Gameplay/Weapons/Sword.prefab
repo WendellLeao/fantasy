@@ -102,11 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a36c3b3e4264976a2fbfdf5c3f654f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components:
-  - {fileID: 8599764717852952116}
-  view: {fileID: 0}
   capsuleCollider: {fileID: 7616323759490494340}
-  bloodParticlesPrefab: {fileID: 3276476055594407164, guid: 351900697f7bbe94a903355584ca40d7, type: 3}
+  damager: {fileID: 8599764717852952116}
   bloodParticlesPoolData: {fileID: 11400000, guid: f3032cf999cffd546999217520cdd9c1, type: 2}
 --- !u!114 &8599764717852952116
 MonoBehaviour:

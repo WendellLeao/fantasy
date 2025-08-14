@@ -8,50 +8,43 @@ using Fantasy.Gameplay.Characters.Manager;
 using Leaosoft.Events;
 using Leaosoft.Pooling;
 using Leaosoft.Services;
+using UnityEngine;
 
 namespace Fantasy.Gameplay.System
 {
     internal sealed class GameplaySystem : Leaosoft.System
     {
-        protected override void InitializeManagers()
+        [SerializeField]
+        private CursorManager cursorManager;
+        [SerializeField]
+        private CameraManager cameraManager;
+        [SerializeField]
+        private ParticleManager particleManager;
+        [SerializeField]
+        private SpellManager spellManager;
+        [SerializeField]
+        private WeaponManager weaponManager;
+        [SerializeField]
+        private CharacterManager characterManager;
+        [SerializeField]
+        private EnemyManager enemyManager;
+
+        protected override void OnInitialize()
         {
+            base.OnInitialize();
+            
             IPoolingService poolingService = ServiceLocator.GetService<IPoolingService>();
             IEventService eventService = ServiceLocator.GetService<IEventService>();
 
-            if (TryGetManager(out CursorManager cursorManager))
-            {
-                cursorManager.Initialize();
-            }
-
-            if (TryGetManager(out CameraManager cameraManager))
-            {
-                cameraManager.Initialize();
-            }
+            cursorManager.Initialize();
+            cameraManager.Initialize();
+            particleManager.Initialize(poolingService);
+            spellManager.Initialize(poolingService, particleManager);
+            weaponManager.Initialize(poolingService, particleManager, spellManager);
+            characterManager.Initialize(poolingService, eventService, particleManager, weaponManager, cameraManager);
+            enemyManager.Initialize(poolingService, eventService, particleManager, weaponManager);
             
-            if (TryGetManager(out ParticleManager particleManager))
-            {
-                particleManager.Initialize(poolingService);
-            }
-
-            if (TryGetManager(out SpellManager spellManager))
-            {
-                spellManager.Initialize(poolingService, particleManager);
-            }
-
-            if (TryGetManager(out WeaponManager weaponManager))
-            {
-                weaponManager.Initialize(poolingService, particleManager, spellManager);
-            }
-
-            if (TryGetManager(out CharacterManager characterManager))
-            {
-                characterManager.Initialize(poolingService, eventService, particleManager, weaponManager, cameraManager);
-            }
-
-            if (TryGetManager(out EnemyManager enemyManager))
-            {
-                enemyManager.Initialize(poolingService, eventService, particleManager, weaponManager);
-            }
+            RegisterManagers(cursorManager, cameraManager, particleManager, spellManager, weaponManager, characterManager,enemyManager);
         }
     }
 }

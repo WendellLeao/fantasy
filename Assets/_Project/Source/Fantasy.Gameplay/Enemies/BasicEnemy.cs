@@ -1,4 +1,11 @@
 using System;
+using Fantasy.Gameplay.Animations;
+using Fantasy.Gameplay.Commands;
+using Fantasy.Gameplay.Damage;
+using Fantasy.Gameplay.Damage.View;
+using Fantasy.Gameplay.Health;
+using Fantasy.Gameplay.Navigation;
+using Fantasy.Gameplay.Weapons;
 using Leaosoft;
 using Leaosoft.Pooling;
 using NaughtyAttributes;
@@ -10,15 +17,31 @@ namespace Fantasy.Gameplay.Enemies
     {
         public event Action<IEnemy> OnDied;
         
+        [Header("Components")]
+        [SerializeField]
+        private HealthController healthController;
+        [SerializeField]
+        private DamageController damageController;
+        [SerializeField]
+        private WeaponHolder weaponHolder;
+        [SerializeField]
+        private NavMeshTest navMeshTest;
+        [SerializeField]
+        private CommandAutoInvoker commandAutoInvoker;
+        [SerializeField]
+        private HumanoidAnimatorController humanoidAnimatorController;
+        [SerializeField]
+        private DamageableView damageableView;
+        
+        [Header("Data")]
         [SerializeField]
         private PoolData smokeParticlePoolData;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IHealth _health;
 
         public string PoolId { get; set; }
-        public IHealth Health =>  _health;
+        public IHealth Health =>  healthController;
 
         public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
@@ -28,57 +51,29 @@ namespace Fantasy.Gameplay.Enemies
             base.SetUp();
         }
 
-        protected override void SetUpComponents()
-        {
-            if (TryGetComponent(out _health))
-            {
-                _health.SetUp();
-            }
-
-            if (TryGetComponent(out IDamageable damageable))
-            {
-                damageable.SetUp(_health);
-            }
-            
-            if (TryGetComponent(out IWeaponHolder weaponHolder))
-            {
-                weaponHolder.SetUp(_weaponFactory);
-            }
-
-            if (TryGetComponent(out ICommandInvoker commandInvoker))
-            {
-                commandInvoker.SetUp(weaponHolder);
-            }
-            
-            if (TryGetComponent(out IMoveableAgent moveableAgent))
-            {
-                // TODO: implement this
-                moveableAgent.SetUp(cameraProvider: null, particleFactory: null);
-            }
-            
-            if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
-            {
-                humanoidAnimatorController.SetUp(_health, damageable, weaponHolder, moveableAgent);
-            }
-            
-            if (TryGetComponent(out IDamageableView damageableView))
-            {
-                damageableView.SetUp(_particleFactory, damageable);
-            }
-        }
-
         protected override void OnSetUp()
         {
             base.OnSetUp();
 
-            _health.OnDepleted += HandleHealthDepleted;
+            healthController.SetUp();
+            damageController.SetUp(healthController);
+            weaponHolder.SetUp(_weaponFactory);
+            commandAutoInvoker.SetUp(weaponHolder);
+            navMeshTest.SetUp(cameraProvider: null, particleFactory: null); // TODO: implement this
+            humanoidAnimatorController.SetUp(healthController, damageController, weaponHolder, navMeshTest);
+            damageableView.SetUp(_particleFactory, damageController);
+
+            RegisterComponents(healthController, damageController, weaponHolder, navMeshTest, commandAutoInvoker,
+                humanoidAnimatorController, damageableView);
+            
+            healthController.OnDepleted += HandleHealthDepleted;
         }
 
         protected override void OnDispose()
         {
             base.OnDispose();
             
-            _health.OnDepleted -= HandleHealthDepleted;
+            healthController.OnDepleted -= HandleHealthDepleted;
         }
 
         private void HandleHealthDepleted()

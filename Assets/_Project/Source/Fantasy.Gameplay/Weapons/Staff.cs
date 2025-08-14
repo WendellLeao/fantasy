@@ -36,9 +36,6 @@ namespace Fantasy.Gameplay.Weapons
             
             _spellFactory.CastSpell(randomSpellData, spawnPoint.position, direction: transform.forward);
         }
-        
-        protected override void SetUpComponents()
-        { }
 
         public void SetSpellFactory(ISpellFactory spellFactory)
         {

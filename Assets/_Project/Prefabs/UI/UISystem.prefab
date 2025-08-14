@@ -45,8 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b108cc02be7cb4581f6a44e5d14b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managers:
-  - {fileID: 5791311894072416905}
+  healthViewsManager: {fileID: 5791311894072416905}
 --- !u!1 &5250464478852829747
 GameObject:
   m_ObjectHideFlags: 0

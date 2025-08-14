@@ -406,14 +406,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69171332be6c43fca9523f868060e7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managers:
-  - {fileID: 7447252661141733479}
-  - {fileID: 2139667919872385056}
-  - {fileID: 2451394045669836876}
-  - {fileID: 9205904356266241475}
-  - {fileID: 7439883880357133245}
-  - {fileID: 8329907921714121935}
-  - {fileID: 7206072278150819779}
+  cursorManager: {fileID: 7447252661141733479}
+  cameraManager: {fileID: 2139667919872385056}
+  particleManager: {fileID: 2451394045669836876}
+  spellManager: {fileID: 9205904356266241475}
+  weaponManager: {fileID: 7439883880357133245}
+  characterManager: {fileID: 8329907921714121935}
+  enemyManager: {fileID: 7206072278150819779}
 --- !u!1 &2319687303380006713
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c44077a5f34aa087268de15d437169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: []
   cinemachineCamera: {fileID: 5530261848194548296}
 --- !u!1 &2671354610986910317
 GameObject:

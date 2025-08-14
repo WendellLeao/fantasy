@@ -8,16 +8,20 @@ namespace Fantasy.UI.System
 {
     internal sealed class UISystem : Leaosoft.System
     {
-        protected override void InitializeManagers()
+        [SerializeField]
+        private HealthViewManager healthViewsManager;
+        
+        protected override void OnInitialize()
         {
-            if (TryGetManager(out HealthViewManager healthViewsManager))
-            {
-                IPoolingService poolingService = ServiceLocator.GetService<IPoolingService>();
-                IEventService eventService = ServiceLocator.GetService<IEventService>();
+            base.OnInitialize();
+            
+            IPoolingService poolingService = ServiceLocator.GetService<IPoolingService>();
+            IEventService eventService = ServiceLocator.GetService<IEventService>();
                 
-                // TODO: camera service
-                healthViewsManager.Initialize(Camera.main, poolingService, eventService);
-            }
+            // TODO: camera service
+            healthViewsManager.Initialize(Camera.main, poolingService, eventService);
+            
+            RegisterManagers(healthViewsManager);
         }
     }
 }
