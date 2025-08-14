@@ -36,13 +36,13 @@ namespace Fantasy.Gameplay.System
             IPoolingService poolingService = ServiceLocator.GetService<IPoolingService>();
             IEventService eventService = ServiceLocator.GetService<IEventService>();
 
-            cursorManager.Initialize();
-            cameraManager.Initialize();
-            particleManager.Initialize(poolingService);
-            spellManager.Initialize(poolingService, particleManager);
-            weaponManager.Initialize(poolingService, particleManager, spellManager);
-            characterManager.Initialize(poolingService, eventService, particleManager, weaponManager, cameraManager);
-            enemyManager.Initialize(poolingService, eventService, particleManager, weaponManager);
+            cursorManager.SetUp();
+            cameraManager.SetUp();
+            particleManager.SetUp(poolingService);
+            spellManager.SetUp(poolingService, particleManager);
+            weaponManager.SetUp(poolingService, particleManager, spellManager);
+            characterManager.SetUp(poolingService, eventService, particleManager, weaponManager, cameraManager);
+            enemyManager.SetUp(poolingService, eventService, particleManager, weaponManager);
             
             RegisterManagers(cursorManager, cameraManager, particleManager, spellManager, weaponManager, characterManager,enemyManager);
         }

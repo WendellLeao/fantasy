@@ -183,8 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8af1296228a4a6087190683892ec3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applyForwardForce: {fileID: 5797961262117325252}
-  damager: {fileID: 116677593831863408}
   collisionParticlePoolData: {fileID: 11400000, guid: fca4f54bbb03308409f4ae9ba3092a0a, type: 2}
 --- !u!114 &5797961262117325252
 MonoBehaviour:

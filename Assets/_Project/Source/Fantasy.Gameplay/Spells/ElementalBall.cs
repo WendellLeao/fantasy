@@ -1,5 +1,4 @@
 using System;
-using Fantasy.Gameplay.Damage;
 using Leaosoft;
 using Leaosoft.Pooling;
 using UnityEngine;
@@ -10,33 +9,32 @@ namespace Fantasy.Gameplay.Spells
     {
         public event Action<ISpell> OnHit;
         
-        [Header("Components")]
-        [SerializeField]
-        private ApplyForwardForce applyForwardForce;
-        [SerializeField]
-        private Damager damager;
-        
         [Header("Data")]
         [SerializeField]
         private PoolData collisionParticlePoolData;
         
         private IParticleFactory _particleFactory;
+        private ApplyForwardForce _applyForwardForce;
+        private IDamager _damager;
 
         public string PoolId { get; set; }
 
         protected override void OnSetUp()
         {
             base.OnSetUp();
+
+            _applyForwardForce = GetComponent<ApplyForwardForce>();
+            _damager = GetComponent<IDamager>();
             
-            applyForwardForce.SetUp();
-            damager.SetUp();
+            _applyForwardForce.SetUp();
+            _damager.SetUp();
             
-            RegisterComponents(applyForwardForce, damager);
+            RegisterComponents(_applyForwardForce, _damager);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            damager.TryApplyDamage(other);
+            _damager.TryApplyDamage(other);
             
             _particleFactory.EmitParticle(collisionParticlePoolData, transform.position, Quaternion.identity);
             

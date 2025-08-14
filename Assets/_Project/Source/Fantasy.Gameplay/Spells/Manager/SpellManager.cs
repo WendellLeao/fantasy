@@ -9,12 +9,12 @@ namespace Fantasy.Gameplay.Spells.Manager
         private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
         
-        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory)
+        public void SetUp(IPoolingService poolingService, IParticleFactory particleFactory)
         {
             _poolingService = poolingService;
             _particleFactory = particleFactory;
             
-            base.Initialize();
+            base.SetUp();
         }
         
         public ISpell CastSpell(SpellData data, Vector3 position, Vector3 direction)

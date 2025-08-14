@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Spells
 {
-    internal sealed class ApplyForwardForce : EntityComponent
+    internal sealed class ApplyForwardForce : EntityComponent, IEntityComponent
     {
         [SerializeField]
         private Rigidbody rigidBody;

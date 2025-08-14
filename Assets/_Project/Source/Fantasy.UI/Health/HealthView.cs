@@ -10,13 +10,9 @@ namespace Fantasy.UI.Health
     {
         public event Action<HealthView> OnHealthDepleted;
         
-        [Header("Components")]
-        [SerializeField]
-        private ImageFiller imageFiller;
+        [Header("Objects")]
         [SerializeField]
         private Billboard billboard;
-        
-        [Header("Objects")]
         [SerializeField]
         private CanvasGroup canvasGroup;
 
@@ -28,6 +24,7 @@ namespace Fantasy.UI.Health
         
         private Camera _mainCamera;
         private IHealth _health;
+        private ImageFiller _imageFiller;
 
         public string PoolId { get; set; }
         
@@ -42,10 +39,12 @@ namespace Fantasy.UI.Health
         protected override void OnSetUp()
         {
             base.OnSetUp();
+
+            _imageFiller = GetComponent<ImageFiller>();
             
-            imageFiller.SetUp(_health.HealthRatio);
+            _imageFiller.SetUp(_health.HealthRatio);
             
-            RegisterComponents(imageFiller);
+            RegisterComponents(_imageFiller);
 
             _health.OnHealthChanged += HandleHealthChanged;
             _health.OnDepleted += HandleHealthDepleted;
@@ -72,7 +71,7 @@ namespace Fantasy.UI.Health
         
         private void HandleHealthChanged(float healthRatio)
         {
-            imageFiller.UpdateFillAmount(healthRatio);
+            _imageFiller.UpdateFillAmount(healthRatio);
         }
         
         private void HandleHealthDepleted()

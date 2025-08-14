@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using Leaosoft;
+using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal interface IDamager
+    internal interface IDamager : IEntityComponent
     {
-        public void SetUp();
         public bool TryApplyDamage(Collider other);
     }
 }

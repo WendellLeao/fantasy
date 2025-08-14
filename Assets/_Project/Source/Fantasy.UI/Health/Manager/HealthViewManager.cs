@@ -15,18 +15,18 @@ namespace Fantasy.UI.Health.Manager
         private IPoolingService _poolingService;
         private IEventService _eventService;
         
-        public void Initialize(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
+        public void SetUp(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
         {
             _mainCamera = mainCamera;
             _poolingService = poolingService;
             _eventService = eventService;
             
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
+            base.OnSetUp();
             
             _eventService.AddEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }

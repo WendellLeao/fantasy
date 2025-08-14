@@ -1,7 +1,5 @@
-using Leaosoft;
-
 namespace Fantasy.Gameplay.Cursor.Manager
 {
-    internal sealed class CursorManager : EntityManager<IEntity>
+    internal sealed class CursorManager : Leaosoft.Manager
     { }
 }

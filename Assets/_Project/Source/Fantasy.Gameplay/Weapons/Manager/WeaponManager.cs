@@ -10,13 +10,13 @@ namespace Fantasy.Gameplay.Weapons.Manager
         private IParticleFactory _particleFactory;
         private ISpellFactory _spellFactory;
         
-        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
+        public void SetUp(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
         {
             _poolingService = poolingService;
             _particleFactory = particleFactory;
             _spellFactory = spellFactory;
             
-            base.Initialize();
+            base.SetUp();
         }
         
         public IWeapon CreateWeapon(WeaponData data, Transform parent)

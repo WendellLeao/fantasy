@@ -15,7 +15,7 @@ namespace Fantasy.Gameplay.Enemies.Manager
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         
-        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+        public void SetUp(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory)
         {
             _poolingService = poolingService;
@@ -23,12 +23,12 @@ namespace Fantasy.Gameplay.Enemies.Manager
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
+            base.OnSetUp();
             
             enemySpawner.OnEnemySpawned += HandleEnemySpawned;
 

@@ -158,13 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92fd12fe8001472cb66ff8165edc864a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthController: {fileID: 840803360296624360}
-  damageController: {fileID: 3206277104784625199}
-  weaponHolder: {fileID: 2996856006919390465}
-  navMeshClickMover: {fileID: 7342446073592018130}
-  commandInputHeader: {fileID: 1422097962266893983}
-  humanoidAnimatorController: {fileID: 942492207742366949}
-  damageableView: {fileID: 1904817538711087213}
 --- !u!114 &840803360296624360
 MonoBehaviour:
   m_ObjectHideFlags: 0

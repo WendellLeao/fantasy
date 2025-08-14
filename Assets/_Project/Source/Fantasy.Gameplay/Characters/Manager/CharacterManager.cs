@@ -16,7 +16,7 @@ namespace Fantasy.Gameplay.Characters.Manager
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
         
-        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+        public void SetUp(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _poolingService = poolingService;
@@ -25,12 +25,12 @@ namespace Fantasy.Gameplay.Characters.Manager
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
             
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
+            base.OnSetUp();
 
             characterSpawner.OnCharacterSpawned += HandleCharacterSpawned;
             

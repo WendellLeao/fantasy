@@ -1,9 +1,10 @@
 ﻿using System;
+using Leaosoft;
 using UnityEngine;
 
 namespace Fantasy
 {
-    public interface IHealth
+    public interface IHealth : IEntityComponent
     {
         public event Action<float> OnHealthChanged;
         public event Action OnDepleted;

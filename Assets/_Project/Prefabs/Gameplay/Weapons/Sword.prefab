@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capsuleCollider: {fileID: 7616323759490494340}
-  damager: {fileID: 8599764717852952116}
   bloodParticlesPoolData: {fileID: 11400000, guid: f3032cf999cffd546999217520cdd9c1, type: 2}
 --- !u!114 &8599764717852952116
 MonoBehaviour:

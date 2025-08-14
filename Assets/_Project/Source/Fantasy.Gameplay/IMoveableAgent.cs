@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Leaosoft;
+using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal interface IMoveableAgent
+    internal interface IMoveableAgent : IEntityComponent
     {
         public Vector3 Velocity { get; }
 

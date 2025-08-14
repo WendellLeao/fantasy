@@ -1,6 +1,8 @@
-﻿namespace Fantasy.Gameplay
+﻿using Leaosoft;
+
+namespace Fantasy.Gameplay
 {
-    internal interface IDamageableView
+    internal interface IDamageableView : IEntityComponent
     {
         public void SetUp(IParticleFactory particleFactory, IDamageable damageable);
     }

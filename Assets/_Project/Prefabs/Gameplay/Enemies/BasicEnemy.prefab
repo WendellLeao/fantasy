@@ -167,13 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d2bf802c6c43a2885338b799f9b542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthController: {fileID: 8909414379109691139}
-  damageController: {fileID: 129759179537839934}
-  weaponHolder: {fileID: 6717185278913323898}
-  navMeshTest: {fileID: 5853928626212152992}
-  commandAutoInvoker: {fileID: 5633495181132293092}
-  humanoidAnimatorController: {fileID: 2026381003369324425}
-  damageableView: {fileID: 7481043741812190463}
   smokeParticlePoolData: {fileID: 11400000, guid: f43941729fef80d498896be8893e36a7, type: 2}
 --- !u!114 &8909414379109691139
 MonoBehaviour:

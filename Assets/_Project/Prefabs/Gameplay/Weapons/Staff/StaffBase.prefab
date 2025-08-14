@@ -77,8 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e89365b69fe46efa0ec83b7b9017831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: []
-  view: {fileID: 0}
   spellData: []
   spawnPoint: {fileID: 405016737597234959}
 --- !u!1001 &1632663021097503768

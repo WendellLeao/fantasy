@@ -1,8 +1,9 @@
 using System;
+using Leaosoft;
 
 namespace Fantasy.Gameplay
 {
-    public interface IWeaponHolder
+    public interface IWeaponHolder : IEntityComponent
     {
         public event Action<IWeapon> OnWeaponChanged;
         public event Action OnWeaponExecuted;

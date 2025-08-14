@@ -1,7 +1,9 @@
 {
     "name": "Fantasy",
     "rootNamespace": "Fantasy",
-    "references": [],
+    "references": [
+        "GUID:d99d98637fd56ff4c9f258fdedb73af5"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

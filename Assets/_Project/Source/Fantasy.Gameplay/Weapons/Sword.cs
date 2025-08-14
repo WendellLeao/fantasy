@@ -1,4 +1,3 @@
-using Fantasy.Gameplay.Damage;
 using Leaosoft;
 using Leaosoft.Pooling;
 using UnityEngine;
@@ -10,14 +9,13 @@ namespace Fantasy.Gameplay.Weapons
         [Header("Components")]
         [SerializeField]
         private CapsuleCollider capsuleCollider;
-        [SerializeField]
-        private Damager damager;
         
         [Header("Data")]
         [SerializeField]
         private PoolData bloodParticlesPoolData;
         
         private IParticleFactory _particleFactory;
+        private IDamager _damager;
         private WeaponData _data;
 
         public WeaponData Data => _data;
@@ -43,10 +41,12 @@ namespace Fantasy.Gameplay.Weapons
         protected override void OnSetUp()
         {
             base.OnSetUp();
+
+            _damager = GetComponent<IDamager>();
             
-            damager.SetUp();
+            _damager.SetUp();
             
-            RegisterComponents(damager);
+            RegisterComponents(_damager);
             
             SetColliderEnabled(false);
         }
@@ -58,7 +58,7 @@ namespace Fantasy.Gameplay.Weapons
                 return;
             }
             
-            damager.TryApplyDamage(other);
+            _damager.TryApplyDamage(other);
             
             _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
         }

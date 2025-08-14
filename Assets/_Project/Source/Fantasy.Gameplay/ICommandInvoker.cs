@@ -1,6 +1,8 @@
-﻿namespace Fantasy.Gameplay
+﻿using Leaosoft;
+
+namespace Fantasy.Gameplay
 {
-    internal interface ICommandInvoker
+    internal interface ICommandInvoker : IEntityComponent
     {
         public void SetUp(IWeaponHolder weaponHolder);
     }

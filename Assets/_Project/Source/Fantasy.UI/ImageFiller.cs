@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Fantasy.UI
 {
-    internal sealed class ImageFiller : EntityComponent
+    internal sealed class ImageFiller : EntityComponent, IEntityComponent
     {
         [SerializeField]
         private Image firstLayerImage;

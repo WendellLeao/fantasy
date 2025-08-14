@@ -1,42 +1,26 @@
 using System;
-using Fantasy.Gameplay.Animations;
-using Fantasy.Gameplay.Commands;
-using Fantasy.Gameplay.Damage;
-using Fantasy.Gameplay.Damage.View;
-using Fantasy.Gameplay.Health;
-using Fantasy.Gameplay.Navigation;
-using Fantasy.Gameplay.Weapons;
 using Leaosoft;
 using NaughtyAttributes;
-using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters
 {
     public sealed class Character : Entity, ICharacter
     {
-        [SerializeField]
-        private HealthController healthController;
-        [SerializeField]
-        private DamageController damageController;
-        [SerializeField]
-        private WeaponHolder weaponHolder;
-        [SerializeField]
-        private NavMeshClickMover navMeshClickMover;
-        [SerializeField]
-        private CommandInputReader commandInputHeader;
-        [SerializeField]
-        private HumanoidAnimatorController humanoidAnimatorController;
-        [SerializeField]
-        private DamageableView damageableView;
-        
         public event Action<ICharacter> OnDied;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
+        private IHealth _health;
+        private IDamageable _damageable;
+        private IWeaponHolder _weaponHolder;
+        private IMoveableAgent _moveableAgent;
+        private ICommandInvoker _commandInvoker;
+        private IHumanoidAnimatorController _humanoidAnimatorController;
+        private IDamageableView _damageableView;
 
         public string PoolId { get; set; }
-        public IHealth Health => healthController;
+        public IHealth Health => _health;
 
         public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
@@ -51,16 +35,12 @@ namespace Fantasy.Gameplay.Characters
         {
             base.OnSetUp();
 
-            healthController.SetUp();
-            damageController.SetUp(healthController);
-            weaponHolder.SetUp(_weaponFactory);
-            navMeshClickMover.SetUp(_cameraProvider, _particleFactory);
-            commandInputHeader.SetUp(weaponHolder);
-            humanoidAnimatorController.SetUp(healthController, damageController, weaponHolder, navMeshClickMover);
-            damageableView.SetUp(_particleFactory, damageController);
+            CacheComponents();
             
-            RegisterComponents(healthController, damageController, weaponHolder, navMeshClickMover, commandInputHeader,
-                humanoidAnimatorController, damageableView);
+            SetUpComponents();
+            
+            RegisterComponents(_health, _damageable, _weaponHolder, _moveableAgent, _commandInvoker,
+                _humanoidAnimatorController, _damageableView);
             
             _cameraProvider.VirtualCamera.SetTarget(transform);
 
@@ -74,18 +54,40 @@ namespace Fantasy.Gameplay.Characters
             UnsubscribeEvent();
         }
 
+        private void CacheComponents()
+        {
+            _health = GetComponent<IHealth>();
+            _damageable = GetComponent<IDamageable>();
+            _weaponHolder = GetComponent<IWeaponHolder>();
+            _moveableAgent = GetComponent<IMoveableAgent>();
+            _commandInvoker = GetComponent<ICommandInvoker>();
+            _humanoidAnimatorController = GetComponent<IHumanoidAnimatorController>();
+            _damageableView = GetComponent<IDamageableView>();
+        }
+
+        private void SetUpComponents()
+        {
+            _health.SetUp();
+            _damageable.SetUp(_health);
+            _weaponHolder.SetUp(_weaponFactory);
+            _moveableAgent.SetUp(_cameraProvider, _particleFactory);
+            _commandInvoker.SetUp(_weaponHolder);
+            _humanoidAnimatorController.SetUp(_health, _damageable, _weaponHolder, _moveableAgent);
+            _damageableView.SetUp(_particleFactory, _damageable);
+        }
+        
         private void SubscribeEvent()
         {
-            healthController.OnDepleted += HandleHealthDepleted;
+            _health.OnDepleted += HandleHealthDepleted;
             
-            weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
+            _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
         
         private void UnsubscribeEvent()
         {
-            healthController.OnDepleted -= HandleHealthDepleted;
+            _health.OnDepleted -= HandleHealthDepleted;
             
-            weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
+            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
         
         private void HandleHealthDepleted()
@@ -95,7 +97,7 @@ namespace Fantasy.Gameplay.Characters
         
         private void HandleWeaponExecute()
         {
-            navMeshClickMover.ResetPath();
+            _moveableAgent.ResetPath();
         }
 
 #if UNITY_EDITOR

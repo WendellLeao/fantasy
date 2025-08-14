@@ -8,11 +8,11 @@ namespace Fantasy.Gameplay.Particles.Manager
     {
         private IPoolingService _poolingService;
         
-        public void Initialize(IPoolingService poolingService)
+        public void SetUp(IPoolingService poolingService)
         {
             _poolingService = poolingService;
             
-            base.Initialize();
+            base.SetUp();
         }
         
         public IParticle EmitParticle(PoolData particlePoolData, Transform parent)

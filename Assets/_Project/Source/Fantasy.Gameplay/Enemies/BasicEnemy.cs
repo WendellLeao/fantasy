@@ -1,11 +1,4 @@
 using System;
-using Fantasy.Gameplay.Animations;
-using Fantasy.Gameplay.Commands;
-using Fantasy.Gameplay.Damage;
-using Fantasy.Gameplay.Damage.View;
-using Fantasy.Gameplay.Health;
-using Fantasy.Gameplay.Navigation;
-using Fantasy.Gameplay.Weapons;
 using Leaosoft;
 using Leaosoft.Pooling;
 using NaughtyAttributes;
@@ -17,31 +10,22 @@ namespace Fantasy.Gameplay.Enemies
     {
         public event Action<IEnemy> OnDied;
         
-        [Header("Components")]
-        [SerializeField]
-        private HealthController healthController;
-        [SerializeField]
-        private DamageController damageController;
-        [SerializeField]
-        private WeaponHolder weaponHolder;
-        [SerializeField]
-        private NavMeshTest navMeshTest;
-        [SerializeField]
-        private CommandAutoInvoker commandAutoInvoker;
-        [SerializeField]
-        private HumanoidAnimatorController humanoidAnimatorController;
-        [SerializeField]
-        private DamageableView damageableView;
-        
         [Header("Data")]
         [SerializeField]
         private PoolData smokeParticlePoolData;
         
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
+        private IHealth _health;
+        private IDamageable _damageable;
+        private IWeaponHolder _weaponHolder;
+        private ICommandInvoker _commandInvoker;
+        private IMoveableAgent _moveableAgent;
+        private IHumanoidAnimatorController _humanoidAnimatorController;
+        private IDamageableView _damageableView;
 
         public string PoolId { get; set; }
-        public IHealth Health =>  healthController;
+        public IHealth Health =>  _health;
 
         public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
@@ -55,27 +39,45 @@ namespace Fantasy.Gameplay.Enemies
         {
             base.OnSetUp();
 
-            healthController.SetUp();
-            damageController.SetUp(healthController);
-            weaponHolder.SetUp(_weaponFactory);
-            commandAutoInvoker.SetUp(weaponHolder);
-            navMeshTest.SetUp(cameraProvider: null, particleFactory: null); // TODO: implement this
-            humanoidAnimatorController.SetUp(healthController, damageController, weaponHolder, navMeshTest);
-            damageableView.SetUp(_particleFactory, damageController);
-
-            RegisterComponents(healthController, damageController, weaponHolder, navMeshTest, commandAutoInvoker,
-                humanoidAnimatorController, damageableView);
+            CacheComponents();
             
-            healthController.OnDepleted += HandleHealthDepleted;
+            SetUpComponents();
+
+            RegisterComponents(_health, _damageable, _weaponHolder, _moveableAgent, _commandInvoker,
+                _humanoidAnimatorController, _damageableView);
+            
+            _health.OnDepleted += HandleHealthDepleted;
         }
 
         protected override void OnDispose()
         {
             base.OnDispose();
             
-            healthController.OnDepleted -= HandleHealthDepleted;
+            _health.OnDepleted -= HandleHealthDepleted;
         }
 
+        private void CacheComponents()
+        {
+            _health = GetComponent<IHealth>();
+            _damageable = GetComponent<IDamageable>();
+            _weaponHolder = GetComponent<IWeaponHolder>();
+            _moveableAgent = GetComponent<IMoveableAgent>();
+            _commandInvoker = GetComponent<ICommandInvoker>();
+            _humanoidAnimatorController = GetComponent<IHumanoidAnimatorController>();
+            _damageableView = GetComponent<IDamageableView>();
+        }
+
+        private void SetUpComponents()
+        {
+            _health.SetUp();
+            _damageable.SetUp(_health);
+            _weaponHolder.SetUp(_weaponFactory);
+            _moveableAgent.SetUp(cameraProvider: null, _particleFactory);
+            _commandInvoker.SetUp(_weaponHolder);
+            _humanoidAnimatorController.SetUp(_health, _damageable, _weaponHolder, _moveableAgent);
+            _damageableView.SetUp(_particleFactory, _damageable);
+        }
+        
         private void HandleHealthDepleted()
         {
             GameObject smokeParticleObject = smokeParticlePoolData.Prefab;
