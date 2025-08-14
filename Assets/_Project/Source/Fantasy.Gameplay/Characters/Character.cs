@@ -18,74 +18,67 @@ namespace Fantasy.Gameplay.Characters
         public string PoolId { get; set; }
         public IHealth Health => _health;
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
+        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
             
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         {
             if (TryGetComponent(out _health))
             {
-                _health.Initialize();
+                _health.SetUp();
             }
             
             if (TryGetComponent(out IDamageable damageable))
             {
-                damageable.Initialize(_health);
+                damageable.SetUp(_health);
             }
 
             if (TryGetComponent(out _weaponHolder))
             {
-                _weaponHolder.Initialize(_weaponFactory);
+                _weaponHolder.SetUp(_weaponFactory);
             }
 
             if (TryGetComponent(out _navMeshClickMover))
             {
-                _navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
+                _navMeshClickMover.SetUp(_cameraProvider, _particleFactory);
             }
 
             if (TryGetComponent(out ICommandInvoker commandInvoker))
             {
-                commandInvoker.Initialize(_weaponHolder);
+                commandInvoker.SetUp(_weaponHolder);
             }
             
             if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
             {
-                humanoidAnimatorController.Initialize(_health, damageable, _weaponHolder, _navMeshClickMover);
+                humanoidAnimatorController.SetUp(_health, damageable, _weaponHolder, _navMeshClickMover);
             }
             
             if (TryGetComponent(out IDamageableView damageableView))
             {
-                damageableView.Initialize(_particleFactory, damageable);
+                damageableView.SetUp(_particleFactory, damageable);
             }
         }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
-            
+            base.OnSetUp();
+
             _cameraProvider.VirtualCamera.SetTarget(transform);
             
-            Begin();
-        }
-
-        protected override void OnBegin()
-        {
-            base.OnBegin();
-
             _health.OnDepleted += HandleHealthDepleted;
             
             _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
 
-        protected override void OnStop()
+        protected override void OnDispose()
         {
-            base.OnStop();
+            base.OnDispose();
             
             _health.OnDepleted -= HandleHealthDepleted;
             
@@ -103,16 +96,16 @@ namespace Fantasy.Gameplay.Characters
         }
 
 #if UNITY_EDITOR
-        [Button]
-        public void BeginDebug()
+        [Button("SetUp_Debug")]
+        public void SetUp_Debug()
         {
-            Begin();
+            SetUp(_particleFactory, _weaponFactory, _cameraProvider);
         }
 
-        [Button]
-        public void StopDebug()
+        [Button("Dispose_Debug")]
+        public void Dispose_Debug()
         {
-            Stop();
+            Dispose();
         }
 #endif
     }

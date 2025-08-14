@@ -6,7 +6,7 @@ namespace Fantasy.Gameplay
     {
         public Vector3 Velocity { get; }
 
-        public void Initialize(ICameraProvider cameraProvider, IParticleFactory particleFactory);
+        public void SetUp(ICameraProvider cameraProvider, IParticleFactory particleFactory);
         public void ResetPath();
     }
 }

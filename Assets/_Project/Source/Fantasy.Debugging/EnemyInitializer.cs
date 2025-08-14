@@ -16,7 +16,7 @@ namespace Fantasy.Debugging
             ParticleManager particleManager = FindAnyObjectByType<ParticleManager>();
             WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
             
-            basicEnemy.Initialize(particleManager, weaponManager);
+            basicEnemy.SetUp(particleManager, weaponManager);
         }
     }
 }

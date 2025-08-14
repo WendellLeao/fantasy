@@ -28,7 +28,7 @@ namespace Fantasy.Gameplay.Weapons.Manager
             
             RegisterEntity(weapon);
 
-            weapon.Initialize(data);
+            weapon.SetUp(data);
             
             if (weapon is IParticleEmitter particleEmitter)
             {

@@ -25,28 +25,28 @@ namespace Fantasy.Gameplay.Animations
         private IMoveableAgent _moveableAgent;
         private float _smoothedSpeed;
 
-        public void Initialize(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
+        public void SetUp(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
         {
             _health = health;
             _damageable = damageable;
             _weaponHolder = weaponHolder;
             _moveableAgent = moveableAgent;
 
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void OnBegin()
+        protected override void OnSetUp()
         {
-            base.OnBegin();
+            base.OnSetUp();
             
             HandleWeaponMovesetType(_weaponHolder.Weapon);
             
             SubscribeEvents();
         }
 
-        protected override void OnStop()
+        protected override void OnDispose()
         {
-            base.OnStop();
+            base.OnDispose();
             
             UnsubscribeEvents();
         }

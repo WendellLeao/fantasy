@@ -6,7 +6,7 @@ namespace Fantasy.Gameplay
     {
         public event Action<DamageData> OnDamageTaken;
 
-        public void Initialize(IHealth health);
+        public void SetUp(IHealth health);
         public void TakeDamage(DamageData damageData);
         public void SetIsInvincible(bool isInvincible);
     }

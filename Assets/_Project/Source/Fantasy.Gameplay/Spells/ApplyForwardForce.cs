@@ -10,9 +10,9 @@ namespace Fantasy.Gameplay.Spells
         [SerializeField]
         private float force = 10f;
 
-        protected override void OnBegin()
+        protected override void OnSetUp()
         {
-            base.OnBegin();
+            base.OnSetUp();
             
             rigidBody.AddRelativeForce(transform.forward * force, ForceMode.Impulse);
         }

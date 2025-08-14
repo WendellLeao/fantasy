@@ -18,11 +18,11 @@ namespace Fantasy.Gameplay.Weapons
         public WeaponData Data => _data;
         public string PoolId { get; set; }
 
-        public void Initialize(WeaponData data)
+        public void SetUp(WeaponData data)
         {
             _data = data;
             
-            base.Initialize();
+            base.SetUp();
         }
         
         public void Execute()
@@ -35,21 +35,19 @@ namespace Fantasy.Gameplay.Weapons
             SetColliderEnabled(false);
         }
 
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         {
             if (TryGetComponent(out _damager))
             {
-                _damager.Initialize();
+                _damager.SetUp();
             }
         }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
+            base.OnSetUp();
             
             SetColliderEnabled(false);
-            
-            Begin();
         }
 
         private void OnTriggerEnter(Collider other)

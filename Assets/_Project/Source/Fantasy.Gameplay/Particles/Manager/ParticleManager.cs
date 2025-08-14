@@ -24,7 +24,7 @@ namespace Fantasy.Gameplay.Particles.Manager
 
             RegisterEntity(particle);
             
-            particle.Initialize();
+            particle.SetUp();
             
             particle.OnCompleted += DisposeEntity;
             

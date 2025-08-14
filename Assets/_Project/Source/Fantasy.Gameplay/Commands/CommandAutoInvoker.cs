@@ -9,23 +9,23 @@ namespace Fantasy.Gameplay.Commands
         private AttackCommand _attackCommand;
         private Coroutine _executeAttackCommandRoutine;
 
-        public void Initialize(IWeaponHolder weaponHolder)
+        public void SetUp(IWeaponHolder weaponHolder)
         {
             _attackCommand = new AttackCommand(weaponHolder);
             
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void OnBegin()
+        protected override void OnSetUp()
         {
-            base.OnBegin();
+            base.OnSetUp();
             
             _executeAttackCommandRoutine = StartCoroutine(ExecuteAttackCommandRoutine());
         }
 
-        protected override void OnStop()
+        protected override void OnDispose()
         {
-            base.OnStop();
+            base.OnDispose();
             
             if (_executeAttackCommandRoutine != null)
             {

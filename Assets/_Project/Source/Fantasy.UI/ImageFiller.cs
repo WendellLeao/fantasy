@@ -27,11 +27,11 @@ namespace Fantasy.UI
         private float _defaultAmount;
         private bool _mustEvaluatingTimer;
 
-        public void Initialize(float defaultAmount)
+        public void SetUp(float defaultAmount)
         {
             _defaultAmount = defaultAmount;
             
-            base.Initialize();
+            base.SetUp();
         }
         
         public void UpdateFillAmount(float amount)
@@ -46,9 +46,9 @@ namespace Fantasy.UI
             }
         }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
+            base.OnSetUp();
             
             firstLayerImage.fillAmount = _defaultAmount;
 

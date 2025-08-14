@@ -12,11 +12,11 @@ namespace Fantasy.Gameplay.Commands
         
         private readonly Dictionary<CommandType, ICommand> _commands = new();
 
-        public void Initialize(IWeaponHolder weaponHolder)
+        public void SetUp(IWeaponHolder weaponHolder)
         {
             _commands.TryAdd(CommandType.Attack, new AttackCommand(weaponHolder));
             
-            base.Initialize();
+            base.SetUp();
         }
         
         protected override void OnTick(float deltaTime)

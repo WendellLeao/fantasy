@@ -17,24 +17,17 @@ namespace Fantasy.Gameplay.Spells
 
         public string PoolId { get; set; }
         
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         {
             if (TryGetComponent(out ApplyForwardForce applyForwardForce))
             {
-                applyForwardForce.Initialize();
+                applyForwardForce.SetUp();
             }
             
             if (TryGetComponent(out _damager))
             {
-                _damager.Initialize();
+                _damager.SetUp();
             }
-        }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
-            Begin();
         }
 
         private void OnTriggerEnter(Collider other)

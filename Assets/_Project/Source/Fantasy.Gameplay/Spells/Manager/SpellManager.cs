@@ -26,7 +26,7 @@ namespace Fantasy.Gameplay.Spells.Manager
             
             RegisterEntity(spell);
 
-            spell.Initialize();
+            spell.SetUp();
 
             SetSpellPositionAndRotation(position, direction, spell);
 

@@ -10,24 +10,24 @@ namespace Fantasy.Gameplay.Damage.View
         private float _damagePerSecondCountdown;
         private bool _isDamagingPerSecond;
 
-        public void Initialize(IParticleFactory particleFactory, IDamageable damageable)
+        public void SetUp(IParticleFactory particleFactory, IDamageable damageable)
         {
             _particleFactory = particleFactory;
             _damageable = damageable;
             
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void OnBegin()
+        protected override void OnSetUp()
         {
-            base.OnBegin();
+            base.OnSetUp();
             
             _damageable.OnDamageTaken += HandleDamageTaken;
         }
 
-        protected override void OnStop()
+        protected override void OnDispose()
         {
-            base.OnStop();
+            base.OnDispose();
             
             _damageable.OnDamageTaken -= HandleDamageTaken;
         }

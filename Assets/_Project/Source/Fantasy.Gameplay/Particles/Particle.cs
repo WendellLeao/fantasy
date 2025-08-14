@@ -18,19 +18,12 @@ namespace Fantasy.Gameplay.Particles
         
         public string PoolId { get; set; }
 
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         { }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
-            
-            Begin();
-        }
-
-        protected override void OnBegin()
-        {
-            base.OnBegin();
+            base.OnSetUp();
             
             if (_isPlaying)
             {
@@ -47,9 +40,9 @@ namespace Fantasy.Gameplay.Particles
             WaitForParticleToCompleteAsync(_waitForParticleCts.Token).Forget();
         }
 
-        protected override void OnStop()
+        protected override void OnDispose()
         {
-            base.OnStop();
+            base.OnDispose();
             
             if (!_isPlaying)
             {

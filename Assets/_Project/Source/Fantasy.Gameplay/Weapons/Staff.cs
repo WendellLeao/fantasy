@@ -17,11 +17,11 @@ namespace Fantasy.Gameplay.Weapons
         public WeaponData Data => _data;
         public string PoolId { get; set; }
 
-        public void Initialize(WeaponData data)
+        public void SetUp(WeaponData data)
         {
             _data = data;
             
-            base.Initialize();
+            base.SetUp();
         }
 
         public void Execute()
@@ -37,15 +37,8 @@ namespace Fantasy.Gameplay.Weapons
             _spellFactory.CastSpell(randomSpellData, spawnPoint.position, direction: transform.forward);
         }
         
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         { }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
-            Begin();
-        }
 
         public void SetSpellFactory(ISpellFactory spellFactory)
         {

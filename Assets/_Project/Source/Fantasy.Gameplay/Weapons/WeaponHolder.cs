@@ -20,11 +20,11 @@ namespace Fantasy.Gameplay.Weapons
 
         public IWeapon Weapon => _weapon;
         
-        public void Initialize(IWeaponFactory weaponFactory)
+        public void SetUp(IWeaponFactory weaponFactory)
         {
             _weaponFactory = weaponFactory;
             
-            base.Initialize();
+            base.SetUp();
         }
 
         public void ChangeWeapon(WeaponData weaponData)
@@ -59,20 +59,20 @@ namespace Fantasy.Gameplay.Weapons
             _weapon.FinishExecution();
         }
         
-        protected override void OnBegin()
+        protected override void OnSetUp()
         {
-            base.OnBegin();
+            base.OnSetUp();
 
             ChangeWeapon(data);
             
-            _weapon?.Begin();
+            _weapon?.SetUp();
         }
 
-        protected override void OnStop()
+        protected override void OnDispose()
         {
-            base.OnStop();
+            base.OnDispose();
             
-            _weapon?.Stop();
+            _weapon?.Dispose();
         }
         
         private void DisposeWeapon()

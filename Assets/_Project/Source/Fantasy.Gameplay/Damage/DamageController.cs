@@ -14,11 +14,11 @@ namespace Fantasy.Gameplay.Damage
         private float _amountDamagePerSecond;
         private bool _isInvincible;
 
-        public void Initialize(IHealth health)
+        public void SetUp(IHealth health)
         {
             _health = health;
             
-            base.Initialize();
+            base.SetUp();
         }
         
         public void TakeDamage(DamageData damageData)

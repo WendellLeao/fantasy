@@ -4,16 +4,16 @@ namespace Fantasy.Gameplay.Tests
 {
     internal sealed class HumbleEntity : Entity
     {
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         {
             if (TryGetComponent(out IHealth healthController))
             {
-                healthController.Initialize();
+                healthController.SetUp();
             }
             
             if (TryGetComponent(out IDamageable damageController))
             {
-                damageController.Initialize(healthController);
+                damageController.SetUp(healthController);
             }
         }
     }

@@ -43,10 +43,10 @@ namespace Fantasy.Gameplay.Health
                 OnDepleted?.Invoke();
             }
         }
-        
-        protected override void OnInitialize()
+
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
+            base.OnSetUp();
             
             _healthModel = new HealthModel(data);
         }

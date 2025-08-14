@@ -46,8 +46,7 @@ namespace Fantasy.Gameplay.Tests
             
             _humbleEntity.AddComponentsForTests(_sut, _damageController);
             
-            _humbleEntity.Initialize();
-            _humbleEntity.Begin();
+            _humbleEntity.SetUp();
             
             // Act
             _damageController.TakeDamage(_mockDamageData);

@@ -34,7 +34,7 @@ namespace Fantasy.Gameplay.Characters.Manager
 
             characterSpawner.OnCharacterSpawned += HandleCharacterSpawned;
             
-            characterSpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
+            characterSpawner.SetUp(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
         }
 
         protected override void OnDispose()

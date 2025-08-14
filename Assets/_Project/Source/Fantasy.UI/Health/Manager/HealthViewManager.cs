@@ -60,7 +60,7 @@ namespace Fantasy.UI.Health.Manager
 
             healthView.OnHealthDepleted += HandleHealthDepleted;
             
-            healthView.Initialize(_mainCamera, health);
+            healthView.SetUp(_mainCamera, health);
         }
 
         private void HandleHealthDepleted(HealthView healthView)

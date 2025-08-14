@@ -2,7 +2,7 @@
 {
     internal interface IHumanoidAnimatorController
     {
-        public void Initialize(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder,
+        public void SetUp(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder,
             IMoveableAgent moveableAgent);
     }
 }

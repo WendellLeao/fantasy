@@ -7,9 +7,9 @@ namespace Fantasy.Gameplay.Navigation
     {
         public Vector3 Velocity => Vector3.zero;
         
-        public void Initialize(ICameraProvider cameraProvider, IParticleFactory particleFactory)
+        public void SetUp(ICameraProvider cameraProvider, IParticleFactory particleFactory)
         {
-            base.Initialize();
+            base.SetUp();
         }
 
         public void ResetPath()

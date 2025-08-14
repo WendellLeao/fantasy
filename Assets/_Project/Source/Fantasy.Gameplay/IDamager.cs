@@ -4,7 +4,7 @@ namespace Fantasy.Gameplay
 {
     internal interface IDamager
     {
-        public void Initialize();
+        public void SetUp();
         public bool TryApplyDamage(Collider other);
     }
 }

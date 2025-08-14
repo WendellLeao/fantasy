@@ -32,7 +32,7 @@ namespace Fantasy.Gameplay.Enemies.Manager
             
             enemySpawner.OnEnemySpawned += HandleEnemySpawned;
 
-            enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
+            enemySpawner.SetUp(_poolingService, _eventService, _particleFactory, _weaponFactory);
         }
         
         protected override void OnDispose()

@@ -22,12 +22,12 @@ namespace Fantasy.Gameplay.Navigation
 
         public Vector3 Velocity => navMeshAgent.velocity;
 
-        public void Initialize(ICameraProvider cameraProvider, IParticleFactory particleFactory)
+        public void SetUp(ICameraProvider cameraProvider, IParticleFactory particleFactory)
         {
             _cameraProvider = cameraProvider;
             _particleFactory = particleFactory;
             
-            base.Initialize();
+            base.SetUp();
         }
 
         public void ResetPath()

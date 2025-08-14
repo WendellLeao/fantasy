@@ -10,7 +10,7 @@ namespace Fantasy.Gameplay.Cameras
         [SerializeField]
         private CinemachineCamera cinemachineCamera;
         
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         { }
         
         public void SetTarget(Transform targetTransform)

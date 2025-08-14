@@ -27,30 +27,30 @@ namespace Fantasy.UI.Health
 
         public string PoolId { get; set; }
         
-        public void Initialize(Camera mainCamera, IHealth health)
+        public void SetUp(Camera mainCamera, IHealth health)
         {
             _mainCamera = mainCamera;
             _health = health;
 
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         {
             if (TryGetComponent(out _imageFiller))
             {
-                _imageFiller.Initialize(_health.HealthRatio);
+                _imageFiller.SetUp(_health.HealthRatio);
             }
         }
-
-        protected override void OnInitialize()
+        
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
-            
+            base.OnSetUp();
+
             _health.OnHealthChanged += HandleHealthChanged;
             _health.OnDepleted += HandleHealthDepleted;
             
-            Begin();
+            canvasGroup.alpha = 1f;
         }
 
         protected override void OnDispose()
@@ -59,13 +59,6 @@ namespace Fantasy.UI.Health
             
             _health.OnHealthChanged -= HandleHealthChanged;
             _health.OnDepleted -= HandleHealthDepleted;
-        }
-
-        protected override void OnBegin()
-        {
-            base.OnBegin();
-
-            canvasGroup.alpha = 1f;
         }
 
         protected override void OnLateTick(float deltaTime)

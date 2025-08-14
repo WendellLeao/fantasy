@@ -11,7 +11,7 @@ namespace Fantasy
         public Transform HealthBarParent { get; }
         public float HealthRatio { get; }
 
-        public void Initialize();
+        public void SetUp();
         public void IncrementHealth(float amount);
         public void DecrementHealth(float amount);
     }

@@ -10,7 +10,7 @@ namespace Fantasy.Gameplay
         
         public IHealth Health { get; }
         
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory,
+        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory,
             ICameraProvider cameraProvider);
     }
 }

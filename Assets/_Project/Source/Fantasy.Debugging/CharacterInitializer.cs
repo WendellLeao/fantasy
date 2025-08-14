@@ -17,7 +17,7 @@ namespace Fantasy.Debugging
 
             if (TryGetComponent(out ICharacter character))
             {
-                character.Initialize(particleManager, weaponManager, cameraManager);
+                character.SetUp(particleManager, weaponManager, cameraManager);
             }
         }
     }

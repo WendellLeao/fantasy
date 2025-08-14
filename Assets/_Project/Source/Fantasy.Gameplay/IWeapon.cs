@@ -7,7 +7,7 @@ namespace Fantasy.Gameplay
     {
         public WeaponData Data { get; }
         
-        public void Initialize(WeaponData data);
+        public void SetUp(WeaponData data);
         public void Execute();
         public void FinishExecution();
     }

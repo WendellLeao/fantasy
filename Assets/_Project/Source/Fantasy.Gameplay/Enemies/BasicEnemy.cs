@@ -1,6 +1,7 @@
 using System;
 using Leaosoft;
 using Leaosoft.Pooling;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Enemies
@@ -19,70 +20,63 @@ namespace Fantasy.Gameplay.Enemies
         public string PoolId { get; set; }
         public IHealth Health =>  _health;
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
+        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             
-            base.Initialize();
+            base.SetUp();
         }
 
-        protected override void InitializeComponents()
+        protected override void SetUpComponents()
         {
             if (TryGetComponent(out _health))
             {
-                _health.Initialize();
+                _health.SetUp();
             }
 
             if (TryGetComponent(out IDamageable damageable))
             {
-                damageable.Initialize(_health);
+                damageable.SetUp(_health);
             }
             
             if (TryGetComponent(out IWeaponHolder weaponHolder))
             {
-                weaponHolder.Initialize(_weaponFactory);
+                weaponHolder.SetUp(_weaponFactory);
             }
 
             if (TryGetComponent(out ICommandInvoker commandInvoker))
             {
-                commandInvoker.Initialize(weaponHolder);
+                commandInvoker.SetUp(weaponHolder);
             }
             
             if (TryGetComponent(out IMoveableAgent moveableAgent))
             {
                 // TODO: implement this
-                moveableAgent.Initialize(cameraProvider: null, particleFactory: null);
+                moveableAgent.SetUp(cameraProvider: null, particleFactory: null);
             }
             
             if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
             {
-                humanoidAnimatorController.Initialize(_health, damageable, weaponHolder, moveableAgent);
+                humanoidAnimatorController.SetUp(_health, damageable, weaponHolder, moveableAgent);
             }
             
             if (TryGetComponent(out IDamageableView damageableView))
             {
-                damageableView.Initialize(_particleFactory, damageable);
+                damageableView.SetUp(_particleFactory, damageable);
             }
         }
 
-        protected override void OnInitialize()
+        protected override void OnSetUp()
         {
-            base.OnInitialize();
-            
-            Begin();
-        }
-
-        protected override void OnBegin()
-        {
-            base.OnBegin();
+            base.OnSetUp();
 
             _health.OnDepleted += HandleHealthDepleted;
         }
 
-        protected override void OnStop()
+        protected override void OnDispose()
         {
-            base.OnStop();
+            base.OnDispose();
             
             _health.OnDepleted -= HandleHealthDepleted;
         }
@@ -95,5 +89,19 @@ namespace Fantasy.Gameplay.Enemies
             
             OnDied?.Invoke(this);
         }
+        
+#if UNITY_EDITOR
+        [Button("SetUp_Debug")]
+        public void SetUp_Debug()
+        {
+            SetUp(_particleFactory, _weaponFactory);
+        }
+
+        [Button("Dispose_Debug")]
+        public void Dispose_Debug()
+        {
+            Dispose();
+        }
+#endif
     }
 }

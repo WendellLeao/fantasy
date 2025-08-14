@@ -24,7 +24,7 @@ namespace Fantasy.Gameplay
         private CancellationTokenSource _releaseEntityCts;
         private IPoolingService _poolingService;
 
-        public void Initialize(IPoolingService poolingService)
+        public void SetUp(IPoolingService poolingService)
         {
             _poolingService = poolingService;
             
