@@ -2,7 +2,7 @@
 
 namespace Fantasy.Gameplay
 {
-    public interface IMoveableAgent
+    internal interface IMoveableAgent
     {
         public Vector3 Velocity { get; }
 

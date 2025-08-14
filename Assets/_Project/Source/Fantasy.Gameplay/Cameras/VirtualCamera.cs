@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fantasy.Gameplay.Cameras
 {
-    public sealed class VirtualCamera : Entity, IVirtualCamera
+    internal sealed class VirtualCamera : Entity, IVirtualCamera
     {
         [SerializeField]
         private CinemachineCamera cinemachineCamera;

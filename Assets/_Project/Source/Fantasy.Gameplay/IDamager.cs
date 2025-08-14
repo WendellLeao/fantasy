@@ -2,7 +2,7 @@
 
 namespace Fantasy.Gameplay
 {
-    public interface IDamager
+    internal interface IDamager
     {
         public void Initialize();
         public bool TryApplyDamage(Collider other);
